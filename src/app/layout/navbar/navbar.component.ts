@@ -8,6 +8,7 @@ import { AvatarComponent } from './avatar/avatar.component';
 import { CategoryComponent } from './category/category.component';
 import { ToastService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',
@@ -22,9 +23,15 @@ import { ActivatedRoute } from '@angular/router';
   ],
   providers:[DialogService],
   template: `
-    <p>
-      navbar works!
-    </p>
+    <div class="sticky top-0 border-bottom-1 border-gray-200 shadow-1 z-1">
+      <p-toolbar [styleClass]="'bg-white border-top-none border-x-none border-noround'
+        + 'sm:flex sm:justify-content-center sm:w-full md:flex md:justify-content-between px-8'">
+        <div class="p-toolbar-group-start pl-1 sm:hidden md:flex cursor-pointer" routerLink="/">
+          <fa-icon [icon]="['fab', 'airbnb']" size="3x" class="text-primary"></fa-icon>
+          <div class="font-bold text-primary pl-2 text-2xl">airbnb</div>
+        </div>
+      </p-toolbar>
+    </div>
   `,
   styles: `
   .search-icon {
@@ -69,9 +76,13 @@ export class NavbarComponent implements OnInit{
   activatedRoute = inject(ActivatedRoute);
   ref: DynamicDialogRef | undefined;
 
-  // login = () => this.authService.login();
+  login(){
+    // this.authService.login();
+  }
 
-  // logout = () => this.authService.logout();
+  logout(){
+    // this.authService.logout();
+  }
 
   // currentMenuItems: MenuItem[] | undefined = [];
 
@@ -80,6 +91,49 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     // this.authService.fetch(false);
     // this.extractInformationForSearch();
+  }
+
+  hasToBeLandlord(): boolean {
+    return true;
+    // return this.authService.hasAnyAuthority("ROLE_LANDLORD");
+  }
+
+
+  private fetchMenu(): MenuItem[] {
+    if (true) {
+      return [
+        {
+          label: "My properties",
+          routerLink: "landlord/properties",
+          visible: this.hasToBeLandlord(),
+        },
+        {
+          label: "My booking",
+          routerLink: "booking",
+        },
+        {
+          label: "My reservation",
+          routerLink: "landlord/reservation",
+          visible: this.hasToBeLandlord(),
+        },
+        {
+          label: "Log out",
+          command: this.logout
+        },
+      ]
+    } else {
+      return [
+        {
+          label: "Sign up",
+          styleClass: "font-bold",
+          command: this.login
+        },
+        {
+          label: "Log in",
+          command: this.login
+        }
+      ]
+    }
   }
 
 }
