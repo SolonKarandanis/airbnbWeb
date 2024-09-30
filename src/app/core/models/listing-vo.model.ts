@@ -1,27 +1,27 @@
 export interface GuestsVO {
     value: number
-  }
+}
   
-  export interface BedroomsVO {
+export interface BedroomsVO {
     value: number
-  }
+}
   
-  export interface BedsVO {
+export interface BedsVO {
     value: number
-  }
+}
   
-  export interface BathsVO {
+export interface BathsVO {
     value: number
-  }
+}
   
-  export interface TitleVO {
+export interface TitleVO {
     value: string
-  }
+}
   
-  export interface DescriptionVO {
+export interface DescriptionVO {
     value: string
-  }
+}
   
-  export interface PriceVO {
+export interface PriceVO {
     value: number
-  }
+}
