@@ -3,7 +3,6 @@ import { BaseRepository } from "./base.repository";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { ApiControllers } from "./ApiControllers";
-import { HttpUtil } from "../services/http-util.service";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +12,7 @@ export class FilesRepository extends BaseRepository{
     private filesEndpoint = `${this.airBnbEndpoint}/${ApiControllers.FILES}`;
 
     private http= inject(HttpClient);
-    private httpUtil= inject(HttpUtil);
+    // private httpUtil= inject(HttpUtil);
 
     /**
      * Get the data of a file from the backend for downloading
