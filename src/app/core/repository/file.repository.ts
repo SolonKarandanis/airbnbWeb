@@ -3,6 +3,7 @@ import { BaseRepository } from "./base.repository";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { ApiControllers } from "./ApiControllers";
+import { HttpUtil } from "../services/http-util.service";
 
 @Injectable({
     providedIn: 'root'
