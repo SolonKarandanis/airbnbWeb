@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { UserModel } from "@models/user.model";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { AuthRepository } from "../repository/auth.repository";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
@@ -17,29 +17,12 @@ export type UserType = UserModel | undefined;
 })
 export class AuthService{
 
-    // public fields
-  currentUser$: Observable<UserType>;
-  isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<UserType>;
-  isLoadingSubject: BehaviorSubject<boolean>;
-
-  get currentUserValue(): UserType {
-    return this.currentUserSubject.value;
-  }
-
-  set currentUserValue(user: UserType) {
-    this.currentUserSubject.next(user);
-  }
-
   constructor(
     private authRepo: AuthRepository,
     private utilService:UtilService,
     private router: Router,
   ){
-    this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
-    this.currentUser$ = this.currentUserSubject.asObservable();
-    this.isLoading$ = this.isLoadingSubject.asObservable();
+
   }
 
   // public methods
