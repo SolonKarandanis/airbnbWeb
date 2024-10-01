@@ -35,6 +35,7 @@ export const AuthStore = signalStore(
         ),
         logout(){
             patchState(state,initialAuthState)
+            authService.logout();
         }
     })),
 );

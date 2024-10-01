@@ -1,15 +1,16 @@
 import { HttpContextToken, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
 import jwtService from "./jwt.service";
+import { AuthStore } from "../store/auth-store";
 
 export const AUTHENTICATE_REQUEST = new HttpContextToken(() => true);
 
 @Injectable()
 export class InterceptService implements HttpInterceptor{
 
-    // constructor(private store: Store<AppState>){}
+    private authStore = inject(AuthStore);
     
     intercept(
         request: HttpRequest<any>,
@@ -38,7 +39,7 @@ export class InterceptService implements HttpInterceptor{
                     if(error instanceof HttpErrorResponse){
                         if(error.status === 403){
                             // redirect to login
-                            // this.store.dispatch(logout());
+                            this.authStore.logout()
                         }
 
                     }
