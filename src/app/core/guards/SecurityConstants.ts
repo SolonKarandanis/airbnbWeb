@@ -1,3 +1,5 @@
+import { HttpContextToken } from "@angular/common/http";
+
 export enum RolesConstants{
     ROLE_ADMIN = "ROLE_ADMIN",
     ROLE_TENANT = "ROLE_TENANT",
@@ -9,3 +11,5 @@ export const userRoles =[
     RolesConstants.ROLE_TENANT,
     RolesConstants.ROLE_LANDLORD,
 ];
+
+export const AUTHENTICATE_REQUEST = new HttpContextToken(() => true);

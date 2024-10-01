@@ -5,7 +5,8 @@ import { UserModel } from "@models/user.model";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { ApiControllers } from "./ApiControllers";
 import { JwtDTO, SubmitCredentialsDTO } from "@models/auth.model";
-import { AUTHENTICATE_REQUEST } from "../services/intercept.service";
+import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
+
 
 @Injectable({
     providedIn: 'root',

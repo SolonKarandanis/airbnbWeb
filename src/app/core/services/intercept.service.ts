@@ -4,8 +4,8 @@ import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
 import jwtService from "./jwt.service";
 import { AuthStore } from "../store/auth/auth-store";
+import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 
-export const AUTHENTICATE_REQUEST = new HttpContextToken(() => true);
 
 @Injectable()
 export class InterceptService implements HttpInterceptor{
