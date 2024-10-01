@@ -1,6 +1,6 @@
 import { signalStore,withState,withMethods,withComputed, patchState} from "@ngrx/signals";
 import { AuthState, initialAuthState } from "./auth-state";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { inject } from "@angular/core";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SubmitCredentialsDTO } from "@models/auth.model";

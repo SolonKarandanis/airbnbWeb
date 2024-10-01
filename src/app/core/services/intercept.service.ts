@@ -3,7 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
 import jwtService from "./jwt.service";
-import { AuthStore } from "../store/auth-store";
+import { AuthStore } from "../store/auth/auth-store";
 
 export const AUTHENTICATE_REQUEST = new HttpContextToken(() => true);
 
