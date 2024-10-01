@@ -1,7 +1,7 @@
 import { signalStore,withState,withMethods,withComputed, patchState} from "@ngrx/signals";
 import { AuthState, initialAuthState } from "./auth-state";
 import { AuthService } from "../../services/auth.service";
-import { computed, inject } from "@angular/core";
+import { computed, inject, Signal } from "@angular/core";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SubmitCredentialsDTO } from "@models/auth.model";
 import {pipe, switchMap, tap} from "rxjs"
@@ -14,6 +14,7 @@ export const AuthStore = signalStore(
     withComputed((
         {
             isLoggedIn,
+            user
         },
         authService = inject(AuthService)
     )=>({
@@ -22,12 +23,22 @@ export const AuthStore = signalStore(
                 return true;
             }
             return false;
-        })
+        }),
     })),
     withMethods((
         state,
         authService = inject(AuthService)
     )=>({
+        hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
+            if(state.isAuthenticated()){
+                return false;
+            }
+            if(!Array.isArray(authorities)) {
+                authorities = [authorities];
+            }
+
+            return state.user()!.authorities.some((authority:string)=> authorities.includes(authority));
+        }),
         login: rxMethod<SubmitCredentialsDTO>(
             pipe(
                 tap(() => {
