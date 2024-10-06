@@ -25,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [ErrorsComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 const childrenRoutes: Routes =[
   {
@@ -26,9 +28,11 @@ const routes: Routes =[
 
 @NgModule({
   declarations: [
-
+    LayoutComponent,
   ],
   imports: [
+    NavbarComponent, 
+    FooterComponent,
     CommonModule,
     RouterModule.forChild(routes)
   ],

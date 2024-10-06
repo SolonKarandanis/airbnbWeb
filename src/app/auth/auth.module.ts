@@ -38,6 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+    declarations:[AuthComponent],
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
