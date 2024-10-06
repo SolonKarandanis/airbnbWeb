@@ -5,7 +5,7 @@ import {ToastModule} from "primeng/toast";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import { FooterComponent } from './protected/layout/footer/footer.component';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastService } from './protected/layout/toast.service';
 import { NavbarComponent } from './protected/layout/navbar/navbar.component';
 
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit{
   faIconLibrary = inject(FaIconLibrary);
   toastService = inject(ToastService);
   messageService = inject(MessageService);
+  primengConfig = inject(PrimeNGConfig).ripple=true;
 
   ngOnInit(): void {
     this.initFontAwesome();
