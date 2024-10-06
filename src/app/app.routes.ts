@@ -8,7 +8,7 @@ export const routes: Routes = [
     },
     {
         path:'',
-        loadComponent: () => 
-            import('./home/home.component').then((m)=>m.HomeComponent),
+        loadChildren: () => 
+            import('./protected/protected.module').then((m)=>m.ProtectedModule),
     },
 ];
