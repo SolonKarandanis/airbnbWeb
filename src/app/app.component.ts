@@ -28,7 +28,6 @@ import { NavbarComponent } from './protected/layout/navbar/navbar.component';
 export class AppComponent implements OnInit{
 
   faIconLibrary = inject(FaIconLibrary);
-  isListingView = true;
   toastService = inject(ToastService);
   messageService = inject(MessageService);
 

@@ -25,7 +25,7 @@ import { filter, map } from 'rxjs/operators';
     }
   `,
   styles: `
-    @import "./../../../../assets/scss/airbnb-variables";
+    @import "./../../../../../assets/scss/airbnb-variables";
 
     .categories {
       -ms-overflow-style: none;
