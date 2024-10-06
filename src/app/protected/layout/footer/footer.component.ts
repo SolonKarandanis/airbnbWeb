@@ -20,7 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   </div>
   `,
   styles: `
-  @import "./../../../assets/scss/airbnb-variables";
+  @import "./../../../../assets/scss/airbnb-variables";
   
   .footer {
     background-color: $footerBgColor;
