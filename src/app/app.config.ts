@@ -13,7 +13,9 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideAnimations(),
     provideHttpClient(
-      withInterceptors([authExpired]),
+      withInterceptors([
+        // authExpired
+      ]),
     )
   ]
 };
