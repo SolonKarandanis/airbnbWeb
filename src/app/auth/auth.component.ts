@@ -3,9 +3,15 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-auth',
   template: `
-    <router-outlet></router-outlet>
+    <div class="auth-container">
+      <router-outlet></router-outlet>
+    </div>
   `,
-  styles: ``
+  styles: `
+    .auth-container{
+      background: linear-gradient(90deg, #C7C5F4, #776BCC);
+    }
+  `
 })
 export class AuthComponent {
 
