@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
+import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +10,7 @@ import { DividerModule } from 'primeng/divider';
   imports: [
     CardModule,
     DividerModule,
+    FontAwesomeModule
   ],
   template: `
   <div class="container">
@@ -15,16 +18,16 @@ import { DividerModule } from 'primeng/divider';
       <div class="screen__content">
         <form class="login">
           <div class="login__field">
-            <i class="login__icon fas fa-user"></i>
+            <fa-icon class="login__icon" [icon]="faUser"></fa-icon>
 					  <input type="text" class="login__input" placeholder="User name">
           </div>
           <div class="login__field">
-            <i class="login__icon fas fa-lock"></i>
+            <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
             <input type="password" class="login__input" placeholder="Password">
           </div>
           <button class="button login__submit">
             <span class="button__text">Log In</span>
-            <i class="button__icon fas fa-chevron-right"></i>
+            <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
 				  </button>
         </form>
       </div>
@@ -86,8 +89,6 @@ import { DividerModule } from 'primeng/divider';
 
     .screen__background__shape2 {
       height: 220px;
-      width: 220px;
-      background: #6C63AC;	
       top: -172px;
       right: 0;	
       border-radius: 32px;
@@ -179,5 +180,7 @@ import { DividerModule } from 'primeng/divider';
   `
 })
 export class LoginComponent {
-
+  faLock = faLock;
+  faUser=faUser;
+  faChevronRight=faChevronRight;
 }
