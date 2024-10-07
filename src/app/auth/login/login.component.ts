@@ -29,6 +29,10 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
             <span class="button__text">Log In</span>
             <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
 				  </button>
+          <div class="register-forget opacity">
+            <a href="">REGISTER</a>
+            <a href="">FORGOT PASSWORD</a>
+          </div>
         </form>
       </div>
       <div class="screen__background">
@@ -176,6 +180,16 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
       font-size: 24px;
       margin-left: auto;
       color: #7875B5;
+    }
+
+    .register-forget {
+      margin: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .opacity {
+        opacity: 0.6;
     }
   `
 })
