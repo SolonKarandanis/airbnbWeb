@@ -12,38 +12,6 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
     DividerModule,
     FontAwesomeModule
   ],
-  template: `
-  <div class="container">
-    <div class="screen">
-      <div class="screen__content">
-        <form class="login">
-          <div class="login__field">
-            <fa-icon class="login__icon" [icon]="faUser"></fa-icon>
-					  <input type="text" class="login__input" placeholder="User name">
-          </div>
-          <div class="login__field">
-            <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
-            <input type="password" class="login__input" placeholder="Password">
-          </div>
-          <button class="button login__submit">
-            <span class="button__text">Log In</span>
-            <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
-				  </button>
-          <div class="register-forget opacity">
-            <a href="">REGISTER</a>
-            <a href="">FORGOT PASSWORD</a>
-          </div>
-        </form>
-      </div>
-      <div class="screen__background">
-        <span class="screen__background__shape screen__background__shape4"></span>
-        <span class="screen__background__shape screen__background__shape3"></span>		
-        <span class="screen__background__shape screen__background__shape2"></span>
-        <span class="screen__background__shape screen__background__shape1"></span>
-		  </div>	
-    </div>
-  </div>
-  `,
   styles: `
     .container{
       display:flex;
@@ -191,7 +159,39 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
     .opacity {
         opacity: 0.6;
     }
-  `
+  `,
+  template: `
+  <div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <form class="login">
+          <div class="login__field">
+            <fa-icon class="login__icon" [icon]="faUser"></fa-icon>
+					  <input type="text" class="login__input" placeholder="User name">
+          </div>
+          <div class="login__field">
+            <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
+            <input type="password" class="login__input" placeholder="Password">
+          </div>
+          <button class="button login__submit">
+            <span class="button__text">Log In</span>
+            <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
+				  </button>
+          <div class="register-forget opacity">
+            <a href="">REGISTER</a>
+            <a href="">FORGOT PASSWORD</a>
+          </div>
+        </form>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>		
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+		  </div>	
+    </div>
+  </div>
+  `,  
 })
 export class LoginComponent {
   faLock = faLock;
