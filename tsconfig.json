@@ -25,7 +25,10 @@
     ],
     "paths":{
       "@models/*" : ["src/app/core/models/*"],
-      "@layout/*" : ["src/app/core/layout/*"]
+      "@layout/*" : ["src/app/core/layout/*"],
+      "@components/*": ["src/app/shared/components/*"],
+      "@directives/*": ["src/app/shared/directives/*"],
+      "@pipes/*": ["src/app/shared/pipes/*"],
     }
   },
   "angularCompilerOptions": {
