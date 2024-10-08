@@ -1,19 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputComponent } from '@components/input/input.component';
-import { PasswordComponent } from '@components/password/password.component';
-import { JsonFormControls, JsonFormData } from '@components/types/types';
+import { JsonFormControls, JsonFormData } from '@components/types';
 
 
 @Component({
   selector: 'app-json-form',
   standalone: true,
-  imports: [ReactiveFormsModule,InputComponent,PasswordComponent],
+  imports: [ReactiveFormsModule],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       @for(control of jsonFormData.controls; track control.label;){
         @if(control.type=== 'text' || control.type=== 'email' || control.type=== 'tel'||control.type=== 'number'){
-          <app-input
+          <!-- <app-input
             [type]="control.type"
             [for]="control.name + '-input'"
             [placeholder]="control.label"
@@ -22,10 +20,10 @@ import { JsonFormControls, JsonFormData } from '@components/types/types';
             [control]="form.controls[control.name]"
             [editMode]="form.enabled">
             <span label>{{control.label}}</span>
-          </app-input>
+          </app-input> -->
         }
         @if(control.type === 'password'){
-          <app-password
+          <!-- <app-password
             [for]="control.name + '-input'"
             [placeholder]="control.label"
             [name]="control.name"
@@ -33,7 +31,7 @@ import { JsonFormControls, JsonFormData } from '@components/types/types';
             [control]="form.controls[control.name]"
             [editMode]="form.enabled">
             <span label>{{control.label}}</span>
-          </app-password>
+          </app-password> -->
         }
       }
     </form>
@@ -50,7 +48,7 @@ export class JsonFormComponent implements OnInit,OnChanges{
   protected fb = inject(FormBuilder);
   public form: FormGroup = this.fb.group({});
 
-  @Input()jsonFormData: JsonFormData;
+  @Input()jsonFormData!: JsonFormData;
 
   constructor() {}
 
@@ -60,7 +58,7 @@ export class JsonFormComponent implements OnInit,OnChanges{
 
 
   ngOnChanges(changes: SimpleChanges) {
-    if (!changes.jsonFormData.firstChange) {
+    if (!changes['jsonFormData'].firstChange) {
       this.createForm(this.jsonFormData.controls);
     }
   }
