@@ -1,4 +1,4 @@
-import { HttpContextToken, HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
+import {  HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { AuthStore } from "../store/auth/auth-store";
 import jwtService from "./jwt.service";

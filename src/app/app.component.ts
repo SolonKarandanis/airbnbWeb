@@ -19,9 +19,10 @@ import { NavbarComponent } from './protected/layout/navbar/navbar.component';
     FontAwesomeModule, 
     NavbarComponent, 
     FooterComponent, 
-    ToastModule
+    ToastModule,
+    
   ],
-  providers: [MessageService],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
