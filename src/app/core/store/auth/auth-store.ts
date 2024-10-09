@@ -60,7 +60,20 @@ export const AuthStore = signalStore(
                                 utilService.showMessage('error',error.error);
                                 patchState(state,{loading:false,showError:true,errorMessage:'Error'});
                             }
-                        })
+                        }),
+                        switchMap(()=>
+                            authService.getUserByToken().pipe(
+                                tapResponse({
+                                    next:(response:UserModel)=>{
+                                        patchState(state,{isLoggedIn:true,errorMessage:null,showError:false,loading:false,user:response })
+                                    },
+                                    error: (error:ErrorResponse) =>{
+                                        utilService.showMessage('error',error.error);
+                                        patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                    }
+                                })
+                            )
+                        )
                     )
                 )
             )
