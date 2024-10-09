@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { AuthStore } from 'src/app/core/store/auth/auth-store';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SubmitCredentialsDTO } from '@models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,8 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
   imports: [
     CardModule,
     DividerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule,
   ],
   styles: `
     .container{
@@ -164,16 +168,27 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
   <div class="container">
     <div class="screen">
       <div class="screen__content">
-        <form class="login">
+        <form class="login" [formGroup]="loginForm">
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faUser"></fa-icon>
-					  <input type="text" class="login__input" placeholder="User name">
+					  <input 
+              type="text" 
+              class="login__input" 
+              placeholder="User name" 
+              formControlName="username">
           </div>
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
-            <input type="password" class="login__input" placeholder="Password">
+            <input 
+              type="password" 
+              class="login__input" 
+              placeholder="Password" 
+              formControlName="password">
           </div>
-          <button class="button login__submit">
+          <button 
+            type="button" 
+            class="button login__submit"
+            (click)="login()">
             <span class="button__text">Log In</span>
             <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
 				  </button>
@@ -193,8 +208,56 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
   </div>
   `,  
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+  
   faLock = faLock;
   faUser=faUser;
   faChevronRight=faChevronRight;
+  loginForm!: FormGroup;
+
+  private authStore = inject(AuthStore);
+  private fb= inject(FormBuilder);
+
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  public login():void{
+    if (this.loginForm.invalid) {
+			Object.keys(this.f).forEach(controlName =>
+				this.f[controlName].markAsTouched()
+			);
+			return;
+		}
+    const request:SubmitCredentialsDTO={
+      username: this.f['username'].value,
+      password: this.f['password'].value,
+    }
+    this.authStore.login(request);
+  }
+
+  private initForm():void{
+    this.loginForm = this.fb.group({
+      username:[
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(320),
+        ]),
+      ],
+      password:[
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ]),
+      ]
+    });
+  }
 }
