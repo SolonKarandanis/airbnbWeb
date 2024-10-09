@@ -9,6 +9,7 @@ import { tapResponse } from '@ngrx/operators';
 import { UserModel } from "@models/user.model";
 import { UtilService } from "../../services/util.service";
 import { ErrorResponse } from "@models/error.model";
+import jwtService from "../../services/jwt.service";
 
 export const AuthStore = signalStore(
     { providedIn: 'root' },
@@ -50,8 +51,10 @@ export const AuthStore = signalStore(
                 switchMap((creadentials)=> 
                     authService.login(creadentials).pipe(
                         tapResponse({
-                            next:({authToken,expires})=>{
-                                patchState(state,{authToken,expires,errorMessage:null,showError:false,loading:false})
+                            next:({token,expires})=>{
+                                jwtService.saveToken(token);
+                                jwtService.saveTokenExpiration(expires);
+                                patchState(state,{authToken:token,expires,errorMessage:null,showError:false,loading:false})
                             },
                             error: (error:ErrorResponse) =>{
                                 utilService.showMessage('error',error.error);

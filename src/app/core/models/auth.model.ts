@@ -4,6 +4,6 @@ export interface SubmitCredentialsDTO{
 }
 
 export interface JwtDTO{
-    authToken: string,
+    token: string,
     expires:string
 }
