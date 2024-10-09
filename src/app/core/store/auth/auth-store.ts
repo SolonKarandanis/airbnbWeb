@@ -54,7 +54,6 @@ export const AuthStore = signalStore(
                                 patchState(state,{authToken,expires,errorMessage:null,showError:false,loading:false})
                             },
                             error: (error:ErrorResponse) =>{
-                                console.log(error);
                                 utilService.showMessage('error',error.error);
                                 patchState(state,{loading:false,showError:true,errorMessage:'Error'});
                             }

@@ -181,7 +181,6 @@ export class UtilService {
   }
 
   showMessage(severity:string, details:string[]):void{
-    console.log(details);
     for(const detail of details){
       switch(severity){
         case 'error':{
