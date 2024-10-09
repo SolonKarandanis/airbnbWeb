@@ -7,6 +7,8 @@ import { SubmitCredentialsDTO } from "@models/auth.model";
 import {pipe, switchMap, tap} from "rxjs"
 import { tapResponse } from '@ngrx/operators';
 import { UserModel } from "@models/user.model";
+import { UtilService } from "../../services/util.service";
+import { ErrorResponse } from "@models/error.model";
 
 export const AuthStore = signalStore(
     { providedIn: 'root' },
@@ -27,7 +29,8 @@ export const AuthStore = signalStore(
     })),
     withMethods((
         state,
-        authService = inject(AuthService)
+        authService = inject(AuthService),
+        utilService = inject(UtilService),
     )=>({
         hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
             if(state.isAuthenticated()){
@@ -50,7 +53,9 @@ export const AuthStore = signalStore(
                             next:({authToken,expires})=>{
                                 patchState(state,{authToken,expires,errorMessage:null,showError:false,loading:false})
                             },
-                            error: () =>{
+                            error: (error:ErrorResponse) =>{
+                                console.log(error);
+                                utilService.showMessage('error',error.error);
                                 patchState(state,{loading:false,showError:true,errorMessage:'Error'});
                             }
                         })

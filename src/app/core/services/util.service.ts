@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from '@models/user.model';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,11 @@ export class UtilService {
 
   private datePipe = new DatePipe('en');
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private messageService:MessageService
+  ) {}
 
   public get emailRegex():string{
     return this.emailPattern;
@@ -173,6 +177,38 @@ export class UtilService {
         this.router.navigate(['catalogues', 'eo']);
     } else {
         this.router.navigate(['advanced-search']);
+    }
+  }
+
+  showMessage(severity:string, details:string[]):void{
+    console.log(details);
+    for(const detail of details){
+      switch(severity){
+        case 'error':{
+          this.messageService.add({
+            severity:'error',
+            summary:'Error',
+            detail
+          });
+          break;
+        }
+        case 'success':{
+          this.messageService.add({
+            severity:'success',
+            summary:'Success',
+            detail
+          });
+          break;
+        }
+        case 'warn':{
+          this.messageService.add({
+            severity:'warb',
+            summary:'Warn',
+            detail
+          });
+          break;
+        }
+      }
     }
   }
   
