@@ -1,4 +1,4 @@
-import { HttpContextToken, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
@@ -17,10 +17,10 @@ export class InterceptService implements HttpInterceptor{
         next: HttpHandler
       ): Observable<HttpEvent<any>>{
         const userToken = jwtService.getToken();
-        if (request.context.get(AUTHENTICATE_REQUEST)){
+        if (request.context.get(AUTHENTICATE_REQUEST) && userToken){
             request = request.clone({
                 setHeaders: {
-                  Authorization: `Bearer ${userToken}`,
+                  Authorization: `Bearer ${userToken.trim()}`,
                   'Content-Type':  'application/json',
                 },
                 // withCredentials:true

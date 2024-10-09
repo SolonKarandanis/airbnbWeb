@@ -175,7 +175,8 @@ import { SubmitCredentialsDTO } from '@models/auth.model';
               type="text" 
               class="login__input" 
               placeholder="User name" 
-              formControlName="username">
+              formControlName="username"
+              autocomplete="username">
           </div>
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
@@ -183,7 +184,8 @@ import { SubmitCredentialsDTO } from '@models/auth.model';
               type="password" 
               class="login__input" 
               placeholder="Password" 
-              formControlName="password">
+              formControlName="password"
+              autocomplete="current-password">
           </div>
           <button 
             type="button" 

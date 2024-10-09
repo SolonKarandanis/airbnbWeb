@@ -180,7 +180,11 @@ export class UtilService {
     }
   }
 
-  showMessage(severity:string, details:string[]):void{
+  showMessage(severity:string, details:string|string[]):void{
+    if(!Array.isArray(details)){
+      details =[details];
+    }
+
     for(const detail of details){
       switch(severity){
         case 'error':{
