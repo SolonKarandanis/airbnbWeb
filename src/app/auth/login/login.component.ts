@@ -3,9 +3,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { AuthStore } from 'src/app/core/store/auth/auth-store';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubmitCredentialsDTO } from '@models/auth.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -217,7 +217,7 @@ export class LoginComponent implements OnInit{
   faChevronRight=faChevronRight;
   loginForm!: FormGroup;
 
-  private authStore = inject(AuthStore);
+  private authService = inject(AuthService);
   private fb= inject(FormBuilder);
 
   ngOnInit(): void {
@@ -239,7 +239,7 @@ export class LoginComponent implements OnInit{
       username: this.f['username'].value,
       password: this.f['password'].value,
     }
-    this.authStore.login(request);
+    this.authService.login(request);
   }
 
   private initForm():void{

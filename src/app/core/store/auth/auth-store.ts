@@ -16,13 +16,14 @@ export const AuthStore = signalStore(
     withState<AuthState>(initialAuthState),
     withComputed((
         {
-            isLoggedIn,
             user
         },
     )=>({
-        isAuthenticated: computed(()=>{
-           
-            return false;
+        getUsername: computed(()=>{
+            return user()?.username;
+        }),
+        getUser: computed(()=>{
+            return user();
         }),
     })),
     withMethods((
@@ -31,9 +32,9 @@ export const AuthStore = signalStore(
         utilService = inject(UtilService),
     )=>({
         hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
-            if(state.isAuthenticated()){
-                return false;
-            }
+            // if(state.isAuthenticated()){
+            //     return false;
+            // }
             if(!Array.isArray(authorities)) {
                 authorities = [authorities];
             }

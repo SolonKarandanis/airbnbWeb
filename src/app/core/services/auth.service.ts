@@ -54,13 +54,13 @@ export class AuthService{
 
 
   public getUsername():string |null{
-        const token = jwtService.getToken();
-        if(!token){
-            return null;
-        }
-        const loggedUser =this.getUser(token) as UserModel;
-        const {username} = loggedUser;
-        return username;
+    const token = jwtService.getToken();
+    if(!token){
+        return null;
+    }
+    const loggedUser =this.getUser(token) as UserModel;
+    const {username} = loggedUser;
+    return username;
   }
 
   /**
@@ -69,11 +69,11 @@ export class AuthService{
    * @returns where the user has access
   */
   public hasRoles(allowedRoles:Array<string>):boolean{
-        const userRoles = this.getUserRoles();
-        if(!userRoles){
-        return false;
-        }
-        return this.utilService.findCommonElement(userRoles,allowedRoles);
+    const userRoles = this.getUserRoles();
+    if(!userRoles){
+      return false;
+    }
+    return this.utilService.findCommonElement(userRoles,allowedRoles);
   }
 
   /**
@@ -96,16 +96,16 @@ export class AuthService{
    * @returns If the JWT has expired
    */
   public isJwtExpired(): boolean {
-        const jwt: JwtPayload | null = this.parseJwtAsPayload(jwtService.getToken());
+    const jwt: JwtPayload | null = this.parseJwtAsPayload(jwtService.getToken());
 
-        if (jwt) {
-            const expDate: Date = new Date(jwt.exp! * 1000);
-            const nowDate: Date = new Date();
+    if (jwt) {
+        const expDate: Date = new Date(jwt.exp! * 1000);
+        const nowDate: Date = new Date();
 
-            return expDate < nowDate;
-        } else {
-            return true;
-        }
+        return expDate < nowDate;
+    } else {
+        return true;
+    }
   }
 
   /**
@@ -114,11 +114,11 @@ export class AuthService{
    * @returns The decoded Users object
   */
   private getUser(token: string | null):UserModel | null{
-        if (!token) {
-        return null;
-        }
-        const jsonPayload = this.getPayLoad(token);
-        return JSON.parse(jsonPayload) as UserModel;
+    if (!token) {
+      return null;
+    }
+    const jsonPayload = this.getPayLoad(token);
+    return JSON.parse(jsonPayload) as UserModel;
   }
 
    /**
@@ -127,11 +127,11 @@ export class AuthService{
    * @returns The decoded JWT object
   */
    private parseJwtAsPayload(token: string | null): JwtPayload | null {
-        if (!token) {
-            return null;
-        } 
-        const jsonPayload = this.getPayLoad(token);
-        return JSON.parse(jsonPayload);
+      if (!token) {
+          return null;
+      } 
+      const jsonPayload = this.getPayLoad(token);
+      return JSON.parse(jsonPayload);
     }
 
     /**
@@ -140,17 +140,17 @@ export class AuthService{
    * @returns The decoded JWT string
   */
     private getPayLoad(token: string):string{
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(
-            window
-                .atob(base64)
-                .split('')
-                .map(function (c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                })
-                .join('')
-        );
-        return jsonPayload;
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+          window
+              .atob(base64)
+              .split('')
+              .map(function (c) {
+                  return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join('')
+      );
+      return jsonPayload;
     }
 }
