@@ -54,6 +54,11 @@ export class AuthService{
 
 
   public getUsername():string |null{
+    const storeValue=this.authStore.getUsername();
+    if(storeValue){
+      return storeValue;
+    }
+
     const token = jwtService.getToken();
     if(!token){
         return null;
@@ -114,6 +119,11 @@ export class AuthService{
    * @returns The decoded Users object
   */
   private getUser(token: string | null):UserModel | null{
+    const storeValue=this.authStore.getUser();
+    if(storeValue){
+      return storeValue;
+    }
+
     if (!token) {
       return null;
     }
