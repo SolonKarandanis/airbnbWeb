@@ -1,6 +1,5 @@
 import { signalStore,withState,withMethods,withComputed, patchState} from "@ngrx/signals";
 import { AuthState, initialAuthState } from "./auth-state";
-import { AuthService } from "../../services/auth.service";
 import { computed, inject, Signal } from "@angular/core";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SubmitCredentialsDTO } from "@models/auth.model";
@@ -10,6 +9,7 @@ import { UserModel } from "@models/user.model";
 import { UtilService } from "../../services/util.service";
 import { ErrorResponse } from "@models/error.model";
 import jwtService from "../../services/jwt.service";
+import { AuthRepository } from "../../repository/auth.repository";
 
 export const AuthStore = signalStore(
     { providedIn: 'root' },
@@ -19,18 +19,15 @@ export const AuthStore = signalStore(
             isLoggedIn,
             user
         },
-        authService = inject(AuthService)
     )=>({
         isAuthenticated: computed(()=>{
-            if(isLoggedIn() || authService.isLoggedIn()){
-                return true;
-            }
+           
             return false;
         }),
     })),
     withMethods((
         state,
-        authService = inject(AuthService),
+        authRepo = inject(AuthRepository),
         utilService = inject(UtilService),
     )=>({
         hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
@@ -49,7 +46,7 @@ export const AuthStore = signalStore(
                     patchState(state,{loading:true,showError:false});
                 }),
                 switchMap((creadentials)=> 
-                    authService.login(creadentials).pipe(
+                    authRepo.login(creadentials).pipe(
                         tapResponse({
                             next:({token,expires})=>{
                                 jwtService.saveToken(token);
@@ -62,7 +59,7 @@ export const AuthStore = signalStore(
                             }
                         }),
                         switchMap(()=>
-                            authService.getUserByToken().pipe(
+                            authRepo.getUserByToken().pipe(
                                 tapResponse({
                                     next:(response:UserModel)=>{
                                         patchState(state,{isLoggedIn:true,errorMessage:null,showError:false,loading:false,user:response })
@@ -80,15 +77,14 @@ export const AuthStore = signalStore(
         ),
         logout(){
             patchState(state,initialAuthState)
-            authService.logout();
         },
-        getUserAccount: rxMethod(
+        getUserAccount: rxMethod<void>(
             pipe(
                 tap(() => {
                     patchState(state,{loading:true,showError:false});
                 }),
                 switchMap(()=>
-                    authService.getUserByToken().pipe(
+                    authRepo.getUserByToken().pipe(
                         tapResponse({
                             next:(response:UserModel)=>{
                                 patchState(state,{isLoggedIn:true,errorMessage:null,showError:false,loading:false,user:response })

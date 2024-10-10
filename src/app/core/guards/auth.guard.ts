@@ -1,14 +1,14 @@
-import { AuthStore } from 'src/app/core/store/auth/auth-store';
 import { inject, Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from "@angular/router";
+import { AuthService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-    private authStore = inject(AuthStore);
+    private authService = inject(AuthService);
     private router = inject(Router);
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-        const isAuthenticated = this.authStore.isAuthenticated();
+        const isAuthenticated = this.authService.isAuthenticated();
         console.log(isAuthenticated);
         if(isAuthenticated){
             this.navigateToLogin();

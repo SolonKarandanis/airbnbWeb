@@ -1,10 +1,9 @@
-import { Injectable } from "@angular/core";
+import { AuthStore } from './../store/auth/auth-store';
+import { inject, Injectable } from "@angular/core";
 import { UserModel } from "@models/user.model";
-import { Observable } from "rxjs";
-import { AuthRepository } from "../repository/auth.repository";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
-import { JwtDTO, SubmitCredentialsDTO } from "@models/auth.model";
+import { SubmitCredentialsDTO } from "@models/auth.model";
 import jwtService from "./jwt.service";
 import { JwtPayload } from 'jsonwebtoken';
 
@@ -17,27 +16,25 @@ export type UserType = UserModel | undefined;
 })
 export class AuthService{
 
-  constructor(
-    private authRepo: AuthRepository,
-    private utilService:UtilService,
-    private router: Router,
-  ){
+  private authStore = inject(AuthStore);
+  private utilService = inject(UtilService);
+  private router = inject(Router);
 
-  }
 
   // public methods
-  login(credentials:SubmitCredentialsDTO): Observable<JwtDTO> {
-    return this.authRepo.login(credentials);
+  login(credentials:SubmitCredentialsDTO):void{
+    this.authStore.login(credentials);
   }
 
   logout() {
+    this.authStore.logout();
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
   }
 
-  getUserByToken(): Observable<UserModel> {
-    return this.authRepo.getUserByToken();
+  getUserByToken():void {
+    this.authStore.getUserAccount();
   }
 
 //   getUserOperations():Observable<OperationModel[]>{
@@ -48,8 +45,11 @@ export class AuthService{
    * Checks if the user is loggedin
    * @returns  if the user is loggedin
   */
-  public isLoggedIn():boolean{
-    return this.isJwtExpired();
+  public isAuthenticated():boolean{
+    if(this.authStore.isLoggedIn() ||this.isJwtExpired()){
+      return true;
+    }
+    return false;
   }
 
 
