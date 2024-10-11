@@ -1,0 +1,147 @@
+{
+    "GLOBAL": {
+        "app-full-name": "electronic catalogues",
+        "eproc-link-text": "Go to eProc",
+        "login": "Login",
+        "eproc-url": "#",
+        "UNAUTHORIZED": "You are not authorized to access this page",
+        "BUTTONS": {
+            "cancel": "Cancel",
+            "load": "Load",
+            "delete": "Delete",
+            "search": "Search",
+            "reset": "Reset",
+            "save-search": "Save Search",
+            "export-to-csv": "Export to CSV",
+            "validate-and-continue": "Validate and Continue",
+            "finish": "Finish",
+            "back": "Back",
+            "edit": "Edit",
+            "save": "Save",
+            "send": "Send",
+            "submit": "Submit",
+            "select": "Select",
+            "ok": "OK",
+            "yes": "Yes",
+            "no": "No",
+            "add-to-cart": "Add to Cart",
+            "add-to-favourite": "Add to Favourite List",
+            "add-to-collection": "Add to Collection",
+            "add-to-compare": "Add to Comparison List",
+            "download": "Download",
+            "accept": "Accept",
+            "decline": "Decline",
+            "view-details": "View Details",
+            "approve": "Approve",
+            "reject": "Reject",
+            "choose-file": "Choose file",
+            "update": "Update",
+            "finalize": "Finalize",
+            "remove-items": "Remove Items",
+            "upload-file": "Upload File"
+        },
+        "FORMS": {
+           "ERRORS": {
+                "required": "This field is required",
+                "email": "Enter a valid email address",
+                "minlength": "Minimum characters required: {{ requiredLength }}",
+                "maxlength": "Maximum characters required: {{ requiredLength }}",
+                "samePassword": "Passwords don't match",
+                "strongPassword": "Password strength must be \"strong\"",
+                "forbiddenValue": "The given value is not allowed for this field"
+            },
+            "PLACEHOLDERS": {
+                "search": "Keywords",
+                "previous-value": "Previous value"
+            },
+            "ACTIONS": {
+                "title": "Actions"
+            } 
+        },
+        "TABLES": {
+            "no-results": "No results found"
+        },
+        "TOOLTIPS": {
+            "no-image-found": "No image found",
+            "print-page": "Print this page"
+        },
+        "CONFIRM-DIALOG": {
+            "sure-proceed": "Are you sure you want to proceed?"
+        },
+        "EMAIL": {
+            "sent": "Email has been sent"
+        },
+        "ERRORS": {
+            "unauthorized": "You are not logged in. Please, login first and then try again.",
+            "server": "Something went wrong. Error code",
+            "forbidden": "You are not authorized to access this resource.",
+            "not-found": "Cannot find the resource you are looking for...",
+            "summary": "Error",
+            "generic": "An error occured"
+        },
+        "SUCCESS": {
+            "summary": "success"
+        },
+        "WARNING": {
+            "summary": "warning"
+        },
+        "OTHER": {
+            "verifyingAccess": "Verifying Access",
+            "not-available": "N/A",
+            "not-specified": "Not Specified"
+        },
+        "LABELS": {
+            "all": "All",
+            "id": "ID",
+            "date-created": "Date Created",
+            "status": "Status",
+            "downloads": "Downloads",
+            "auto-generated": "Auto Generated",
+            "comments": "Comments",
+            "chars-remaining": "{{chars}} characters remaining",
+            "remove-chars": "Maximum characters allowed: {{max}}. Remove {{chars}} characters.",
+            "loading-data-wait": "Loading data, please wait",
+            "remove-item-from-list": "Click to remove {{itemType}}",
+            "add-at-least-one-xx-in-list": "Add at least one {{itemType}}",
+            "searching": "Searching..."
+        }
+    },
+    "HEADER":{
+        "MENU": {
+            "login-page": "Login page",
+            "home": "Home"
+        }
+    },
+    "CONTACT": {
+        "COMMUNICATIONS": {
+            "title": "Manual notification",
+            "LABELS": {
+                "create-man-notif": "Create manual notification",
+                "subject": "Subject",
+                "message": "Message",
+                "attachment": "Attachment",
+                "choose-file": "Choose file",
+                "to": "To",
+                "no-recipients-selected": "To add more recipients, please use Add Recipients button."
+            },
+            "BUTTONS": {
+                "add-recipients": "Add Recipients"
+            },
+            "SIDEBAR": {
+                "title": "Contact",
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed faucibus velit. Nunc condimentum risus placerat ultrices varius. Integer elementum consectetur ultricies."
+            },
+            "DIALOG": {
+                "title": "Search & Select Recipients"
+            },
+            "MESSAGES": {
+                "summary": "Create manual notification",
+                "success": "Manual notification was sent successfully",
+                "error": "There was an error sending this manual notification"
+            },
+            "CONFIRM": {
+                "title": "Send manual notification"
+            }
+        }
+    }
+}
