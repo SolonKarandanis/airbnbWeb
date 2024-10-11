@@ -1,9 +1,9 @@
 import {  HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
-import jwtService from "./jwt.service";
+import jwtService from "../services/jwt.service";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 import { tap } from 'rxjs/operators';
-import { AuthService } from "./auth.service";
+import { AuthService } from "../services/auth.service";
 
 
 export const authExpired: HttpInterceptorFn = (

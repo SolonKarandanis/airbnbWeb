@@ -4,7 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { HttpClient, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { authExpired } from './core/services/auth-expired.interceptor';
+import { authExpired } from './core/interceptors/auth-expired.interceptor';
 import { MessageService } from 'primeng/api';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader'
