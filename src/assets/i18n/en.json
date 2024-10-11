@@ -143,5 +143,17 @@
                 "title": "Send manual notification"
             }
         }
+    },
+    "LOGIN": {
+        "title": "Login",
+        "LABELS": {
+            "username": "Username",
+            "password": "Password",
+            "agreement-header": "Terms of User Agreement"
+        },
+        "BUTTONS": {
+            "login": "Login",
+            "forgot-pass": "Forgot Password"
+        }
     }
 }

@@ -6,6 +6,7 @@ import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { TranslationModule } from 'src/app/i18n/translation.module';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
     DividerModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    TranslationModule,
   ],
   styles: `
     .container{
@@ -174,7 +176,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 					  <input 
               type="text" 
               class="login__input" 
-              placeholder="User name" 
+              placeholder="{{ 'LOGIN.LABELS.username' | translate }}" 
               formControlName="username"
               autocomplete="username">
           </div>
@@ -183,7 +185,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
             <input 
               type="password" 
               class="login__input" 
-              placeholder="Password" 
+              placeholder="{{ 'LOGIN.LABELS.password' | translate }}" 
               formControlName="password"
               autocomplete="current-password">
           </div>
@@ -191,12 +193,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
             type="button" 
             class="button login__submit"
             (click)="login()">
-            <span class="button__text">Log In</span>
+            <span class="button__text">{{ "LOGIN.BUTTONS.login" | translate }}</span>
             <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
 				  </button>
           <div class="register-forget opacity">
             <a href="">REGISTER</a>
-            <a href="">FORGOT PASSWORD</a>
+            <a href="">{{ "LOGIN.BUTTONS.forgot-pass" | translate }}</a>
           </div>
         </form>
       </div>
