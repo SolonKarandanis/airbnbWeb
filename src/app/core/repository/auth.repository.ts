@@ -13,8 +13,6 @@ import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 })
 export class AuthRepository extends BaseRepository{
 
-    private http = inject(HttpClient);
-
     login(credentials:SubmitCredentialsDTO):Observable<JwtDTO>{
         return this.http.post<JwtDTO>(`${this.airBnbEndpoint}/${ApiControllers.AUTH}`,credentials,{
             context: new HttpContext().set(AUTHENTICATE_REQUEST, false),

@@ -9,7 +9,5 @@ import { BaseRepository } from "@core/repository/base.repository";
 })
 export class UserRepository  extends BaseRepository{
 
-    private http = inject(HttpClient);
-
     private userEndpoint = `${this.airBnbEndpoint}/${ApiControllers.USERS}`;
 }
