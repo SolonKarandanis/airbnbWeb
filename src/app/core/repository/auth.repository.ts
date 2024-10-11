@@ -1,8 +1,8 @@
-import { inject, Injectable } from "@angular/core";
+import {  Injectable } from "@angular/core";
 import { BaseRepository } from "./base.repository";
 import { Observable } from "rxjs";
 import { UserModel } from "@models/user.model";
-import { HttpClient, HttpContext } from "@angular/common/http";
+import { HttpContext } from "@angular/common/http";
 import { ApiControllers } from "./ApiControllers";
 import { JwtDTO, SubmitCredentialsDTO } from "@models/auth.model";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";

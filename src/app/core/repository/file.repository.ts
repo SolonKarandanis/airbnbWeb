@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { BaseRepository } from "./base.repository";
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import {  HttpResponse } from "@angular/common/http";
+import {  Injectable } from "@angular/core";
 import { ApiControllers } from "./ApiControllers";
 
 @Injectable({
