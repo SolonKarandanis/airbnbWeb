@@ -6,7 +6,6 @@ import { SubmitCredentialsDTO } from "@models/auth.model";
 import {pipe, switchMap, tap} from "rxjs"
 import { tapResponse } from '@ngrx/operators';
 import { UserModel } from "@models/user.model";
-import { UtilService } from "../../services/util.service";
 import { ErrorResponse } from "@models/error.model";
 import jwtService from "../../services/jwt.service";
 import { AuthRepository } from "../../repository/auth.repository";
@@ -29,7 +28,6 @@ export const AuthStore = signalStore(
     withMethods((
         state,
         authRepo = inject(AuthRepository),
-        utilService = inject(UtilService),
     )=>({
         hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
             if(!state.isLoggedIn()){
@@ -55,7 +53,6 @@ export const AuthStore = signalStore(
                                 patchState(state,{authToken:token,expires,errorMessage:null,showError:false,loading:false})
                             },
                             error: (error:ErrorResponse) =>{
-                                utilService.showMessage('error',error.error);
                                 patchState(state,{loading:false,showError:true,errorMessage:'Error'});
                             }
                         }),
@@ -66,7 +63,6 @@ export const AuthStore = signalStore(
                                         patchState(state,{isLoggedIn:true,errorMessage:null,showError:false,loading:false,user:response })
                                     },
                                     error: (error:ErrorResponse) =>{
-                                        utilService.showMessage('error',error.error);
                                         patchState(state,{loading:false,showError:true,errorMessage:'Error'});
                                     }
                                 })
@@ -77,6 +73,8 @@ export const AuthStore = signalStore(
             )
         ),
         logout(){
+            jwtService.destroyToken();
+            jwtService.destroyTokenExpiration();
             patchState(state,initialAuthState)
         },
         getUserAccount: rxMethod<void>(

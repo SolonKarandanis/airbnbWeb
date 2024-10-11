@@ -28,7 +28,7 @@ export class UtilService {
     private http: HttpClient, 
     private router: Router,
     private messageService:MessageService,
-    // private translate: TranslateService
+    private translate:TranslateService,
   ) {}
 
   public get emailRegex():string{
@@ -192,7 +192,7 @@ export class UtilService {
         case 'error':{
           this.messageService.add({
             severity:'error',
-            // summary: this.translate.instant('GLOBAL.ERRORS.summary'),
+            summary: this.translate.instant('GLOBAL.ERRORS.summary'),
             detail
           });
           break;
@@ -200,7 +200,7 @@ export class UtilService {
         case 'success':{
           this.messageService.add({
             severity:'success',
-            // summary: this.translate.instant('GLOBAL.SUCCESS.summary'),
+            summary: this.translate.instant('GLOBAL.SUCCESS.summary'),
             detail
           });
           break;
@@ -208,7 +208,7 @@ export class UtilService {
         case 'warn':{
           this.messageService.add({
             severity:'warn',
-            // summary: this.translate.instant('GLOBAL.WARNING.summary'),
+            summary: this.translate.instant('GLOBAL.WARNING.summary'),
             detail
           });
           break;
