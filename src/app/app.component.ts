@@ -8,6 +8,8 @@ import { FooterComponent } from './protected/layout/footer/footer.component';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { ToastService } from './protected/layout/toast.service';
 import { NavbarComponent } from './protected/layout/navbar/navbar.component';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from './i18n/language.service';
 
 
 @Component({
@@ -28,14 +30,18 @@ import { NavbarComponent } from './protected/layout/navbar/navbar.component';
 })
 export class AppComponent implements OnInit{
 
-  faIconLibrary = inject(FaIconLibrary);
-  toastService = inject(ToastService);
-  messageService = inject(MessageService);
-  primengConfig = inject(PrimeNGConfig).ripple=true;
+  private readonly faIconLibrary = inject(FaIconLibrary);
+  private readonly toastService = inject(ToastService);
+  private readonly messageService = inject(MessageService);
+  private readonly translate = inject(TranslateService);
+  private readonly languageService = inject(LanguageService);
+  private readonly primengConfig = inject(PrimeNGConfig).ripple=true;
 
   ngOnInit(): void {
     this.initFontAwesome();
     this.listenToastService();
+    this.translate.setDefaultLang(this.languageService.selectedLanguageIso);
+    this.translate.use(this.languageService.selectedLanguageIso);
   }
 
   private initFontAwesome() {
