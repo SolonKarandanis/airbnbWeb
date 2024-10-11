@@ -45,17 +45,17 @@ export class ErrorService{
      * @returns The error message to display
      */
     private getErrorMessage(error: HttpErrorResponse): string {
-        let errorMessage: string='';
+        let errorMessage: string;
 
         switch (error.status) {
             case 401:
-                // errorMessage = this.translate.instant('GLOBAL.ERRORS.unauthorized');
+                errorMessage = this.translate.instant('GLOBAL.ERRORS.unauthorized');
                 break;
             case 403:
-                // errorMessage = this.translate.instant('GLOBAL.ERRORS.forbidden');
+                errorMessage = this.translate.instant('GLOBAL.ERRORS.forbidden');
                 break;
             case 404:
-                // errorMessage = this.translate.instant('GLOBAL.ERRORS.not-found');
+                errorMessage = this.translate.instant('GLOBAL.ERRORS.not-found');
                 break;
             case 0:
             case 500:
@@ -70,7 +70,7 @@ export class ErrorService{
             case 509:
             case 510:
             case 511:
-                // errorMessage = `${this.translate.instant('GLOBAL.ERRORS.server')}: ${error.status}`;
+                errorMessage = `${this.translate.instant('GLOBAL.ERRORS.server')}: ${error.status}`;
                 break;
 
             default:
