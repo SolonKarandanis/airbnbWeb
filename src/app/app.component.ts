@@ -21,8 +21,7 @@ import { LanguageService } from './i18n/language.service';
     FontAwesomeModule, 
     NavbarComponent, 
     FooterComponent, 
-    ToastModule,
-    
+    ToastModule
   ],
   providers: [],
   templateUrl: './app.component.html',

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserModel } from '@models/user.model';
+import { TranslateService } from '@ngx-translate/core';
 import { MessageService, SelectItem } from 'primeng/api';
 
 @Injectable({
@@ -26,7 +27,8 @@ export class UtilService {
   constructor(
     private http: HttpClient, 
     private router: Router,
-    private messageService:MessageService
+    private messageService:MessageService,
+    // private translate: TranslateService
   ) {}
 
   public get emailRegex():string{
@@ -190,7 +192,7 @@ export class UtilService {
         case 'error':{
           this.messageService.add({
             severity:'error',
-            summary:'Error',
+            // summary: this.translate.instant('GLOBAL.ERRORS.summary'),
             detail
           });
           break;
@@ -198,15 +200,15 @@ export class UtilService {
         case 'success':{
           this.messageService.add({
             severity:'success',
-            summary:'Success',
+            // summary: this.translate.instant('GLOBAL.SUCCESS.summary'),
             detail
           });
           break;
         }
         case 'warn':{
           this.messageService.add({
-            severity:'warb',
-            summary:'Warn',
+            severity:'warn',
+            // summary: this.translate.instant('GLOBAL.WARNING.summary'),
             detail
           });
           break;

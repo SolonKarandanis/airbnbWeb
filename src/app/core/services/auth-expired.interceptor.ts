@@ -1,16 +1,16 @@
 import {  HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { AuthStore } from "../store/auth/auth-store";
 import jwtService from "./jwt.service";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 import { tap } from 'rxjs/operators';
+import { AuthService } from "./auth.service";
 
 
 export const authExpired: HttpInterceptorFn = (
     request: HttpRequest<unknown>,
     next: HttpHandlerFn
   ) => {
-    const authStore = inject(AuthStore);
+    const authService = inject(AuthService);
     const userToken = jwtService.getToken();
     if (request.context.get(AUTHENTICATE_REQUEST)){
         request = request.clone({
@@ -35,7 +35,7 @@ export const authExpired: HttpInterceptorFn = (
                 if(error instanceof HttpErrorResponse){
                     if(error.status === 403){
                         // redirect to login
-                        authStore.logout()
+                        authService.logout()
                     }
 
                 }
