@@ -26,15 +26,21 @@ export class UserService {
   }
 
   public executeDeleteUser():void{
-    
+    if(this.userId){
+      this.userStore.deleteUser(this.userId);
+    }
   }
 
   public executeActivateUser():void{
-    
+    if(this.userId){
+      this.userStore.activateUser(this.userId);
+    }
   }
 
   public executeDeactivateUser():void{
-    
+    if(this.userId){
+      this.userStore.deactivateUser(this.userId);
+    }
   }
 
   public executeSearchUsers():void{
