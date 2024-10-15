@@ -33,4 +33,12 @@ export class UserRepository  extends BaseRepository{
     deleteUser(id:string):Observable<void>{
         return this.http.delete<void>(`${this.userEndpoint}/${id}`);
     }
+
+    activateUser(id:string):Observable<UserModel>{
+        return this.http.put<UserModel>(`${this.userEndpoint}/${id}/activate`,{});
+    }
+
+    deactivateUser(id:string):Observable<UserModel>{
+        return this.http.put<UserModel>(`${this.userEndpoint}/${id}/deactivate`,{});
+    }
 }

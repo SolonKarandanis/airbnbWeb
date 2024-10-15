@@ -131,6 +131,54 @@ export const UserStore = signalStore(
                     )
                 )
             )
-        )
+        ),
+        activateUser: rxMethod<string>(
+            pipe(
+                tap(() => {
+                    patchState(state,{loading:true,showError:false});
+                }),
+                switchMap((id)=> 
+                    userRepo.activateUser(id).pipe(
+                        tapResponse({
+                            next:(result)=>{
+                                patchState(state,{
+                                    selectedUser:result,
+                                    errorMessage:null,
+                                    showError:false,
+                                    loading:false
+                                })
+                            },
+                            error: (error:ErrorResponse) =>{
+                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                            }
+                        })
+                    )
+                )
+            )
+        ),
+        deactivateUser: rxMethod<string>(
+            pipe(
+                tap(() => {
+                    patchState(state,{loading:true,showError:false});
+                }),
+                switchMap((id)=> 
+                    userRepo.deactivateUser(id).pipe(
+                        tapResponse({
+                            next:(result)=>{
+                                patchState(state,{
+                                    selectedUser:result,
+                                    errorMessage:null,
+                                    showError:false,
+                                    loading:false
+                                })
+                            },
+                            error: (error:ErrorResponse) =>{
+                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                            }
+                        })
+                    )
+                )
+            )
+        ),
     }))
 );
