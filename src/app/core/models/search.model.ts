@@ -64,10 +64,10 @@ export type SearchResult<T>={
   }
   
   export interface UserSearchRequest extends SearchRequest {
-    username?: string;
-    firstName?: string;
-    email?: string;
-    status?: string;
+    username: string|null|undefined;
+    firstName: string|null|undefined;
+    email: string|null|undefined;
+    status: string|null|undefined;
   }
 
   export interface ListingSearchRequest extends SearchRequest{
