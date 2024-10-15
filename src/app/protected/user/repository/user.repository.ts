@@ -26,8 +26,8 @@ export class UserRepository  extends BaseRepository{
         return this.http.post<UserModel>(`${this.userEndpoint}`,request);
     }
 
-    updateUser(request:UpdateUserRequest):Observable<UserModel>{
-        return this.http.put<UserModel>(`${this.userEndpoint}`,request);
+    updateUser(id:string,request:UpdateUserRequest):Observable<UserModel>{
+        return this.http.put<UserModel>(`${this.userEndpoint}/${id}`,request);
     }
 
     deleteUser(id:string):Observable<void>{
