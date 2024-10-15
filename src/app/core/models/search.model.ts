@@ -1,3 +1,5 @@
+import { UserAccountStatus } from "./user.model";
+
 export type SearchResult<T>={
     list:T[],
     countRows:number
@@ -67,7 +69,7 @@ export type SearchResult<T>={
     username: string|null|undefined;
     firstName: string|null|undefined;
     email: string|null|undefined;
-    status: string|null|undefined;
+    status: UserAccountStatus;
   }
 
   export interface ListingSearchRequest extends SearchRequest{
