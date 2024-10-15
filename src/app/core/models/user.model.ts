@@ -6,6 +6,7 @@ export interface BaseUserModel{
 }
 
 export interface UserModel extends BaseUserModel{
+    publicId: string;
     imageUrl: string;
     status: string;
     authorities:string[]
