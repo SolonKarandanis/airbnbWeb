@@ -20,6 +20,7 @@ export class HomeComponent {
 
   protected vm = computed(()=>{
     const loggedUser = this.authService.loggedUser();
+    console.log(loggedUser);
     return {
       loggedUser
     }

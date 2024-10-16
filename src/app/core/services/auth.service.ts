@@ -39,9 +39,7 @@ export class AuthService extends GenericService{
       const loggedIn=this.isAuthenticated();
       if(loggedIn){
         untracked(()=>{
-          this.router.navigate(['/home'], {
-            queryParams: {},
-          });
+          this.navigateToHome();
         });
       }
     });
@@ -50,14 +48,32 @@ export class AuthService extends GenericService{
       const isUserInStore = this.isLoggedIn();
       const expired =this.isJwtExpired();
       if(!isUserInStore && !expired){
-        const token = jwtService.getToken();
-        const expires = jwtService.getTokenExpiration();
-        const userFromStoreage = this.getUser(token);
-        if(token && expires && userFromStoreage){
-          this.authStore.setAccountInfo(token,expires,userFromStoreage);
-        }
+        untracked(()=>{
+          this.setAccountInfoToStore();
+        });
       }
     },{allowSignalWrites:true});
+  }
+
+  private navigateToHome():void{
+    this.router.navigate(['/home'], {
+      queryParams: {},
+    });
+  }
+
+  private navigateToLogin():void{
+    this.router.navigate(['/auth/login'], {
+      queryParams: {},
+    });
+  }
+
+  private setAccountInfoToStore():void{
+    const token = jwtService.getToken();
+    const expires = jwtService.getTokenExpiration();
+    const userFromStoreage = this.getUser(token);
+    if(token && expires && userFromStoreage){
+      this.authStore.setAccountInfo(token,expires,userFromStoreage);
+    }
   }
 
 
@@ -68,9 +84,7 @@ export class AuthService extends GenericService{
 
   logout() {
     this.authStore.logout();
-    this.router.navigate(['/auth/login'], {
-      queryParams: {},
-    });
+    this.navigateToLogin();
   }
 
   getUserByToken():void {
