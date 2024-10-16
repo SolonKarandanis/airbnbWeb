@@ -1,5 +1,5 @@
 import { AuthStore } from './../store/auth/auth-store';
-import { effect, inject, Injectable, untracked } from "@angular/core";
+import { effect, inject, Injectable, Signal, untracked } from "@angular/core";
 import { UserModel } from "@models/user.model";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
@@ -9,7 +9,7 @@ import { JwtPayload } from 'jsonwebtoken';
 import { GenericService } from './generic.service';
 
 export type UserType = UserModel | undefined;
-
+type AuthStore = InstanceType<typeof AuthStore>;
 
 
 @Injectable({
@@ -17,14 +17,22 @@ export type UserType = UserModel | undefined;
 })
 export class AuthService extends GenericService{
 
-  private authStore = inject(AuthStore);
-  private utilService = inject(UtilService);
-  private router = inject(Router);
+  // private authStore = inject(AuthStore);
+  // private utilService = inject(UtilService);
+  // private router = inject(Router);
 
-  public isLoading = this.authStore.loading;
-  public isLoggedIn = this.authStore.isLoggedIn;
+  public isLoading:Signal<boolean>;
+  public isLoggedIn:Signal<boolean>;
 
-  onInit():void{
+  constructor(
+    private authStore:AuthStore,
+    private utilService:UtilService,
+    private router:Router,
+  ){
+    super()
+    this.isLoading = this.authStore.loading;
+    this.isLoggedIn = this.authStore.isLoggedIn;
+
     effect(()=>{
       const loggedIn=this.isLoggedIn();
       untracked(()=>{
@@ -32,8 +40,7 @@ export class AuthService extends GenericService{
           queryParams: {},
         });
       });
-     
-    },{injector:this.injector});
+    });
   }
 
 
