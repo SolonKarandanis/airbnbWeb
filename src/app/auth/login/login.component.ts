@@ -3,12 +3,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TranslationModule } from 'src/app/i18n/translation.module';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
+import { FormErrorComponent } from '@components/form-error/form-error.component';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +22,7 @@ import { RouterLink } from '@angular/router';
     TranslationModule,
     ButtonModule,
     RouterLink,
+    FormErrorComponent
   ],
   styles: `
     .container{
@@ -183,6 +185,9 @@ import { RouterLink } from '@angular/router';
               placeholder="{{ 'LOGIN.LABELS.username' | translate }}" 
               formControlName="username"
               autocomplete="username">
+              <app-form-error 
+                [displayLabels]="isFieldValid('username')"
+                [validationErrors]="loginForm.get('username')?.errors" />
           </div>
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
@@ -192,6 +197,9 @@ import { RouterLink } from '@angular/router';
               placeholder="{{ 'LOGIN.LABELS.password' | translate }}" 
               formControlName="password"
               autocomplete="current-password">
+              <app-form-error 
+                [displayLabels]="isFieldValid('password')"
+                [validationErrors]="loginForm.get('password')?.errors" />
           </div>
           <button 
             pButton 
@@ -234,6 +242,7 @@ export class LoginComponent implements OnInit{
   private fb= inject(FormBuilder);
 
   public isLoading = this.authService.isLoading;
+  public isFormSubmitted=false;
 
   ngOnInit(): void {
     this.initForm();
@@ -275,6 +284,34 @@ export class LoginComponent implements OnInit{
           Validators.maxLength(100),
         ]),
       ]
+    });
+  }
+
+  public clear(){
+    this.loginForm.reset();
+    this.isFormSubmitted=false;
+    // this.inputChildren.forEach((input: FormInput) => {
+    //   input.clear();
+    // });
+  }
+
+  protected isFieldValid(field: string): boolean | undefined {
+    const control = this.loginForm.get(field);
+    return (!control?.valid && control?.touched) || (control?.untouched && this.isFormSubmitted);
+  }
+
+  public isFormValid(){
+    return this.isFormSubmitted || !this.loginForm?.dirty
+  }
+
+  protected validateAllFormFields() {
+    Object.keys(this.loginForm.controls).forEach(field => {
+      const control = this.loginForm.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields();
+      }
     });
   }
 }
