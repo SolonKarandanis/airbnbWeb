@@ -4,14 +4,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UserSearchRequest } from '@models/search.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { UpdateUserRequest, UserAccountStatus } from '@models/user.model';
+import { GenericService } from '@core/services/generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends GenericService{
 
   private userStore = inject(UserStore);
-  protected formBuilder = inject(FormBuilder);
 
   public user = this.userStore.getUser();
   public userId = this.userStore.getUserId();

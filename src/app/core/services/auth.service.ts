@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { SubmitCredentialsDTO } from "@models/auth.model";
 import jwtService from "./jwt.service";
 import { JwtPayload } from 'jsonwebtoken';
+import { GenericService } from './generic.service';
 
 export type UserType = UserModel | undefined;
 
@@ -14,7 +15,7 @@ export type UserType = UserModel | undefined;
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService{
+export class AuthService extends GenericService{
 
   private authStore = inject(AuthStore);
   private utilService = inject(UtilService);

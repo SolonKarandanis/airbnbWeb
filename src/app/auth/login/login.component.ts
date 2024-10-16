@@ -304,14 +304,4 @@ export class LoginComponent implements OnInit{
     return this.isFormSubmitted || !this.loginForm?.dirty
   }
 
-  protected validateAllFormFields() {
-    Object.keys(this.loginForm.controls).forEach(field => {
-      const control = this.loginForm.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields();
-      }
-    });
-  }
 }
