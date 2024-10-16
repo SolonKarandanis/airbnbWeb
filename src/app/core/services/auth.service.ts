@@ -72,17 +72,21 @@ export class AuthService extends GenericService{
 
 
   // public methods
-  login(credentials:SubmitCredentialsDTO):void{
+  public login(credentials:SubmitCredentialsDTO):void{
     this.authStore.login(credentials);
   }
 
-  logout() {
+  public logout() {
     this.authStore.logout();
     this.navigateToLogin();
   }
 
-  getUserByToken():void {
+  public getUserByToken():void {
     this.authStore.getUserAccount();
+  }
+
+  public hasAnyAuthority(authorities: string[] | string):Signal<boolean>{
+    return this.authStore.hasAnyAuthority(authorities);
   }
 
 //   getUserOperations():Observable<OperationModel[]>{

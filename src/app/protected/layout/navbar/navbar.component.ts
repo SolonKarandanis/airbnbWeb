@@ -10,6 +10,7 @@ import { ToastService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '@core/services/auth.service';
+import { RolesConstants } from '@core/guards/SecurityConstants';
 
 @Component({
   selector: 'app-navbar',
@@ -125,8 +126,8 @@ export class NavbarComponent implements OnInit{
   }
 
   hasToBeLandlord(): boolean {
-    return true;
-    // return this.authService.hasAnyAuthority("ROLE_LANDLORD");
+    const result = this.authService.hasAnyAuthority(RolesConstants.ROLE_LANDLORD);
+    return result();
   }
 
 
@@ -149,7 +150,7 @@ export class NavbarComponent implements OnInit{
         },
         {
           label: "Log out",
-          command: this.logout
+          command: () => this.logout()
         },
       ]
     } else {
