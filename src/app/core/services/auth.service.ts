@@ -62,7 +62,7 @@ export class AuthService extends GenericService{
    * @returns  if the user is loggedin
   */
   public isAuthenticated():boolean{
-    if(this.isLoggedIn() ||this.isJwtExpired()){
+    if(this.isLoggedIn() || !this.isJwtExpired()){
       return true;
     }
     return false;
@@ -118,12 +118,12 @@ export class AuthService extends GenericService{
    */
   public isJwtExpired(): boolean {
     const jwt: JwtPayload | null = this.parseJwtAsPayload(jwtService.getToken());
-
+    
     if (jwt) {
         const expDate: Date = new Date(jwt.exp! * 1000);
         const nowDate: Date = new Date();
-
-        return expDate < nowDate;
+        const isExpired = expDate < nowDate;
+        return isExpired;
     } else {
         return true;
     }
