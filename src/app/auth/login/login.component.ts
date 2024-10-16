@@ -300,8 +300,4 @@ export class LoginComponent implements OnInit{
     return (!control?.valid && control?.touched) || (control?.untouched && this.isFormSubmitted);
   }
 
-  public isFormValid(){
-    return this.isFormSubmitted || !this.loginForm?.dirty
-  }
-
 }

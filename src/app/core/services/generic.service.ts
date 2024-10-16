@@ -1,4 +1,4 @@
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, Injector } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
 @Injectable({
@@ -7,6 +7,8 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 export class GenericService{
 
     protected formBuilder = inject(FormBuilder);
+    protected injector = inject(Injector);
+    
     protected isFormSubmitted=false;
 
     public validateAllFormFields(form:FormGroup) {

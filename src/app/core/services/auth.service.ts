@@ -1,5 +1,5 @@
 import { AuthStore } from './../store/auth/auth-store';
-import { inject, Injectable } from "@angular/core";
+import { effect, inject, Injectable, untracked } from "@angular/core";
 import { UserModel } from "@models/user.model";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
@@ -23,6 +23,18 @@ export class AuthService extends GenericService{
 
   public isLoading = this.authStore.loading;
   public isLoggedIn = this.authStore.isLoggedIn;
+
+  onInit():void{
+    effect(()=>{
+      const loggedIn=this.isLoggedIn();
+      untracked(()=>{
+        this.router.navigate(['/home'], {
+          queryParams: {},
+        });
+      });
+     
+    },{injector:this.injector});
+  }
 
 
   // public methods
