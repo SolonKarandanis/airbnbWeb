@@ -18,12 +18,8 @@ export const AuthStore = signalStore(
             user
         },
     )=>({
-        getUsername: computed(()=>{
-            return user()?.username;
-        }),
-        getUser: computed(()=>{
-            return user();
-        }),
+        getUsername: computed(()=>user()?.username),
+        getUser: computed(()=> user()),
     })),
     withMethods((
         state,

@@ -17,10 +17,6 @@ type AuthStore = InstanceType<typeof AuthStore>;
 })
 export class AuthService extends GenericService{
 
-  // private authStore = inject(AuthStore);
-  // private utilService = inject(UtilService);
-  // private router = inject(Router);
-
   public isLoading:Signal<boolean>;
   public isLoggedIn:Signal<boolean>;
   public loggedUser:Signal<UserModel| undefined>;
@@ -68,9 +64,9 @@ export class AuthService extends GenericService{
   private setAccountInfoToStore():void{
     const token = jwtService.getToken();
     const expires = jwtService.getTokenExpiration();
-    const userFromStoreage = this.getUser(token);
-    if(token && expires && userFromStoreage){
-      this.authStore.setAccountInfo(token,expires,userFromStoreage);
+    const userFromStorage = this.getUser(token);
+    if(token && expires && userFromStorage){
+      this.authStore.setAccountInfo(token,expires,userFromStorage);
     }
   }
 

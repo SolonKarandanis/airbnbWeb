@@ -9,6 +9,7 @@ import { CategoryComponent } from './category/category.component';
 import { ToastService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -53,7 +54,7 @@ import { MenuItem } from 'primeng/api';
           <button (click)="menu.toggle($event)" class="menu flex align-content-center
             justify-content-around ml-2 pl-3 p-2 border-gray-300 focus:shadow-none hover:shadow-1 border-round-3xl bg-white p-button">
             <fa-icon [icon]="'bars'" class="text-sm text-dark mr-3"></fa-icon>
-            <!-- <app-avatar [imageUrl]="connectedUser.imageUrl" avatarSize="avatar-sm"></app-avatar> -->
+            <app-avatar [imageUrl]="connectedUser?.imageUrl" avatarSize="avatar-sm"></app-avatar>
           </button>
         </div>
       </p-toolbar>
@@ -97,18 +98,20 @@ export class NavbarComponent implements OnInit{
   guests = "Add guests";
   dates = "Any week";
 
-  toastService = inject(ToastService);
-  // authService = inject(AuthService);
-  dialogService = inject(DialogService);
-  activatedRoute = inject(ActivatedRoute);
-  ref: DynamicDialogRef | undefined;
+  private toastService = inject(ToastService);
+  private authService = inject(AuthService);
+  private dialogService = inject(DialogService);
+  private activatedRoute = inject(ActivatedRoute);
+  private ref: DynamicDialogRef | undefined;
+
+  protected  connectedUser =this.authService.loggedUser();
 
   login(){
     // this.authService.login();
   }
 
   logout(){
-    // this.authService.logout();
+    this.authService.logout();
   }
 
   currentMenuItems: MenuItem[] | undefined = [];

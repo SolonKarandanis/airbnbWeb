@@ -1,5 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
+import { UserModel } from '@models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,30 @@ import { AuthService } from '@core/services/auth.service';
     <p>
       home works!
     </p>
-    @if(vm(); as vm){
+    {{user.username}}
+    <!-- @if(vm(); as vm){
       {{vm.loggedUser?.username}}
-    }
+    } -->
   `,
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
-  private authService = inject(AuthService);
+
+  protected user:UserModel;
+
+  constructor(
+    private authService:AuthService
+  ){
+    this.user =  this.authService.loggedUser()!;
+    effect(()=>{
+      this.user
+    });
+  }
+
 
   protected vm = computed(()=>{
     const loggedUser = this.authService.loggedUser();
-    console.log(loggedUser);
     return {
       loggedUser
     }
