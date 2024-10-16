@@ -11,34 +11,33 @@ import { Observable } from "rxjs";
 })
 export class UserRepository  extends BaseRepository{
 
-    private userEndpoint = `${ApiControllers.USERS}`;
 
     searchUsers(request:UserSearchRequest):Observable<SearchResult<UserModel>>{
         return this.http
-            .post<SearchResult<UserModel>>(`${this.userEndpoint}/search`,request);
+            .post<SearchResult<UserModel>>(`${ApiControllers.USERS}/search`,request);
     }
 
     getUserById(id:string):Observable<UserModel>{
-        return this.http.get<UserModel>(`${this.userEndpoint}/${id}`);
+        return this.http.get<UserModel>(`${ApiControllers.USERS}/${id}`);
     }
 
     registerUser(request:CreateUserRequest):Observable<UserModel>{
-        return this.http.post<UserModel>(`${this.userEndpoint}`,request);
+        return this.http.post<UserModel>(`${ApiControllers.USERS}`,request);
     }
 
     updateUser(id:string,request:UpdateUserRequest):Observable<UserModel>{
-        return this.http.put<UserModel>(`${this.userEndpoint}/${id}`,request);
+        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}`,request);
     }
 
     deleteUser(id:string):Observable<void>{
-        return this.http.delete<void>(`${this.userEndpoint}/${id}`);
+        return this.http.delete<void>(`${ApiControllers.USERS}/${id}`);
     }
 
     activateUser(id:string):Observable<UserModel>{
-        return this.http.put<UserModel>(`${this.userEndpoint}/${id}/activate`,{});
+        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/activate`,{});
     }
 
     deactivateUser(id:string):Observable<UserModel>{
-        return this.http.put<UserModel>(`${this.userEndpoint}/${id}/deactivate`,{});
+        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/deactivate`,{});
     }
 }

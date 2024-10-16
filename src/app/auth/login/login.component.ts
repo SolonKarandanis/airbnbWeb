@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TranslationModule } from 'src/app/i18n/translation.module';
+import { ButtonModule } from 'primeng/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,8 @@ import { TranslationModule } from 'src/app/i18n/translation.module';
     FontAwesomeModule,
     ReactiveFormsModule,
     TranslationModule,
+    ButtonModule,
+    RouterLink,
   ],
   styles: `
     .container{
@@ -190,14 +194,21 @@ import { TranslationModule } from 'src/app/i18n/translation.module';
               autocomplete="current-password">
           </div>
           <button 
-            type="button" 
-            class="button login__submit"
-            (click)="login()">
-            <span class="button__text">{{ "LOGIN.BUTTONS.login" | translate }}</span>
-            <fa-icon class="button__icon" [icon]="faChevronRight"></fa-icon>
-				  </button>
+            pButton 
+            pRipple
+            type="button"
+            severity="info"
+            icon="pi pi-arrow-right"
+            iconPos="right"
+            class="w-full"
+            [rounded]="true"
+            label='{{ "LOGIN.BUTTONS.login" | translate }}' 
+            (click)="login()"
+            [loading]="isLoading()"
+            [disabled]="isLoading()">
+          </button>
           <div class="register-forget opacity">
-            <a href="">REGISTER</a>
+            <a routerLink="/auth/registration">REGISTER</a>
             <a href="">{{ "LOGIN.BUTTONS.forgot-pass" | translate }}</a>
           </div>
         </form>
@@ -221,6 +232,8 @@ export class LoginComponent implements OnInit{
 
   private authService = inject(AuthService);
   private fb= inject(FormBuilder);
+
+  public isLoading = this.authService.isLoading;
 
   ngOnInit(): void {
     this.initForm();

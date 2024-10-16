@@ -9,9 +9,6 @@ import { ApiControllers } from "./ApiControllers";
 })
 export class FilesRepository extends BaseRepository{
 
-    private filesEndpoint = `${ApiControllers.FILES}`;
-    // private httpUtil= inject(HttpUtil);
-
     /**
      * Get the data of a file from the backend for downloading
      * @param fileid The file's ID
@@ -20,7 +17,7 @@ export class FilesRepository extends BaseRepository{
    
     
     downloadFile(fileid: number): Observable<HttpResponse<ArrayBuffer>> {
-        return this.http.get(`${this.filesEndpoint}/${fileid}`, {
+        return this.http.get(`${ApiControllers.FILES}/${fileid}`, {
             responseType: 'arraybuffer',
             observe: 'response',
         });

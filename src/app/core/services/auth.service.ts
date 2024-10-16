@@ -20,8 +20,8 @@ export class AuthService{
   private utilService = inject(UtilService);
   private router = inject(Router);
 
-  public isLoading = this.authStore.loading();
-  public isLoggedIn = this.authStore.isLoggedIn();
+  public isLoading = this.authStore.loading;
+  public isLoggedIn = this.authStore.isLoggedIn;
 
 
   // public methods
@@ -49,7 +49,7 @@ export class AuthService{
    * @returns  if the user is loggedin
   */
   public isAuthenticated():boolean{
-    if(this.isLoggedIn ||this.isJwtExpired()){
+    if(this.isLoggedIn() ||this.isJwtExpired()){
       return true;
     }
     return false;
