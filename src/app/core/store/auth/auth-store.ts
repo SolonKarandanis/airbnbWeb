@@ -77,6 +77,9 @@ export const AuthStore = signalStore(
             jwtService.destroyTokenExpiration();
             patchState(state,initialAuthState)
         },
+        setAccountInfo(token:string,expires:string,user:UserModel){
+            patchState(state,{authToken:token,expires,isLoggedIn:true,user});
+        },
         getUserAccount: rxMethod<void>(
             pipe(
                 tap(() => {

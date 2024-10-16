@@ -23,6 +23,7 @@ export class AuthService extends GenericService{
 
   public isLoading:Signal<boolean>;
   public isLoggedIn:Signal<boolean>;
+  public loggedUser:Signal<UserModel| undefined>;
 
   constructor(
     private authStore:AuthStore,
@@ -32,15 +33,31 @@ export class AuthService extends GenericService{
     super()
     this.isLoading = this.authStore.loading;
     this.isLoggedIn = this.authStore.isLoggedIn;
+    this.loggedUser=this.authStore.getUser;
 
     effect(()=>{
-      const loggedIn=this.isLoggedIn();
-      untracked(()=>{
-        this.router.navigate(['/home'], {
-          queryParams: {},
+      const loggedIn=this.isAuthenticated();
+      if(loggedIn){
+        untracked(()=>{
+          this.router.navigate(['/home'], {
+            queryParams: {},
+          });
         });
-      });
+      }
     });
+
+    effect(()=>{
+      const isUserInStore = this.isLoggedIn();
+      const expired =this.isJwtExpired();
+      if(!isUserInStore && !expired){
+        const token = jwtService.getToken();
+        const expires = jwtService.getTokenExpiration();
+        const userFromStoreage = this.getUser(token);
+        if(token && expires && userFromStoreage){
+          this.authStore.setAccountInfo(token,expires,userFromStoreage);
+        }
+      }
+    },{allowSignalWrites:true});
   }
 
 
