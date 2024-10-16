@@ -48,9 +48,7 @@ export class AuthService extends GenericService{
       const isUserInStore = this.isLoggedIn();
       const expired =this.isJwtExpired();
       if(!isUserInStore && !expired){
-        untracked(()=>{
-          this.setAccountInfoToStore();
-        });
+        this.setAccountInfoToStore();
       }
     },{allowSignalWrites:true});
   }
