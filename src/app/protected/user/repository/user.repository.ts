@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 })
 export class UserRepository  extends BaseRepository{
 
-    private userEndpoint = `${this.airBnbEndpoint}/${ApiControllers.USERS}`;
+    private userEndpoint = `${ApiControllers.USERS}`;
 
     searchUsers(request:UserSearchRequest):Observable<SearchResult<UserModel>>{
         return this.http

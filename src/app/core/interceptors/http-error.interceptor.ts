@@ -42,7 +42,6 @@ export const httpError: HttpInterceptorFn = (
                         errorService.showErrorMessage(error, errorMessage);
                     });
                 } else {
-                    console.log('else');
                     errorService.showErrorMessage(error);
                 }
 

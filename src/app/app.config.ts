@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { HttpBackend, HttpClient, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { authExpired } from './core/interceptors/auth-expired.interceptor';
 import { MessageService } from 'primeng/api';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -11,6 +11,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader'
 import { firstValueFrom } from 'rxjs';
 import { httpError } from './core/interceptors/http-error.interceptor';
 import { ErrorService } from './core/services/error.service';
+import { BaseUrlInterceptor } from '@core/interceptors/base-url.interceptor';
+import { LanguageInterceptor } from '@core/interceptors/language.interceptor';
 
 
 export const provideTranslation = () => ({
@@ -30,6 +32,16 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideStore(),
     provideAnimations(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LanguageInterceptor,
+      multi: true,
+    },
     provideHttpClient(
       withInterceptors([
         httpError,

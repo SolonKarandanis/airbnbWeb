@@ -9,7 +9,7 @@ import { ApiControllers } from "./ApiControllers";
 })
 export class FilesRepository extends BaseRepository{
 
-    private filesEndpoint = `${this.airBnbEndpoint}/${ApiControllers.FILES}`;
+    private filesEndpoint = `${ApiControllers.FILES}`;
     // private httpUtil= inject(HttpUtil);
 
     /**

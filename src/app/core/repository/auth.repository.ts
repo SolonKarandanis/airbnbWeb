@@ -14,13 +14,13 @@ import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 export class AuthRepository extends BaseRepository{
 
     login(credentials:SubmitCredentialsDTO):Observable<JwtDTO>{
-        return this.http.post<JwtDTO>(`${this.airBnbEndpoint}/${ApiControllers.AUTH}`,credentials,{
+        return this.http.post<JwtDTO>(`${ApiControllers.AUTH}`,credentials,{
             context: new HttpContext().set(AUTHENTICATE_REQUEST, false),
         })
     }
 
     getUserByToken(): Observable<UserModel> {
-        return this.http.get<UserModel>(`${this.airBnbEndpoint}/${ApiControllers.USERS}/account`);
+        return this.http.get<UserModel>(`${ApiControllers.USERS}/account`);
     }
 
     // getUserOperations(): Observable<OperationModel[]> {
