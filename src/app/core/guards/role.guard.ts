@@ -1,4 +1,4 @@
-import { AuthStore } from './../store/auth/auth-store';
+import { AuthStore } from '../store/auth/auth.store';
 import { inject, Injectable, Signal } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, GuardResult, MaybeAsync, RouterStateSnapshot } from "@angular/router";
 import { MessageService } from "primeng/api";

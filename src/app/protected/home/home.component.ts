@@ -10,7 +10,7 @@ import { UserModel } from '@models/user.model';
     <p>
       home works!
     </p>
-    {{user.username}}
+    {{user?.username}}
     <!-- @if(vm(); as vm){
       {{vm.loggedUser?.username}}
     } -->
@@ -20,12 +20,12 @@ import { UserModel } from '@models/user.model';
 })
 export class HomeComponent {
 
-  protected user:UserModel;
+  protected user:UserModel| undefined;
 
   constructor(
     private authService:AuthService
   ){
-    this.user =  this.authService.loggedUser()!;
+    this.user =  this.authService.loggedUser();
     effect(()=>{
       this.user
     });

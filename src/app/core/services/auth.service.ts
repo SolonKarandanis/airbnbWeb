@@ -1,4 +1,4 @@
-import { AuthStore } from './../store/auth/auth-store';
+import { AuthStore } from '../store/auth/auth.store';
 import { effect,Injectable, Signal, untracked } from "@angular/core";
 import { UserModel } from "@models/user.model";
 import { Router } from "@angular/router";

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { inject, Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
-import { AuthStore } from "../store/auth/auth-store";
+import { AuthStore } from "../store/auth/auth.store";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 import { JwtUtil } from "@core/services/JwtUtil";
 
