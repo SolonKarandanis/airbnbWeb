@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { UserModel } from "@models/user.model";
+import { JwtPayload } from "jsonwebtoken";
 
 @Injectable({
     providedIn: 'root',
@@ -50,5 +52,68 @@ export class JwtUtil{
     */
     public destroyTokenExpiration():void{
         window.sessionStorage.removeItem(this.ID_TOKEN_KEY_EXPIRATION);
+    }
+
+   /**
+   * Checks if the JWT has expired
+   * @returns If the JWT has expired
+   */
+    public isJwtExpired(): boolean {
+        const jwt: JwtPayload | null = this.parseJwtAsPayload(this.getToken());
+        
+        if (jwt) {
+            const expDate: Date = new Date(jwt.exp! * 1000);
+            const nowDate: Date = new Date();
+            const isExpired = expDate < nowDate;
+            return isExpired;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+    * Parses the token as Users
+    * @param token The string that contains the encoded JWT contents
+    * @returns The decoded Users object
+    */
+    public getUser(token: string | null):UserModel | null{
+        if (!token) {
+            return null;
+        }
+        const jsonPayload = this.getPayLoad(token);
+        return JSON.parse(jsonPayload) as UserModel;
+    }
+
+    /**
+    * Parses the token as JwtPayload
+    * @param token The string that contains the encoded JWT contents
+    * @returns The decoded JWT object
+    */
+    private parseJwtAsPayload(token: string | null): JwtPayload | null {
+        if (!token) {
+            return null;
+        } 
+        const jsonPayload = this.getPayLoad(token);
+        return JSON.parse(jsonPayload);
+    }
+
+    /**
+    * Decodes a JWT
+    * @param token The string that contains the encoded JWT contents
+    * @returns The decoded JWT string
+    */
+    private getPayLoad(token: string):string{
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(
+            window
+                .atob(base64)
+                .split('')
+                .map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                })
+                .join('')
+        );
+        return jsonPayload;
     }
 }

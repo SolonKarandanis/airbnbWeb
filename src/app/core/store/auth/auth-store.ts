@@ -98,14 +98,22 @@ export const AuthStore = signalStore(
         )
     })),
     withHooks((
-        {},
+        {setAccountInfo},
         jwtUtil = inject(JwtUtil),
     )=>{
+        const setAccountInfoToStore =():void =>{
+            const token = jwtUtil.getToken();
+            const expirationDate = jwtUtil.getTokenExpiration();
+            const userFromStorage = jwtUtil.getUser(token);
+            const isExpired =jwtUtil.isJwtExpired();
+            if(!isExpired && token && expirationDate && userFromStorage){
+                setAccountInfo(token,expirationDate,userFromStorage);
+            }
+        }
+
         return {
             onInit(){
-                const token = jwtUtil.getToken();
-                const expires = jwtUtil.getTokenExpiration();
-                // const userFromStorage = this.getUser(token);
+                setAccountInfoToStore();
             }
         }
     })

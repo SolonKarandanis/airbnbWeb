@@ -4,7 +4,6 @@ import { UserModel } from "@models/user.model";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
 import { SubmitCredentialsDTO } from "@models/auth.model";
-import { JwtPayload } from 'jsonwebtoken';
 import { GenericService } from './generic.service';
 import { JwtUtil } from './JwtUtil';
 
@@ -40,14 +39,6 @@ export class AuthService extends GenericService{
         });
       }
     });
-
-    effect(()=>{
-      const isUserInStore = this.isLoggedIn();
-      const expired =this.isJwtExpired();
-      if(!isUserInStore && !expired){
-        this.setAccountInfoToStore();
-      }
-    },{allowSignalWrites:true});
   }
 
 
@@ -61,15 +52,6 @@ export class AuthService extends GenericService{
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
-  }
-
-  private setAccountInfoToStore():void{
-    const token = this.jwtUtil.getToken();
-    const expires = this.jwtUtil.getTokenExpiration();
-    const userFromStorage = this.getUser(token);
-    if(token && expires && userFromStorage){
-      this.authStore.setAccountInfo(token,expires,userFromStorage);
-    }
   }
 
 
@@ -100,7 +82,7 @@ export class AuthService extends GenericService{
    * @returns  if the user is loggedin
   */
   public isAuthenticated():boolean{
-    if(this.isLoggedIn() || !this.isJwtExpired()){
+    if(this.isLoggedIn() || !this.jwtUtil.isJwtExpired()){
       return true;
     }
     return false;
@@ -112,14 +94,7 @@ export class AuthService extends GenericService{
     if(storeValue){
       return storeValue;
     }
-
-    const token = this.jwtUtil.getToken();
-    if(!token){
-        return null;
-    }
-    const loggedUser =this.getUser(token) as UserModel;
-    const {username} = loggedUser;
-    return username;
+    return null;
   }
 
   /**
@@ -140,81 +115,14 @@ export class AuthService extends GenericService{
    * @returns If the JWT has expired
   */
   public getUserRoles():string[]|null{
-        const token = this.jwtUtil.getToken();
-        if(!token){
-            return null;
-        }
-        const loggedUser =this.getUser(token) as UserModel;
-        // const {roleNames} = loggedUser;
-        // return roleNames;
-        return null;
-  }
-
-  /**
-   * Checks if the JWT has expired
-   * @returns If the JWT has expired
-   */
-  public isJwtExpired(): boolean {
-    const jwt: JwtPayload | null = this.parseJwtAsPayload(this.jwtUtil.getToken());
-    
-    if (jwt) {
-        const expDate: Date = new Date(jwt.exp! * 1000);
-        const nowDate: Date = new Date();
-        const isExpired = expDate < nowDate;
-        return isExpired;
-    } else {
-        return true;
-    }
-  }
-
-  /**
-   * Parses the token as Users
-   * @param token The string that contains the encoded JWT contents
-   * @returns The decoded Users object
-  */
-  private getUser(token: string | null):UserModel | null{
-    const storeValue=this.authStore.getUser();
-    if(storeValue){
-      return storeValue;
-    }
-
-    if (!token) {
-      return null;
-    }
-    const jsonPayload = this.getPayLoad(token);
-    return JSON.parse(jsonPayload) as UserModel;
-  }
-
-   /**
-   * Parses the token as JwtPayload
-   * @param token The string that contains the encoded JWT contents
-   * @returns The decoded JWT object
-  */
-   private parseJwtAsPayload(token: string | null): JwtPayload | null {
-      if (!token) {
+      const token = this.jwtUtil.getToken();
+      if(!token){
           return null;
-      } 
-      const jsonPayload = this.getPayLoad(token);
-      return JSON.parse(jsonPayload);
-    }
+      }
+      // const loggedUser =this.getUser(token) as UserModel;
+      // const {roleNames} = loggedUser;
+      // return roleNames;
+      return null;
+  }
 
-    /**
-   * Decodes a JWT
-   * @param token The string that contains the encoded JWT contents
-   * @returns The decoded JWT string
-  */
-    private getPayLoad(token: string):string{
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-          window
-              .atob(base64)
-              .split('')
-              .map(function (c) {
-                  return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join('')
-      );
-      return jsonPayload;
-    }
 }
