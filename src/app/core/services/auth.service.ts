@@ -1,11 +1,9 @@
 import { AuthStore } from './../store/auth/auth-store';
 import { effect,Injectable, Signal, untracked } from "@angular/core";
 import { UserModel } from "@models/user.model";
-import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
 import { SubmitCredentialsDTO } from "@models/auth.model";
 import { GenericService } from './generic.service';
-import { JwtUtil } from './JwtUtil';
 
 export type UserType = UserModel | undefined;
 type AuthStore = InstanceType<typeof AuthStore>;
@@ -22,8 +20,6 @@ export class AuthService extends GenericService{
 
   constructor(
     private authStore:AuthStore,
-    private utilService:UtilService,
-    private jwtUtil:JwtUtil,
     private router:Router,
   ){
     super()
@@ -82,7 +78,7 @@ export class AuthService extends GenericService{
    * @returns  if the user is loggedin
   */
   public isAuthenticated():boolean{
-    if(this.isLoggedIn() || !this.jwtUtil.isJwtExpired()){
+    if(this.isLoggedIn() || !this.authStore.isJwtExpired()){
       return true;
     }
     return false;
@@ -102,27 +98,27 @@ export class AuthService extends GenericService{
    * @param allowedRoles the supplied roles
    * @returns where the user has access
   */
-  public hasRoles(allowedRoles:Array<string>):boolean{
-    const userRoles = this.getUserRoles();
-    if(!userRoles){
-      return false;
-    }
-    return this.utilService.findCommonElement(userRoles,allowedRoles);
-  }
+  // public hasRoles(allowedRoles:Array<string>):boolean{
+  //   const userRoles = this.getUserRoles();
+  //   if(!userRoles){
+  //     return false;
+  //   }
+  //   return this.utilService.findCommonElement(userRoles,allowedRoles);
+  // }
 
   /**
    * Returns the user roles
    * @returns If the JWT has expired
   */
-  public getUserRoles():string[]|null{
-      const token = this.jwtUtil.getToken();
-      if(!token){
-          return null;
-      }
-      // const loggedUser =this.getUser(token) as UserModel;
-      // const {roleNames} = loggedUser;
-      // return roleNames;
-      return null;
-  }
+  // public getUserRoles():string[]|null{
+  //     const token = this.jwtUtil.getToken();
+  //     if(!token){
+  //         return null;
+  //     }
+  //     // const loggedUser =this.getUser(token) as UserModel;
+  //     // const {roleNames} = loggedUser;
+  //     // return roleNames;
+  //     return null;
+  // }
 
 }

@@ -15,11 +15,22 @@ export const AuthStore = signalStore(
     withState<AuthState>(initialAuthState),
     withComputed((
         {
-            user
+            user,
+            expires
         },
     )=>({
         getUsername: computed(()=>user()?.username),
         getUser: computed(()=> user()),
+        isJwtExpired: computed(()=>{
+            const  date= expires()
+            if(date){
+                const expDate: Date = new Date(Number(date) * 1000);
+                const nowDate: Date = new Date();
+                const isExpired = expDate < nowDate;
+                return isExpired;
+            }
+            return true;
+        }),
     })),
     withMethods((
         state,
