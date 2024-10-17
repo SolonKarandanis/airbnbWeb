@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import { initialUserState, UserState } from "./user-state";
+import { initialUserState, UserState } from "./user.state";
 import { computed, inject } from "@angular/core";
 import { UserRepository } from "../repository/user.repository";
 import { UserSearchRequest } from "@models/search.model";
