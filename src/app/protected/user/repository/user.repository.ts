@@ -12,32 +12,32 @@ import { Observable } from "rxjs";
 export class UserRepository  extends BaseRepository{
 
 
-    searchUsers(request:UserSearchRequest):Observable<SearchResult<UserModel>>{
+    public searchUsers(request:UserSearchRequest):Observable<SearchResult<UserModel>>{
         return this.http
             .post<SearchResult<UserModel>>(`${ApiControllers.USERS}/search`,request);
     }
 
-    getUserById(id:string):Observable<UserModel>{
+    public getUserById(id:string):Observable<UserModel>{
         return this.http.get<UserModel>(`${ApiControllers.USERS}/${id}`);
     }
 
-    registerUser(request:CreateUserRequest):Observable<UserModel>{
+    public registerUser(request:CreateUserRequest):Observable<UserModel>{
         return this.http.post<UserModel>(`${ApiControllers.USERS}`,request);
     }
 
-    updateUser(id:string,request:UpdateUserRequest):Observable<UserModel>{
+    public updateUser(id:string,request:UpdateUserRequest):Observable<UserModel>{
         return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}`,request);
     }
 
-    deleteUser(id:string):Observable<void>{
+    public deleteUser(id:string):Observable<void>{
         return this.http.delete<void>(`${ApiControllers.USERS}/${id}`);
     }
 
-    activateUser(id:string):Observable<UserModel>{
+    public activateUser(id:string):Observable<UserModel>{
         return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/activate`,{});
     }
 
-    deactivateUser(id:string):Observable<UserModel>{
+    public deactivateUser(id:string):Observable<UserModel>{
         return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/deactivate`,{});
     }
 }

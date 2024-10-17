@@ -1,4 +1,4 @@
-import { CategoryName } from "src/app/layout/navbar/category/category.model";
+import { CategoryName } from "./category.model";
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from "./listing-vo.model";
 import { NewListingPicture } from "./picture.model";
 
@@ -40,7 +40,6 @@ export interface CardListing {
     cover: DisplayPicture,
     bookingCategory: CategoryName,
     publicId: string,
-    loading: boolean
 }
   
 export interface Listing {
