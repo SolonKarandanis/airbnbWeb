@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
-import { Category, CategoryName } from './category.model';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { filter, map } from 'rxjs/operators';
+import { Category, CategoryName } from '@models/category.model';
 
 @Component({
   selector: 'app-category',
