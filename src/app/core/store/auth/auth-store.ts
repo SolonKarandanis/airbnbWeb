@@ -1,4 +1,4 @@
-import { signalStore,withState,withMethods,withComputed, patchState} from "@ngrx/signals";
+import { signalStore,withState,withMethods,withComputed, patchState, withHooks} from "@ngrx/signals";
 import { AuthState, initialAuthState } from "./auth-state";
 import { computed, inject, Signal } from "@angular/core";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -7,8 +7,8 @@ import {pipe, switchMap, tap} from "rxjs"
 import { tapResponse } from '@ngrx/operators';
 import { UserModel } from "@models/user.model";
 import { ErrorResponse } from "@models/error.model";
-import jwtService from "../../services/jwt.service";
 import { AuthRepository } from "../../repository/auth.repository";
+import { JwtUtil } from "@core/services/JwtUtil";
 
 export const AuthStore = signalStore(
     { providedIn: 'root' },
@@ -24,6 +24,7 @@ export const AuthStore = signalStore(
     withMethods((
         state,
         authRepo = inject(AuthRepository),
+        jwtUtil = inject(JwtUtil),
     )=>({
         hasAnyAuthority: (authorities: string[] | string): Signal<boolean> => computed(() => {
             if(!state.isLoggedIn()){
@@ -44,8 +45,8 @@ export const AuthStore = signalStore(
                     authRepo.login(creadentials).pipe(
                         tapResponse({
                             next:({token,expires})=>{
-                                jwtService.saveToken(token);
-                                jwtService.saveTokenExpiration(expires);
+                                jwtUtil.saveToken(token);
+                                jwtUtil.saveTokenExpiration(expires);
                                 patchState(state,{authToken:token,expires,errorMessage:null,showError:false,loading:false})
                             },
                             error: (error:ErrorResponse) =>{
@@ -69,8 +70,8 @@ export const AuthStore = signalStore(
             )
         ),
         logout(){
-            jwtService.destroyToken();
-            jwtService.destroyTokenExpiration();
+            jwtUtil.destroyToken();
+            jwtUtil.destroyTokenExpiration();
             patchState(state,initialAuthState)
         },
         setAccountInfo(token:string,expires:string,user:UserModel){
@@ -96,4 +97,16 @@ export const AuthStore = signalStore(
             )
         )
     })),
+    withHooks((
+        {},
+        jwtUtil = inject(JwtUtil),
+    )=>{
+        return {
+            onInit(){
+                const token = jwtUtil.getToken();
+                const expires = jwtUtil.getTokenExpiration();
+                // const userFromStorage = this.getUser(token);
+            }
+        }
+    })
 );

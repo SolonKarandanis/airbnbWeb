@@ -1,12 +1,12 @@
 import { AuthStore } from './../store/auth/auth-store';
-import { effect, inject, Injectable, Signal, untracked } from "@angular/core";
+import { effect,Injectable, Signal, untracked } from "@angular/core";
 import { UserModel } from "@models/user.model";
 import { UtilService } from "./util.service";
 import { Router } from "@angular/router";
 import { SubmitCredentialsDTO } from "@models/auth.model";
-import jwtService from "./jwt.service";
 import { JwtPayload } from 'jsonwebtoken';
 import { GenericService } from './generic.service';
+import { JwtUtil } from './JwtUtil';
 
 export type UserType = UserModel | undefined;
 type AuthStore = InstanceType<typeof AuthStore>;
@@ -24,6 +24,7 @@ export class AuthService extends GenericService{
   constructor(
     private authStore:AuthStore,
     private utilService:UtilService,
+    private jwtUtil:JwtUtil,
     private router:Router,
   ){
     super()
@@ -49,6 +50,7 @@ export class AuthService extends GenericService{
     },{allowSignalWrites:true});
   }
 
+
   private navigateToHome():void{
     this.router.navigate(['/home'], {
       queryParams: {},
@@ -62,8 +64,8 @@ export class AuthService extends GenericService{
   }
 
   private setAccountInfoToStore():void{
-    const token = jwtService.getToken();
-    const expires = jwtService.getTokenExpiration();
+    const token = this.jwtUtil.getToken();
+    const expires = this.jwtUtil.getTokenExpiration();
     const userFromStorage = this.getUser(token);
     if(token && expires && userFromStorage){
       this.authStore.setAccountInfo(token,expires,userFromStorage);
@@ -111,7 +113,7 @@ export class AuthService extends GenericService{
       return storeValue;
     }
 
-    const token = jwtService.getToken();
+    const token = this.jwtUtil.getToken();
     if(!token){
         return null;
     }
@@ -138,7 +140,7 @@ export class AuthService extends GenericService{
    * @returns If the JWT has expired
   */
   public getUserRoles():string[]|null{
-        const token = jwtService.getToken();
+        const token = this.jwtUtil.getToken();
         if(!token){
             return null;
         }
@@ -153,7 +155,7 @@ export class AuthService extends GenericService{
    * @returns If the JWT has expired
    */
   public isJwtExpired(): boolean {
-    const jwt: JwtPayload | null = this.parseJwtAsPayload(jwtService.getToken());
+    const jwt: JwtPayload | null = this.parseJwtAsPayload(this.jwtUtil.getToken());
     
     if (jwt) {
         const expDate: Date = new Date(jwt.exp! * 1000);

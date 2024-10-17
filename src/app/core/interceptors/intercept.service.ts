@@ -2,21 +2,22 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { inject, Injectable } from "@angular/core";
 import { Observable} from "rxjs";
 import { tap } from 'rxjs/operators';
-import jwtService from "../services/jwt.service";
 import { AuthStore } from "../store/auth/auth-store";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
+import { JwtUtil } from "@core/services/JwtUtil";
 
 
 @Injectable()
 export class InterceptService implements HttpInterceptor{
 
     private authStore = inject(AuthStore);
+    private jwtUtil = inject(JwtUtil);
     
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler
       ): Observable<HttpEvent<any>>{
-        const userToken = jwtService.getToken();
+        const userToken = this.jwtUtil.getToken();
         if (request.context.get(AUTHENTICATE_REQUEST) && userToken){
             request = request.clone({
                 setHeaders: {

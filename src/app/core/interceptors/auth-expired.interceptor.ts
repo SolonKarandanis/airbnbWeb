@@ -1,9 +1,9 @@
 import {  HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponse } from "@angular/common/http";
 import { inject } from "@angular/core";
-import jwtService from "../services/jwt.service";
 import { AUTHENTICATE_REQUEST } from "../guards/SecurityConstants";
 import { tap } from 'rxjs/operators';
 import { AuthService } from "../services/auth.service";
+import { JwtUtil } from "@core/services/JwtUtil";
 
 
 export const authExpired: HttpInterceptorFn = (
@@ -11,7 +11,8 @@ export const authExpired: HttpInterceptorFn = (
     next: HttpHandlerFn
   ) => {
     const authService = inject(AuthService);
-    const userToken = jwtService.getToken();
+    const jwtUtil = inject(JwtUtil);
+    const userToken = jwtUtil.getToken();
     if (request.context.get(AUTHENTICATE_REQUEST)){
         request = request.clone({
             setHeaders: {
