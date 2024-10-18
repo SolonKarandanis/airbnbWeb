@@ -1,44 +1,46 @@
 import { PriceVO } from "./listing-vo.model";
 import { DisplayPicture } from "./listing.model";
 
-export interface BookedDatesDTOFromServer {
-    startDate: Date;
-    endDate: Date;
-  }
+export interface BookedDates {
+    startDate: string;
+    endDate: string;
+}
+
+export interface Booking{
+  publicId: string,
+  startDate: string,
+  endDate: string,
+  totalPrice:number,
+  numberOfTravelers:number,
+  fkTenant: string,
+  fkListing: string,
+}
   
-  export interface BookedListing {
+export interface BookedListing {
     location: string,
     cover: DisplayPicture,
     totalPrice: PriceVO,
-    dates: BookedDatesDTOFromServer,
+    dates: BookedDates,
     bookingPublicId: string,
     listingPublicId: string,
-    loading: boolean
-  }
+}
 
-  export interface CreateBooking {
-    startDate: Date,
-    endDate: Date,
+export interface CreateBooking {
+    startDate: string,
+    endDate: string,
     listingPublicId: string,
-  }
+}
 
-  export interface BookedDatesDTOFromClient {
+export interface BookedDatesDTOFromClient {
     // startDate: Dayjs,
     // endDate: Dayjs,
-  }
+}
   
-  export interface BookedDatesDTOFromServer {
-    startDate: Date,
-    endDate: Date,
-  }
-  
-  
-  export interface BookedListing {
+export interface BookedListing {
     location: string,
     cover: DisplayPicture,
     totalPrice: PriceVO,
-    dates: BookedDatesDTOFromServer,
+    dates: BookedDates,
     bookingPublicId: string,
     listingPublicId: string,
-    loading: boolean
-  }
+}
