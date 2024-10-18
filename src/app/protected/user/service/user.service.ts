@@ -20,14 +20,29 @@ export class UserService extends GenericService{
   public totalCount = this.userStore.totalCount();
 
 
+  /**
+  * Get the details of a specific user
+  * @param id the id of the user
+  * @returns nothing
+  */
   public executeGetUserById(id:string):void{
     this.userStore.getUserById(id);
   }
 
+  /**
+  * Register a new user
+  * @param request the request for creating a new user
+  * @returns nothing
+  */
   public executeRegisterUser(form: FormGroup<CreateUserForm>):void{
 
   }
 
+  /**
+  * Update a selected user
+  * @param request the request for updating user
+  * @returns nothing
+  */
   public executeUpdateUser(form: FormGroup<UpdateUserForm>):void{
     const id = this.userId;
     if(id){
@@ -67,24 +82,44 @@ export class UserService extends GenericService{
   }
 
 
+  /**
+  * Delete a  user
+  * @param id the id of the user
+  * @returns nothing
+  */
   public executeDeleteUser():void{
     if(this.userId){
       this.userStore.deleteUser(this.userId);
     }
   }
 
+  /**
+  * Activate a  user
+  * @param id the id of the user
+  * @returns nothing
+  */
   public executeActivateUser():void{
     if(this.userId){
       this.userStore.activateUser(this.userId);
     }
   }
 
+  /**
+  * Deactivate a  user
+  * @param id the id of the user
+  * @returns nothing
+  */
   public executeDeactivateUser():void{
     if(this.userId){
       this.userStore.deactivateUser(this.userId);
     }
   }
 
+  /**
+  * Search for users
+  * @param request The search criteria
+  * @returns nothing
+  */
   public executeSearchUsers(searchForm: FormGroup<UserSearchForm>):void{
     const request = this.toUserSearchRequest(searchForm);
     this.userStore.searchUsers(request);

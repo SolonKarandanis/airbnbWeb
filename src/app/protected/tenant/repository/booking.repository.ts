@@ -47,7 +47,9 @@ export class BookingRepository  extends BaseRepository{
 
     /**
     * Cancel a booking
-    * @param id the id of the user
+    * @param bookingPublicId bookingPublicId
+    * @param listingPublicId listingPublicId
+    * @param byLandlord byLandlord
     * @returns An observable that resolves to no data
     */
     public cancelBooking(

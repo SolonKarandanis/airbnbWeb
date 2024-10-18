@@ -20,6 +20,15 @@ export class TenantService extends GenericService{
     public availabilityDates = this.tenantStore.availabilityDates();
     public bookedListings = this.tenantStore.bookedListings();
 
+    /**
+    * Get the Listings by category
+    * @param category the category of the listing
+    * @param page the page number
+    * @param size the results per page
+    * @param sortField the field according to which the results will be sorted
+    * @param sortOrder the sort order
+    * @returns nothing
+    */
     public executeGetAllListingsByBookingAndCategory(
         category:CategoryName,
         page: number, 
@@ -36,30 +45,65 @@ export class TenantService extends GenericService{
         });
     }
 
+    /**
+    * Search for listings
+    * @param request The search criteria
+    * @returns nothing
+    */
     public executeSearchListings(request:ListingSearchRequest):void{
         this.tenantStore.searchListings(request);
     }
 
+    /**
+    * Get the details of a specific listing
+    * @param id the id of the listing
+    * @returns nothing
+    */
     public executeGetListingById(id:string):void{
         this.tenantStore.getListingById(id);
     }
 
+    /**
+    * Create a new booking 
+    * @param request the request to create a new booking
+    * @returns nothing
+    */
     public executeCreateBooking(request:CreateBooking):void{
         this.tenantStore.createBooking(request);
     }
 
+    /**
+    * Check booking availability 
+    * @param listingPublicId the requested listingPublicId
+    * @returns nothing
+    */
     public executeCheckAvailability(listingPublicId:string):void{
         this.tenantStore.checkAvailability(listingPublicId);
     }
 
+    /**
+    * Get the logged in tenants booked listings
+    * @returns nothing
+    */
     public executeGetTenantBookedListings():void{
         this.tenantStore.getTenantBookedListings();
     }
 
+    /**
+    * Get the logged in landlords booked listings
+    * @returns nothing
+    */
     public executeGetLandlordBookedListings():void{
         this.tenantStore.getLandlordBookedListings();
     }
 
+    /**
+    * Cancel a booking
+    * @param bookingPublicId bookingPublicId
+    * @param listingPublicId listingPublicId
+    * @param byLandlord byLandlord
+    * @returns nothing
+    */
     public executeCancelBooking(
         bookingPublicId:string,
         listingPublicId:string,
