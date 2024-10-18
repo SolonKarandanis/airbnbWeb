@@ -36,6 +36,10 @@ export class UserService extends GenericService{
     }
   }
 
+  /**
+   * Initialize the reactive form for updating a user
+   * @returns A FormGroup with the appropriate fields
+   */
   public initUpdateUserForm(): FormGroup<UpdateUserForm>{
     return this.formBuilder.group<UpdateUserForm>({
       username: new FormControl(this.user!.username),
@@ -46,6 +50,10 @@ export class UserService extends GenericService{
     })
   }
 
+  /**
+   * Convert from FormGroup<UpdateUserForm> to UpdateUserRequest
+   * @returns A UpdateUserRequest
+   */
   protected toUpdateUserRequest(searchForm: FormGroup<UpdateUserForm>):UpdateUserRequest{
     const {email,firstName,username,lastName,role} = searchForm.value;
     const request:UpdateUserRequest={
@@ -82,6 +90,10 @@ export class UserService extends GenericService{
     this.userStore.searchUsers(request);
   }
 
+  /**
+   * Initialize the reactive form for searching users
+   * @returns A FormGroup with the appropriate fields
+   */
   public initSearchUserForm(): FormGroup<UserSearchForm>{
     return this.formBuilder.group<UserSearchForm>({
       email: new FormControl(null),
@@ -93,6 +105,10 @@ export class UserService extends GenericService{
     })
   }
 
+  /**
+   * Convert from FormGroup<UserSearchForm> to UserSearchRequest
+   * @returns A UserSearchRequest
+   */
   protected toUserSearchRequest(searchForm: FormGroup<UserSearchForm>):UserSearchRequest{
     const {email,firstName,status,username,rows,first} = searchForm.value;
     const request:UserSearchRequest={
