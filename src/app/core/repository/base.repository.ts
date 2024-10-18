@@ -6,7 +6,7 @@ export class BaseRepository{
 
     private _http = inject(HttpClient);
 
-    public get http():HttpClient{
+    protected get http():HttpClient{
         return this._http;
     }
 }
