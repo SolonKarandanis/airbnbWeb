@@ -1,3 +1,4 @@
+import { BathsVO, BedroomsVO, BedsVO, GuestsVO } from "./listing-vo.model";
 import { UserAccountStatus } from "./user.model";
 
 export type SearchResult<T>={
@@ -73,7 +74,13 @@ export type SearchResult<T>={
   }
 
   export interface ListingSearchRequest extends SearchRequest{
-
+    startDate: string,
+    endDate: string,
+    location: string,
+    guests:GuestsVO | null,
+    bedrooms:BedroomsVO | null,
+    beds:BedsVO | null,
+    baths:BathsVO | null,
   }
 
   export type SearchRequestCriteria = UserSearchRequest | ListingSearchRequest;
