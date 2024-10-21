@@ -95,7 +95,7 @@ export type SearchResult<T>={
 
   export interface SavedSearchModel {
     id?: number;
-    username: string;
+    userId: string;
     searchType: SearchTypeEnum;
     savedSearchName: string;
     criteria: SearchRequestCriteria;
@@ -113,7 +113,7 @@ export type SearchResult<T>={
   
   export interface SearchConfigurationModel {
     id?: number;
-    username: string;
+    userId: string;
     searchType: SearchTypeEnum;
     resultCount: number;
     sortColumnKey?: string;
