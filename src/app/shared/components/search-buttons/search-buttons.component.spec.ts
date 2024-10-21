@@ -8,7 +8,7 @@ describe('SearchButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchButtonsComponent ]
+      imports:[SearchButtonsComponent]
     })
     .compileComponents();
   });
