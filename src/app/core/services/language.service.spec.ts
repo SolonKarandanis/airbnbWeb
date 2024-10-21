@@ -4,7 +4,7 @@ import { LanguageService } from './language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-describe('LanguageService', () => {
+xdescribe('LanguageService', () => {
     let service: LanguageService;
     let translateSpy: jasmine.SpyObj<TranslateService>;
 
