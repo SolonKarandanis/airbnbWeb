@@ -41,3 +41,21 @@ export class LandlordService extends GenericService{
         this.landlordStore.createListing({file,dto});
     }
 }
+
+
+/**
+     * Get the history APUC file of the specified catalogue's history
+     * @param catalogueId The catalogue's ID
+     * @param catalogueHistoryId The catalogue's history's ID
+     * @returns An observable that resolves to an ArrayBuffer with the file's data
+     */
+// getCatalogueHistoryApuc(catalogueId: number, catalogueHistoryId: number): Observable<GenericFile> {
+//   return this.cataloguesController.getCatalogueHistoryApuc(catalogueId, catalogueHistoryId).pipe(
+//       map((responseData: HttpResponse<ArrayBuffer>) => ({
+//           filename: this.httpUtil.getFileNameForContentDisposition(responseData.headers),
+//           mimeType: responseData.headers.get('Content-Type')!,
+//           arrayBuffer: responseData.body!,
+//           id: 0, // Just a random number...
+//       }))
+//   );
+// }

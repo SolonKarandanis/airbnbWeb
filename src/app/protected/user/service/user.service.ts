@@ -186,3 +186,148 @@ interface CreateUserForm{
   email: FormControl<string|null|undefined>;
   role:FormControl<RolesConstants>
 }
+
+
+// private getCatalogueCommonTableColumns(): SearchTableColumn[] {
+//   const translationPrefix: string = 'ADVANCED-SEARCH.SEARCH-CATALOGUES.RESULTS-TABLE.COLS';
+//   const tableColumns: SearchTableColumn[] = [
+//       {
+//           field: 'title',
+//           title: this.translate.instant(`${translationPrefix}.title`),
+//           isLink: true,
+//           routerLinkConfig: {
+//               preRoutes: ['/', 'catalogues'],
+//               postRoutes: ['details'],
+//           },
+//           dataFieldForRoute: 'id',
+//       },
+//       {
+//           field: 'version',
+//           title: this.translate.instant(`${translationPrefix}.version`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'statusLabel',
+//           title: this.translate.instant(`${translationPrefix}.status`),
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'supplierName',
+//           title: this.translate.instant(`${translationPrefix}.supplierName`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//   ];
+
+//   return tableColumns;
+// }
+
+
+/**
+     * Get the columns for catalogues in order to initialize the data table
+     * @param isSearchTable If the table is displayed in advanced search page
+     * @returns The columns of the table
+     */
+// getCataloguesTableColumns(isSearchTable?: boolean): SearchTableColumn[] {
+//   const translationPrefix: string = 'ADVANCED-SEARCH.SEARCH-CATALOGUES.RESULTS-TABLE.COLS';
+//   const tableColumns: SearchTableColumn[] = [
+//       {
+//           field: 'id',
+//           title: this.translate.instant(`${translationPrefix}.id`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//   ];
+
+//   tableColumns.push(...this.getCatalogueCommonTableColumns());
+
+//   tableColumns.push(
+//       {
+//           field: 'validFrom',
+//           title: this.translate.instant(`${translationPrefix}.validFrom`),
+//           enableSorting: true,
+//           isDate: true,
+//       },
+//       {
+//           field: 'validTo',
+//           title: this.translate.instant(`${translationPrefix}.validTo`),
+//           enableSorting: true,
+//           isDate: true,
+//       }
+//   );
+
+//   if (isSearchTable) {
+//       tableColumns.push({
+//           field: 'createdBy',
+//           title: this.translate.instant(`${translationPrefix}.createdBy`),
+//           enableSorting: true,
+//       });
+//   }
+
+//   return tableColumns;
+// }
+
+
+/**
+     * Get the columns for catalogue's history in order to initialize the data table
+     * @returns The columns of the table
+     */
+// getCatalogueHistoryCols(): SearchTableColumn[] {
+//   const translationPrefix: string = 'CATALOGUES.HISTORY.TABLE.COLS';
+//   const tableColumns: SearchTableColumn[] = [
+//       {
+//           field: 'id',
+//           title: this.translate.instant(`${translationPrefix}.id`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'title',
+//           title: this.translate.instant(`${translationPrefix}.title`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'version',
+//           title: this.translate.instant(`${translationPrefix}.version`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'statusLabel',
+//           title: this.translate.instant(`${translationPrefix}.status`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'validFrom',
+//           title: this.translate.instant(`${translationPrefix}.validFrom`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'validTo',
+//           title: this.translate.instant(`${translationPrefix}.validTo`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           field: 'dateCreated',
+//           title: this.translate.instant(`${translationPrefix}.dateCreated`),
+//           isLink: false,
+//           enableSorting: true,
+//       },
+//       {
+//           icon: 'fa-regular fa-eye',
+//           title: this.translate.instant(`${translationPrefix}.actions`),
+//           tooltip: this.translate.instant('GLOBAL.BUTTONS.view-details'),
+//           isButton: true,
+//           dataFieldForButtonAction: 'id',
+//           enableSorting: false,
+//       },
+//   ];
+
+//   return tableColumns;
+// }
+

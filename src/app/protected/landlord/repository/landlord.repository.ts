@@ -42,3 +42,43 @@ export class LandlordRepository  extends BaseRepository{
         return this.http.post<CreatedListing>(`${ApiControllers.LANDLORD}`, formData);
     }
 }
+
+// uploadCatalogue(contractId: number, catalogueFileType: string, catalogue: Catalogue, catalogueFile: File, zipFile: File | null): Observable<number> {
+//     const formData = new FormData();
+//     formData.append('catalogue', this.utilsService.createJsonBlob(catalogue));
+//     formData.append('catalogueFile', catalogueFile, catalogueFile.name);
+//     if (zipFile) {
+//         formData.append('zipFile', zipFile, zipFile.name);
+//     }
+
+//     let params: HttpParams = new HttpParams();
+//     params = params.append('contractId', contractId).append('catalogueFileType', catalogueFileType);
+
+//     return this.http.post<number>(`${ApiControllers.CATALOGUES}`, formData, { params });
+// }
+
+/**
+     * Get a downloadable file associated with the specified catalogue's history
+     * @param catalogueId The catalogue's ID
+     * @param fileType The type of the file to be downloaded or exported
+     * @param params HTTP params that should be sent with the request
+     * @param reqBody The body of the request
+     * @returns An observable that resolves to an ArrayBuffer with the file's data
+     */
+// getCatalogueFiles(catalogueId: number, fileType: CatalogueFilesApiControllers, params?: HttpParams, reqBody?: GenerateReportRequest): Observable<HttpResponse<ArrayBuffer>> {
+//     const tmpParams: HttpParams = params ?? new HttpParams();
+
+//     if (fileType === CatalogueFilesApiControllers.HISTORY_REPORTS) {
+//         return this.http.post(`${ApiControllers.CATALOGUES}/${catalogueId}/${fileType}`, reqBody, {
+//             responseType: 'arraybuffer',
+//             observe: 'response',
+//             params: tmpParams,
+//         });
+//     } else {
+//         return this.http.get(`${ApiControllers.CATALOGUES}/${catalogueId}/${fileType}`, {
+//             responseType: 'arraybuffer',
+//             observe: 'response',
+//             params: tmpParams,
+//         });
+//     }
+// }
