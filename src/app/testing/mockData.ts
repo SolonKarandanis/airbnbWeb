@@ -1,6 +1,6 @@
 import { ListingSearchRequest, Paging, SavedSearchModel, SearchConfigurationCriteria, SearchConfigurationModel, SearchTypeEnum, SortDirection, UserSearchRequest } from '@models/search.model';
 import { RolesConstants } from './../core/guards/SecurityConstants';
-import { UserAccountStatus, UserModel } from "@models/user.model";
+import { CreateUserRequest, UpdateUserRequest, UserAccountStatus, UserModel } from "@models/user.model";
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JwtDTO, SubmitCredentialsDTO } from '@models/auth.model';
 import { GenericFile } from '@models/file.model';
@@ -152,4 +152,21 @@ export const mockItemNameSearchConfigurationCriterion: SearchConfigurationCriter
     customizable: true,
     displayable: true,
     canFieldBeDisplayed: true,
+};
+
+export const mockCreateUserRequest:CreateUserRequest={
+    email:'test',
+    firstName:'test',
+    lastName:'test',
+    password:'test',
+    role:RolesConstants.ROLE_TENANT,
+    username:'test'
+};
+
+export const mockUpdateUserRequest:UpdateUserRequest={
+    email:'test',
+    firstName:'test',
+    lastName:'test',
+    role:RolesConstants.ROLE_LANDLORD,
+    username:'test'
 };

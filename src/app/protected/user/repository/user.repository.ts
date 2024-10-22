@@ -65,7 +65,7 @@ export class UserRepository  extends BaseRepository{
     * @returns An observable with the activated user
     */
     public activateUser(id:string):Observable<UserModel>{
-        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/activate`,{});
+        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/activate`,null);
     }
 
     /**
@@ -74,6 +74,6 @@ export class UserRepository  extends BaseRepository{
     * @returns An observable with the de-activated user
     */
     public deactivateUser(id:string):Observable<UserModel>{
-        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/deactivate`,{});
+        return this.http.put<UserModel>(`${ApiControllers.USERS}/${id}/deactivate`,null);
     }
 }
