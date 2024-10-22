@@ -2,10 +2,15 @@ import { HttpTestingController, provideHttpClientTesting } from "@angular/common
 import { AuthRepository } from "./auth.repository";
 import { TestBed } from "@angular/core/testing";
 import { provideHttpClient } from "@angular/common/http";
+import { mockJwt, mockLoginCredentials, mockUser } from "src/app/testing/mockData";
+import { JwtDTO } from "@models/auth.model";
+import { UserModel } from "@models/user.model";
 
 describe('AuthRepository', () =>{
     let repository: AuthRepository;
     let httpTesting: HttpTestingController;
+    const loginApiUrl: string = 'authenticate';
+    const usersApiUrl: string = 'users';
 
     beforeEach(() =>{
 
@@ -22,5 +27,37 @@ describe('AuthRepository', () =>{
 
     it('should be created', () => {
         expect(repository).toBeTruthy();
+    });
+
+    it('should perform login', () =>{
+        repository.login(mockLoginCredentials).subscribe({
+            next: (result: JwtDTO) =>{
+                expect(result).toBeTruthy();
+                expect(result).toEqual(mockJwt);
+            }
+        });
+
+        const req = httpTesting.expectOne(`${loginApiUrl}`, 'Request perform login request');
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.params.keys().length).toBe(0);
+
+        req.flush(mockJwt);
+    });
+
+    it('should get logged in users account', () =>{
+        repository.getUserByToken().subscribe({
+            next: (result: UserModel) =>{
+                expect(result).toBeTruthy();
+                expect(result).toEqual(mockUser);
+            }
+        });
+
+        const req = httpTesting.expectOne(`${usersApiUrl}/account`, 'Request for the logged in users account');
+
+        expect(req.request.method).toBe('GET');
+        expect(req.request.params.keys().length).toBe(0);
+
+        req.flush(mockUser);
     });
 });
