@@ -30,6 +30,7 @@
       "@directives/*": ["src/app/shared/directives/*"],
       "@pipes/*": ["src/app/shared/pipes/*"],
       "@core/*": ["src/app/core/*"],
+      "@i18n/*": ["src/app/i18n/*"],
     }
   },
   "angularCompilerOptions": {

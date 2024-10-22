@@ -4,6 +4,8 @@ import { CreateUserRequest, UpdateUserRequest, UserAccountStatus, UserModel } fr
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JwtDTO, SubmitCredentialsDTO } from '@models/auth.model';
 import { GenericFile } from '@models/file.model';
+import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
+import { CreatedListing, Description, LandlordListing, NewListingInfo } from '@models/listing.model';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -119,6 +121,8 @@ export const mockJwt: JwtDTO = {
     expires: 'test',
 };
 
+export const mockFile = new File([], 'test');
+
 export const mockGenericFile: GenericFile = {
     filename: 'filename',
     id: 0,
@@ -169,4 +173,53 @@ export const mockUpdateUserRequest:UpdateUserRequest={
     lastName:'test',
     role:RolesConstants.ROLE_LANDLORD,
     username:'test'
+};
+
+export const mockPriceVO:PriceVO={
+    value:1
+};
+
+export const mockDescriptionVO:DescriptionVO={
+    value:'test'
+};
+
+export const mockTitleVO:TitleVO={
+     value:'test'
+};
+
+export const mockBathsVO:BathsVO={
+    value:1
+};
+
+export const mockBedsVO:BedsVO={
+    value:1
+};
+
+export const mockBedroomsVO:BedroomsVO={
+    value:1
+};
+
+export const mockGuestsVO:GuestsVO={
+    value:1
+};
+
+export const mockNewListingInfo:NewListingInfo={
+    baths:mockBathsVO,
+    bedrooms:mockBedroomsVO,
+    beds:mockBedsVO,
+    guests:mockGuestsVO
+};
+
+export const mockLandlordListing:LandlordListing={
+    firstname:'test',
+    imageUrl:'test'
+};
+
+export const mockDescription:Description={
+    description:mockDescriptionVO,
+    title:mockTitleVO
+};
+
+export const mockCreatedListing:CreatedListing={
+    publicId:'test'
 };
