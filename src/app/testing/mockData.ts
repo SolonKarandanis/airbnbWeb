@@ -7,7 +7,7 @@ import { GenericFile } from '@models/file.model';
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
 import { CreatedListing, Description, LandlordListing, NewListingInfo } from '@models/listing.model';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserSearchForm } from '../protected/user/service/user.service';
+import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/service/user.service';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -51,6 +51,15 @@ export const mockUserSearchRequest:UserSearchRequest={
     status:UserAccountStatus.ACTIVE,
     email:'skarandanis@gmail.com',
 };
+
+export const mockSearchUserForm:FormGroup= new FormGroup<UserSearchForm>({
+    email: new FormControl(''),
+    first: new FormControl(0,{nonNullable: true}),
+    rows: new FormControl(10,{nonNullable: true}),
+    firstName: new FormControl(''),
+    status:new FormControl(UserAccountStatus.ACTIVE,{nonNullable: true}),
+    username: new FormControl(''),
+});
 
 export const mockListingSearchRequest:ListingSearchRequest={
     paging: {
@@ -169,14 +178,15 @@ export const mockCreateUserRequest:CreateUserRequest={
     username:'test'
 };
 
-export const mockUpdateUserForm:FormGroup= new FormGroup<UserSearchForm>({
+export const mockCreateUserForm:FormGroup= new FormGroup<CreateUserForm>({
     email: new FormControl(''),
-    first: new FormControl(0,{nonNullable: true}),
-    rows: new FormControl(10,{nonNullable: true}),
     firstName: new FormControl(''),
-    status:new FormControl(UserAccountStatus.ACTIVE,{nonNullable: true}),
     username: new FormControl(''),
+    lastName: new FormControl(''),
+    role:new FormControl(RolesConstants.ROLE_LANDLORD,{nonNullable: true}),
+    password:new FormControl(''),
 });
+
 
 export const mockUpdateUserRequest:UpdateUserRequest={
     email:'test',
@@ -185,6 +195,14 @@ export const mockUpdateUserRequest:UpdateUserRequest={
     role:RolesConstants.ROLE_LANDLORD,
     username:'test'
 };
+
+export const mockUpdateUserForm:FormGroup= new FormGroup<UpdateUserForm>({
+    email: new FormControl(''),
+    firstName: new FormControl(''),
+    username: new FormControl(''),
+    lastName: new FormControl(''),
+    role:new FormControl(RolesConstants.ROLE_LANDLORD,{nonNullable: true}),
+});
 
 export const mockPriceVO:PriceVO={
     value:1

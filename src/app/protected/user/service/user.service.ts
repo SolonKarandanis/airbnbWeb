@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { UserStore } from '../store/user.store';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserSearchRequest } from '@models/search.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
-import { UpdateUserRequest, UserAccountStatus } from '@models/user.model';
+import { UserAccountStatus } from '@models/user.model';
 import { GenericService } from '@core/services/generic.service';
 import { SearchService } from '@core/services/search.service';
 
@@ -52,23 +51,7 @@ export class UserService extends GenericService{
       this.userStore.updateUser({id,request});
     }
   }
-
-  /**
-   * Initialize the reactive form for updating a user
-   * @returns A FormGroup with the appropriate fields
-   */
-  public initUpdateUserForm(): FormGroup<UpdateUserForm>{
-    return this.formBuilder.group<UpdateUserForm>({
-      username: new FormControl(this.user!.username),
-      firstName: new FormControl(this.user!.firstName),
-      lastName: new FormControl(this.user!.lastName),
-      email: new FormControl(this.user!.email),
-      role: new FormControl(this.user!.role,{nonNullable: true}),
-    })
-  }
-
-
-
+  
   /**
   * Delete a  user
   * @param id the id of the user
@@ -113,6 +96,20 @@ export class UserService extends GenericService{
   }
 
   /**
+   * Initialize the reactive form for updating a user
+   * @returns A FormGroup with the appropriate fields
+   */
+  public initUpdateUserForm(): FormGroup<UpdateUserForm>{
+    return this.formBuilder.group<UpdateUserForm>({
+      username: new FormControl(this.user!.username),
+      firstName: new FormControl(this.user!.firstName),
+      lastName: new FormControl(this.user!.lastName),
+      email: new FormControl(this.user!.email),
+      role: new FormControl(this.user!.role,{nonNullable: true}),
+    })
+  }
+
+  /**
    * Initialize the reactive form for searching users
    * @returns A FormGroup with the appropriate fields
    */
@@ -122,8 +119,8 @@ export class UserService extends GenericService{
       username: new FormControl(null),
       firstName: new FormControl(null),
       status: new FormControl(UserAccountStatus.ACTIVE,{nonNullable: true}),
-      rows: new FormControl(0,{nonNullable: true}),
-      first: new FormControl(10,{nonNullable: true}),
+      rows: new FormControl(10,{nonNullable: true}),
+      first: new FormControl(0,{nonNullable: true}),
     })
   }
 
