@@ -2,13 +2,15 @@ import { UserStore } from './../store/user.store';
 import { TestBed } from '@angular/core/testing';
 
 import { UserService } from './user.service';
-import { mockUpdateUserRequest } from 'src/app/testing/mockData';
+import { mockUpdateUserForm, mockUpdateUserRequest } from 'src/app/testing/mockData';
+import { SearchService } from '@core/services/search.service';
 
 type UserStore = InstanceType<typeof UserStore>;
 
 describe('UserService', () => {
   let service: UserService;
   let userStoreSpy: jasmine.SpyObj<UserStore>;
+  let searchServiceSpy: jasmine.SpyObj<SearchService>;
 
   beforeEach(() => {
     userStoreSpy = jasmine.createSpyObj('UserStore',[
@@ -25,11 +27,21 @@ describe('UserService', () => {
       'totalCount'
     ]);
 
+    searchServiceSpy= jasmine.createSpyObj('SearchService',[
+      'toUpdateUserRequest',
+      'toUserSearchRequest'
+    ]);
+
+
     TestBed.configureTestingModule({
       providers:[
         {
           provide: UserStore,
           useValue: userStoreSpy,
+        },
+        {
+          provide: SearchService,
+          useValue: searchServiceSpy,
         },
       ]
     });
@@ -50,10 +62,13 @@ describe('UserService', () => {
 
   it('should execute update user ', () =>{
     const userId: string = '1';
-    userStoreSpy.getUserId.and.returnValue(userId);
+    service.userId=userId;
+    searchServiceSpy.toUpdateUserRequest.and.returnValue(mockUpdateUserRequest);
     
-    // service.executeUpdateUser(userId);
+    service.executeUpdateUser(mockUpdateUserForm);
 
+    expect(searchServiceSpy.toUpdateUserRequest).toHaveBeenCalledWith(mockUpdateUserForm);
+    expect(searchServiceSpy.toUpdateUserRequest).toHaveBeenCalledTimes(1);
     expect(userStoreSpy.updateUser).toHaveBeenCalledWith({id:userId,request:mockUpdateUserRequest});
     expect(userStoreSpy.updateUser).toHaveBeenCalledTimes(1);
   });

@@ -6,6 +6,8 @@ import { JwtDTO, SubmitCredentialsDTO } from '@models/auth.model';
 import { GenericFile } from '@models/file.model';
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
 import { CreatedListing, Description, LandlordListing, NewListingInfo } from '@models/listing.model';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserSearchForm } from '../protected/user/service/user.service';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -166,6 +168,15 @@ export const mockCreateUserRequest:CreateUserRequest={
     role:RolesConstants.ROLE_TENANT,
     username:'test'
 };
+
+export const mockUpdateUserForm:FormGroup= new FormGroup<UserSearchForm>({
+    email: new FormControl(''),
+    first: new FormControl(0,{nonNullable: true}),
+    rows: new FormControl(10,{nonNullable: true}),
+    firstName: new FormControl(''),
+    status:new FormControl(UserAccountStatus.ACTIVE,{nonNullable: true}),
+    username: new FormControl(''),
+});
 
 export const mockUpdateUserRequest:UpdateUserRequest={
     email:'test',
