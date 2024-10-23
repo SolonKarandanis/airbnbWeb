@@ -5,6 +5,7 @@ import { UserSearchRequest } from '@models/search.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { UpdateUserRequest, UserAccountStatus } from '@models/user.model';
 import { GenericService } from '@core/services/generic.service';
+import { SearchService } from '@core/services/search.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { GenericService } from '@core/services/generic.service';
 export class UserService extends GenericService{
 
   private userStore = inject(UserStore);
+  private searchService = inject(SearchService);
 
   public user = this.userStore.getUser();
   public userId = this.userStore.getUserId();
@@ -46,7 +48,7 @@ export class UserService extends GenericService{
   public executeUpdateUser(form: FormGroup<UpdateUserForm>):void{
     const id = this.userId;
     if(id){
-      const request = this.toUpdateUserRequest(form);
+      const request = this.searchService.toUpdateUserRequest(form);
       this.userStore.updateUser({id,request});
     }
   }
@@ -65,21 +67,6 @@ export class UserService extends GenericService{
     })
   }
 
-  /**
-   * Convert from FormGroup<UpdateUserForm> to UpdateUserRequest
-   * @returns A UpdateUserRequest
-   */
-  protected toUpdateUserRequest(searchForm: FormGroup<UpdateUserForm>):UpdateUserRequest{
-    const {email,firstName,username,lastName,role} = searchForm.value;
-    const request:UpdateUserRequest={
-      email:email!,
-      firstName:firstName!,
-      username:username!,
-      lastName:lastName!,
-      role:role!
-    }
-    return request;
-  }
 
 
   /**
@@ -121,7 +108,7 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeSearchUsers(searchForm: FormGroup<UserSearchForm>):void{
-    const request = this.toUserSearchRequest(searchForm);
+    const request = this.searchService.toUserSearchRequest(searchForm);
     this.userStore.searchUsers(request);
   }
 
@@ -140,28 +127,10 @@ export class UserService extends GenericService{
     })
   }
 
-  /**
-   * Convert from FormGroup<UserSearchForm> to UserSearchRequest
-   * @returns A UserSearchRequest
-   */
-  protected toUserSearchRequest(searchForm: FormGroup<UserSearchForm>):UserSearchRequest{
-    const {email,firstName,status,username,rows,first} = searchForm.value;
-    const request:UserSearchRequest={
-      email,
-      firstName,
-      status:status!,
-      username,
-      paging:{
-        limit:rows!,
-        page:first!
-      }
-    }
-    return request;
-  }
   
 }
 
-interface UserSearchForm{
+export interface UserSearchForm{
   email: FormControl<string|null|undefined>;
   username: FormControl<string|null|undefined>;
   firstName: FormControl<string|null|undefined>;
@@ -170,7 +139,7 @@ interface UserSearchForm{
   first:FormControl<number>;
 }
 
-interface UpdateUserForm{
+export interface UpdateUserForm{
   username: FormControl<string|null|undefined>;
   firstName: FormControl<string|null|undefined>;
   lastName: FormControl<string|null|undefined>;
@@ -178,7 +147,7 @@ interface UpdateUserForm{
   role:FormControl<RolesConstants>
 }
 
-interface CreateUserForm{
+export interface CreateUserForm{
   username: FormControl<string|null|undefined>;
   password: FormControl<string|null|undefined>;
   firstName: FormControl<string|null|undefined>;
