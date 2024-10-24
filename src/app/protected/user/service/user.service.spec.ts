@@ -2,7 +2,7 @@ import { UserStore } from './../store/user.store';
 import { TestBed } from '@angular/core/testing';
 
 import { UserService } from './user.service';
-import { mockSearchUserForm, mockUpdateUserForm, mockUpdateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
+import { mockCreateUserForm, mockCreateUserRequest, mockSearchUserForm, mockUpdateUserForm, mockUpdateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
 import { SearchService } from '@core/services/search.service';
 import { UserAccountStatus } from '@models/user.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
@@ -35,7 +35,8 @@ describe('UserService', () => {
 
     searchServiceSpy= jasmine.createSpyObj('SearchService',[
       'toUpdateUserRequest',
-      'toUserSearchRequest'
+      'toUserSearchRequest',
+      'toCreateUserRequest'
     ]);
 
     translateSpy = jasmine.createSpyObj('TranslateService', ['instant']);
@@ -70,6 +71,17 @@ describe('UserService', () => {
 
     expect(userStoreSpy.getUserById).toHaveBeenCalledWith(userId);
     expect(userStoreSpy.getUserById).toHaveBeenCalledTimes(1);
+  });
+
+  it('should execute register user ', () =>{
+    searchServiceSpy.toCreateUserRequest.and.returnValue(mockCreateUserRequest);
+
+    service.executeRegisterUser(mockCreateUserForm);
+
+    expect(searchServiceSpy.toCreateUserRequest).toHaveBeenCalledWith(mockCreateUserForm);
+    expect(searchServiceSpy.toCreateUserRequest).toHaveBeenCalledTimes(1);
+    expect(userStoreSpy.registerUser).toHaveBeenCalledWith(mockCreateUserRequest);
+    expect(userStoreSpy.registerUser).toHaveBeenCalledTimes(1);
   });
 
   it('should execute update user ', () =>{
