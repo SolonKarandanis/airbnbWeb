@@ -78,7 +78,7 @@ export class AuthService extends GenericService{
    * @returns  if the user is loggedin
   */
   public isAuthenticated():boolean{
-    if(this.isLoggedIn() || !this.authStore.isJwtExpired()){
+    if(this.isLoggedIn() && !this.authStore.isJwtExpired()){
       return true;
     }
     return false;
