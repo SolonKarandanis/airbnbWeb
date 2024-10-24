@@ -6,6 +6,7 @@ import { GenericService } from '@core/services/generic.service';
 import { SearchService } from '@core/services/search.service';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../forms';
 import { TranslateService } from '@ngx-translate/core';
+import { SearchTableColumn } from '@models/search.model';
 
 @Injectable({
   providedIn: 'root'
@@ -124,6 +125,45 @@ export class UserService extends GenericService{
       rows: new FormControl(10,{nonNullable: true}),
       first: new FormControl(0,{nonNullable: true}),
     })
+  }
+
+  /**
+   * Get the columns for users in order to initialize the data table
+   * @returns The columns of the table
+   */
+  public getSearchUserTableColumns(): SearchTableColumn[] {
+    const translationPrefix: string = 'USER.SEARCH-USERS.RESULTS-TABLE.COLS';
+    const tableColumns: SearchTableColumn[] = [
+        {
+            field: 'username',
+            title: this.translateService.instant(`${translationPrefix}.username`),
+            isLink: true,
+            routerLinkConfig: {
+                preRoutes: ['/', 'users'],
+                postRoutes: ['details'],
+            },
+            dataFieldForRoute: 'id',
+        },
+        {
+            field: 'firstName',
+            title: this.translateService.instant(`${translationPrefix}.firstName`),
+            isLink: false,
+            enableSorting: true,
+        },
+        {
+            field: 'lastName',
+            title: this.translateService.instant(`${translationPrefix}.lastName`),
+            enableSorting: true,
+        },
+        {
+            field: 'email',
+            title: this.translateService.instant(`${translationPrefix}.email`),
+            isLink: false,
+            enableSorting: true,
+        },
+    ];
+
+    return tableColumns;
   }
 
   

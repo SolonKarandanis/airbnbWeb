@@ -7,6 +7,7 @@ import { SearchService } from '@core/services/search.service';
 import { UserAccountStatus } from '@models/user.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { TranslateService } from '@ngx-translate/core';
+import { SearchTableColumn } from '@models/search.model';
 
 type UserStore = InstanceType<typeof UserStore>;
 
@@ -177,6 +178,32 @@ describe('UserService', () => {
     expect(formValues.role).toEqual(RolesConstants.ROLE_ADMIN);
 
     expect(frmGroup.valid).toBeTrue();
+  });
+
+  it('should get Users Search Table Columns', () =>{
+    const translationPrefix: string = 'USER.SEARCH-USERS.RESULTS-TABLE.COLS';
+    const expectedFields: string[] = ['username', 'firstName', 'lastName', 'email'];
+
+    const expectedTitles: string[] = [
+      `${translationPrefix}.username`,
+      `${translationPrefix}.firstName`,
+      `${translationPrefix}.lastName`,
+      `${translationPrefix}.email`,
+    ];
+
+    const cols: SearchTableColumn[] = service.getSearchUserTableColumns();
+
+    expect(cols.length).toBe(4);
+    cols.forEach((col: SearchTableColumn) => {
+      expect(expectedFields.includes(col.field!));
+      expect(expectedTitles.includes(col.title!));
+      if (col.field === 'username') {
+          expect(col.isLink).toBeTrue();
+      }
+      else{
+        expect(col.enableSorting).toBeTrue();
+      }
+    });
   });
 
 });
