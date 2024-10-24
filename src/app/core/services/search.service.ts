@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { GenericService } from "./generic.service";
 import { FormGroup } from "@angular/forms";
 import { UpdateUserRequest } from "@models/user.model";
-import { UpdateUserForm, UserSearchForm } from "src/app/protected/user/service/user.service";
+
 import { UserSearchRequest } from "@models/search.model";
+import { UpdateUserForm, UserSearchForm } from "src/app/protected/user/forms";
 
 @Injectable({
     providedIn: 'root'
