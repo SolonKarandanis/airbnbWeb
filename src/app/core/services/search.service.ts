@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { GenericService } from "./generic.service";
 import { FormGroup } from "@angular/forms";
-import { UpdateUserRequest } from "@models/user.model";
+import { CreateUserRequest, UpdateUserRequest } from "@models/user.model";
 
 import { UserSearchRequest } from "@models/search.model";
-import { UpdateUserForm, UserSearchForm } from "src/app/protected/user/forms";
+import { CreateUserForm, UpdateUserForm, UserSearchForm } from "src/app/protected/user/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +13,7 @@ export class SearchService extends GenericService{
 
 /**
  * Convert from FormGroup<UpdateUserForm> to UpdateUserRequest
+ * @param  searchForm form of type UpdateUserForm
  * @returns A UpdateUserRequest
  */
   public toUpdateUserRequest(searchForm: FormGroup<UpdateUserForm>):UpdateUserRequest{
@@ -29,6 +30,7 @@ export class SearchService extends GenericService{
 
 /**
  * Convert from FormGroup<UserSearchForm> to UserSearchRequest
+ * @param  searchForm form of type UserSearchForm
  * @returns A UserSearchRequest
  */
 public toUserSearchRequest(searchForm: FormGroup<UserSearchForm>):UserSearchRequest{
@@ -43,6 +45,24 @@ public toUserSearchRequest(searchForm: FormGroup<UserSearchForm>):UserSearchRequ
         page:first!
       }
     }
+    return request;
+  }
+
+/**
+ * Convert from FormGroup<UserSearchForm> to CreateUserForm
+ * @param  searchForm form of type UserSearchForm
+ * @returns A UserSearchRequest
+ */
+  public toCreateUserRequest(searchForm: FormGroup<CreateUserForm>):CreateUserRequest{
+    const {email,firstName,username,lastName,password,role} = searchForm.value;
+    const request:CreateUserRequest={
+      email:email!,
+      firstName:firstName!,
+      lastName:lastName!,
+      password:password!,
+      role:role!,
+      username:username!
+    };
     return request;
   }
 }

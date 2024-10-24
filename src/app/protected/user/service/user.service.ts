@@ -39,7 +39,8 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeRegisterUser(form: FormGroup<CreateUserForm>):void{
-
+    const request = this.searchService.toCreateUserRequest(form);
+    this.userStore.registerUser(request);
   }
 
   /**
@@ -165,47 +166,7 @@ export class UserService extends GenericService{
 
     return tableColumns;
   }
-
-  
 }
-
-
-
-
-// private getCatalogueCommonTableColumns(): SearchTableColumn[] {
-//   const translationPrefix: string = 'ADVANCED-SEARCH.SEARCH-CATALOGUES.RESULTS-TABLE.COLS';
-//   const tableColumns: SearchTableColumn[] = [
-//       {
-//           field: 'title',
-//           title: this.translate.instant(`${translationPrefix}.title`),
-//           isLink: true,
-//           routerLinkConfig: {
-//               preRoutes: ['/', 'catalogues'],
-//               postRoutes: ['details'],
-//           },
-//           dataFieldForRoute: 'id',
-//       },
-//       {
-//           field: 'version',
-//           title: this.translate.instant(`${translationPrefix}.version`),
-//           isLink: false,
-//           enableSorting: true,
-//       },
-//       {
-//           field: 'statusLabel',
-//           title: this.translate.instant(`${translationPrefix}.status`),
-//           enableSorting: true,
-//       },
-//       {
-//           field: 'supplierName',
-//           title: this.translate.instant(`${translationPrefix}.supplierName`),
-//           isLink: false,
-//           enableSorting: true,
-//       },
-//   ];
-
-//   return tableColumns;
-// }
 
 
 /**
