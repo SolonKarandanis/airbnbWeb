@@ -6,6 +6,7 @@ import { mockSearchUserForm, mockUpdateUserForm, mockUpdateUserRequest, mockUser
 import { SearchService } from '@core/services/search.service';
 import { UserAccountStatus } from '@models/user.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
+import { TranslateService } from '@ngx-translate/core';
 
 type UserStore = InstanceType<typeof UserStore>;
 
@@ -13,6 +14,7 @@ describe('UserService', () => {
   let service: UserService;
   let userStoreSpy: jasmine.SpyObj<UserStore>;
   let searchServiceSpy: jasmine.SpyObj<SearchService>;
+  let translateSpy: jasmine.SpyObj<TranslateService>;
 
   beforeEach(() => {
     userStoreSpy = jasmine.createSpyObj('UserStore',[
@@ -35,6 +37,8 @@ describe('UserService', () => {
       'toUserSearchRequest'
     ]);
 
+    translateSpy = jasmine.createSpyObj('TranslateService', ['instant']);
+
 
     TestBed.configureTestingModule({
       providers:[
@@ -45,6 +49,10 @@ describe('UserService', () => {
         {
           provide: SearchService,
           useValue: searchServiceSpy,
+        },
+        {
+          provide: TranslateService,
+          useValue: translateSpy,
         },
       ]
     });

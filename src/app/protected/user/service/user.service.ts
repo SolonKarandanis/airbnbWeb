@@ -1,11 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { UserStore } from '../store/user.store';
 import { FormControl, FormGroup } from '@angular/forms';
-import { RolesConstants } from '@core/guards/SecurityConstants';
 import { UserAccountStatus } from '@models/user.model';
 import { GenericService } from '@core/services/generic.service';
 import { SearchService } from '@core/services/search.service';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class UserService extends GenericService{
 
   private userStore = inject(UserStore);
   private searchService = inject(SearchService);
+  private translateService = inject(TranslateService);
 
   public user = this.userStore.getUser();
   public userId = this.userStore.getUserId();
@@ -253,7 +254,7 @@ export class UserService extends GenericService{
 //           field: 'validTo',
 //           title: this.translate.instant(`${translationPrefix}.validTo`),
 //           isLink: false,
-//           enableSorting: true,
+//           enableSorting: true,import { RolesConstants } from '@core/guards/SecurityConstants';
 //       },
 //       {
 //           field: 'dateCreated',

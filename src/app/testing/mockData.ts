@@ -7,7 +7,7 @@ import { GenericFile } from '@models/file.model';
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
 import { CreatedListing, Description, LandlordListing, NewListingInfo } from '@models/listing.model';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/service/user.service';
+import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
 
 export const mockUser: UserModel ={
     username:"skaran",
