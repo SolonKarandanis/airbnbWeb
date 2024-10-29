@@ -4,6 +4,8 @@ import { TestBed } from "@angular/core/testing";
 import { mockJwt, mockLoginCredentials, mockUser } from "src/app/testing/mockData";
 import { of } from "rxjs";
 import { JwtUtil } from "@core/services/JwtUtil";
+import { RolesConstants } from "@core/guards/SecurityConstants";
+import { initialAuthState } from "./auth.state";
 
 type AuthStore = InstanceType<typeof AuthStore>;
 
@@ -25,6 +27,8 @@ describe('AuthStore', () =>{
             'isJwtExpired',
             'saveToken',
             'saveTokenExpiration',
+            'destroyToken',
+            'destroyTokenExpiration'
         ]);
 
         TestBed.configureTestingModule({
@@ -92,5 +96,59 @@ describe('AuthStore', () =>{
         store.setAccount(mockUser);
 
         expect(store.getUsername()).toBe(mockUser.username);
+    });
+
+    it('should verify that  the user has the given authority', () =>{
+        store.setAccount(mockUser);
+
+        expect(store.hasAnyAuthority(RolesConstants.ROLE_ADMIN)()).toBe(true);
+    });
+
+    it('should verify that the user does not have the given authority', () =>{
+        store.setAccount(mockUser);
+
+        expect(store.hasAnyAuthority(RolesConstants.ROLE_TENANT)()).toBe(false);
+    });
+
+    it('should set token details ', () =>{
+        store.setTokenDetails(mockJwt.token,mockJwt.expires);
+
+        expect(store.authToken()).toBe(mockJwt.token);
+        expect(store.expires()).toBe(mockJwt.expires);
+        expect(store.isLoggedIn()).toBe(false);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
+    });
+
+    it('should set account info from storage ', () =>{
+        store.setAccountInfoFromStorage(mockJwt.token,mockJwt.expires,mockUser);
+
+        expect(store.authToken()).toBe(mockJwt.token);
+        expect(store.expires()).toBe(mockJwt.expires);
+        expect(store.user()).toBe(mockUser);
+        expect(store.isLoggedIn()).toBe(true);
+    });
+
+    it('should set account ', () =>{
+        store.setAccount(mockUser);
+
+        expect(store.user()).toBe(mockUser);
+        expect(store.isLoggedIn()).toBe(true);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
+    });
+
+    it('should logout ', () =>{
+        store.logout();
+
+        expect(store.user()).toBe(undefined);
+        expect(store.isLoggedIn()).toBe(false);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
+        expect(store.authToken()).toBe(undefined);
+        expect(store.expires()).toBe(undefined);
     });
 });
