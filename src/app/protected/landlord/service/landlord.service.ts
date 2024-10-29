@@ -1,6 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { GenericService } from "@core/services/generic.service";
 import { LandLordStore } from "../store/landlord.store";
+import { NewListingPicture } from "@models/picture.model";
+import { NewListing } from "@models/listing.model";
 
 @Injectable({
     providedIn: 'root'
@@ -33,12 +35,12 @@ export class LandlordService extends GenericService{
 
     /**
     * Create a new Listing 
-    * @param file the file
-    * @param dto the dto
+    * @param pictures the pictures of the listing
+    * @param newListing the newListing
     * @returns nothing
     */
-    public executeCreateListing(file: File,dto:string):void{
-        this.landlordStore.createListing({file,dto});
+    public executeCreateListing(pictures: NewListingPicture[],newListing:NewListing):void{
+        this.landlordStore.createListing({pictures,newListing});
     }
 }
 

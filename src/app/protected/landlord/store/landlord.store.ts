@@ -7,7 +7,8 @@ import { LandlordRepository } from "../repository/landlord.repository";
 import { inject } from "@angular/core";
 import { tapResponse } from "@ngrx/operators";
 import { ErrorResponse } from "@models/error.model";
-import { CardListing } from "@models/listing.model";
+import { CardListing, NewListing } from "@models/listing.model";
+import { NewListingPicture } from "@models/picture.model";
 
 export const LandLordStore = signalStore(
     { providedIn: 'root' },
@@ -87,13 +88,13 @@ export const LandLordStore = signalStore(
                 )
             )
         ),
-        createListing: rxMethod<{file:File,dto:string}>(
+        createListing: rxMethod<{pictures: NewListingPicture[],newListing:NewListing}>(
             pipe(
                 tap(() => {
                     state.setLoading(true)
                 }),
-                switchMap(({file,dto})=>
-                    landlordRepo.createListing(file,dto).pipe(
+                switchMap(({pictures,newListing})=>
+                    landlordRepo.createListing(pictures,newListing).pipe(
                         tapResponse({
                             next:({publicId})=>{
                                 state.setCreatedListingPublicId(publicId)

@@ -2,7 +2,8 @@ import { inject, Injectable } from "@angular/core";
 import { ApiControllers } from "@core/repository/ApiControllers";
 import { BaseRepository } from "@core/repository/base.repository";
 import { UtilService } from "@core/services/util.service";
-import { CardListing, CreatedListing } from "@models/listing.model";
+import { CardListing, CreatedListing, NewListing } from "@models/listing.model";
+import { NewListingPicture } from "@models/picture.model";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -31,14 +32,16 @@ export class LandlordRepository  extends BaseRepository{
 
     /**
     * Create a new Listing 
-    * @param file the file
-    * @param dto the dto
+    * @param pictures the pictures of the listing
+    * @param newListing the newListing
     * @returns An observable with the created listing
     */
-    public createListing(file: File,dto:string):Observable<CreatedListing>{
+    public createListing( pictures: NewListingPicture[],newListing:NewListing):Observable<CreatedListing>{
         const formData = new FormData();
-        formData.append('catalogue', this.utilsService.createJsonBlob(file));
-        formData.append('dto', dto);
+        for(let i = 0; i < pictures.length; ++i) {
+            formData.append("picture-" + i, pictures[i].file);
+        }
+        formData.append('dto', this.utilsService.createJsonBlob(newListing));
         return this.http.post<CreatedListing>(`${ApiControllers.LANDLORD}`, formData);
     }
 }
