@@ -5,7 +5,6 @@ import { mockJwt, mockLoginCredentials, mockUser } from "src/app/testing/mockDat
 import { of } from "rxjs";
 import { JwtUtil } from "@core/services/JwtUtil";
 import { RolesConstants } from "@core/guards/SecurityConstants";
-import { initialAuthState } from "./auth.state";
 
 type AuthStore = InstanceType<typeof AuthStore>;
 
