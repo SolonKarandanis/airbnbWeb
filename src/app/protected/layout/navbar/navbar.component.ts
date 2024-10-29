@@ -123,6 +123,7 @@ export class NavbarComponent implements OnInit{
     // this.authService.fetch(false);
     // this.extractInformationForSearch();
     this.currentMenuItems = this.fetchMenu();
+    this.connectedUser = this.authService.loggedUser();
   }
 
   hasToBeLandlord(): boolean {
@@ -132,7 +133,7 @@ export class NavbarComponent implements OnInit{
 
 
   private fetchMenu(): MenuItem[] {
-    if (true) {
+    if (this.authService.isAuthenticated()) {
       return [
         {
           label: "My properties",
