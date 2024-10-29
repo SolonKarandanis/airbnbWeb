@@ -117,8 +117,6 @@ export class NavbarComponent implements OnInit{
 
   currentMenuItems: MenuItem[] | undefined = [];
 
-  // connectedUser: User = {email: this.authService.notConnected};
-
   ngOnInit(): void {
     // this.authService.fetch(false);
     // this.extractInformationForSearch();

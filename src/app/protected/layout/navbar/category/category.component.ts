@@ -84,7 +84,7 @@ export class CategoryComponent implements OnInit {
 
   currentActivateCategory = this.categoryService.getCategoryByDefault();
 
-  isHome = false;
+  isHome = true;
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
 

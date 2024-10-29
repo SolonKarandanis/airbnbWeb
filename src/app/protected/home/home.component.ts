@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect } from '@angular/core';
-import { AuthService } from '@core/services/auth.service';
-import { UserModel } from '@models/user.model';
+import { CategoryService } from '../layout/navbar/category/category.service';
 
 @Component({
   selector: 'app-home',
@@ -10,34 +9,28 @@ import { UserModel } from '@models/user.model';
     <p>
       home works!
     </p>
-    {{user?.username}}
-    <!-- @if(vm(); as vm){
-      {{vm.loggedUser?.username}}
-    } -->
+   
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
 
-  protected user:UserModel| undefined;
+
 
   constructor(
-    private authService:AuthService
+    private categoryService:CategoryService,
   ){
-    this.user =  this.authService.loggedUser();
-    effect(()=>{
-      this.user
-    });
+    
   }
 
 
-  protected vm = computed(()=>{
-    const loggedUser = this.authService.loggedUser();
-    return {
-      loggedUser
-    }
-  });
+  // protected vm = computed(()=>{
+  //   const loggedUser = this.authService.loggedUser();
+  //   return {
+  //     loggedUser
+  //   }
+  // });
 
 
 }
