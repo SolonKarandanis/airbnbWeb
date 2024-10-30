@@ -46,6 +46,9 @@ import { PriceVO } from '@models/listing-vo.model';
           <div class="mb-5">
             <h1 class="mb-1">Share some basics about your place</h1>
             <h2 class="mt-0">You'll add more details later, like bed types.</h2>
+            <app-info-step [infos]="newListing.infos"
+              (infoChange)="onInfoChange($event)"
+              (stepValidityChange)="onValidityChange($event)"></app-info-step>
           </div>
         }
         @case (listingService.PHOTOS){
