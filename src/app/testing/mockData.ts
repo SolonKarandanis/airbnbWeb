@@ -5,9 +5,10 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JwtDTO, SubmitCredentialsDTO } from '@models/auth.model';
 import { GenericFile } from '@models/file.model';
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
-import { CreatedListing, Description, LandlordListing, NewListingInfo } from '@models/listing.model';
+import { CardListing, CreatedListing, Description, DisplayPicture, LandlordListing, NewListing, NewListingInfo } from '@models/listing.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
+import { NewListingPicture } from '@models/picture.model';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -252,3 +253,28 @@ export const mockDescription:Description={
 export const mockCreatedListing:CreatedListing={
     publicId:'test'
 };
+
+export const mockDisplayPicture:DisplayPicture={
+
+}
+
+export const mockCardListing:CardListing={
+    price:mockPriceVO,
+    location:'test',
+    cover:mockDisplayPicture,
+    bookingCategory:'ALL',
+    publicId:'test'
+}
+
+export const mockNewListing:NewListing={
+    category:'ALL',
+    description:mockDescription,
+    infos:mockNewListingInfo,
+    location:'test',
+    price:mockPriceVO
+}
+
+export const mockNewListingPicture:NewListingPicture={
+    file:mockFile,
+    urlDisplay: 'test'
+}
