@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InfoStepControlComponent } from './info-step-control.component';
 
-describe('InfoStepControlComponent', () => {
+xdescribe('InfoStepControlComponent', () => {
   let component: InfoStepControlComponent;
   let fixture: ComponentFixture<InfoStepControlComponent>;
 

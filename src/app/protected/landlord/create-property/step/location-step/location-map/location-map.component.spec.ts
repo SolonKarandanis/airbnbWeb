@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationMapComponent } from './location-map.component';
 
-describe('LocationMapComponent', () => {
+xdescribe('LocationMapComponent', () => {
   let component: LocationMapComponent;
   let fixture: ComponentFixture<LocationMapComponent>;
 

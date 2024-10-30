@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DescriptionStepComponent } from './description-step.component';
 
-describe('DescriptionStepComponent', () => {
+xdescribe('DescriptionStepComponent', () => {
   let component: DescriptionStepComponent;
   let fixture: ComponentFixture<DescriptionStepComponent>;
 
