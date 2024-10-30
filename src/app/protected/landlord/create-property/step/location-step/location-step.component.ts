@@ -1,16 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { LocationMapComponent } from './location-map/location-map.component';
 
 @Component({
   selector: 'app-location-step',
   standalone: true,
-  imports: [],
+  imports: [
+    LocationMapComponent
+  ],
   template: `
-    <p>
-      location-step works!
-    </p>
+    <div class="mb-3">
+      <h1 class="mb-1">Is the pin right in the spot?</h1>
+      <h2 class="mt-0">Your address is only shared with guests after they've made a reservation</h2>
+      <app-location-map 
+        [location]="location()" 
+        (locationChange)="onLocationChange($event)"></app-location-map>
+    </div>
   `,
   styles: ``
 })
 export class LocationStepComponent {
 
+  location = input.required<string>();
+
+  locationChange = output<string>();
+  stepValidityChange = output<boolean>();
+
+  onLocationChange(location: string) {
+    this.locationChange.emit(location);
+    this.stepValidityChange.emit(true);
+  }
 }

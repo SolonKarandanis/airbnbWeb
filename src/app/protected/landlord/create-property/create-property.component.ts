@@ -36,11 +36,11 @@ import { PriceVO } from '@models/listing-vo.model';
             (stepValidityChange)="onValidityChange($event)"></app-category-step>
         }
         @case (listingService.LOCATION) {
-          <!-- <app-location-step [location]="newListing.location"
+          <app-location-step [location]="newListing.location"
             (locationChange)="onLocationChange($event)"
             (stepValidityChange)="onValidityChange($event)">
 
-          </app-location-step> -->
+          </app-location-step>
         }
         @case (listingService.INFO){
           <div class="mb-5">
