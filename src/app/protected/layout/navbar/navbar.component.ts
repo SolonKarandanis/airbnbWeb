@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '@core/services/auth.service';
 import { RolesConstants } from '@core/guards/SecurityConstants';
+import { CreatePropertyComponent } from '@landlord/create-property/create-property.component';
 
 @Component({
   selector: 'app-navbar',
@@ -169,15 +170,15 @@ export class NavbarComponent implements OnInit{
   }
 
   openNewListing(): void {
-    // this.ref = this.dialogService.open(PropertiesCreateComponent,
-    //   {
-    //     width: "60%",
-    //     header: "Airbnb your home",
-    //     closable: true,
-    //     focusOnShow: true,
-    //     modal: true,
-    //     showHeader: true
-    //   })
+    this.ref = this.dialogService.open(CreatePropertyComponent,
+      {
+        width: "60%",
+        header: "Airbnb your home",
+        closable: true,
+        focusOnShow: true,
+        modal: true,
+        showHeader: true
+      })
   }
 
   openNewSearch(): void {

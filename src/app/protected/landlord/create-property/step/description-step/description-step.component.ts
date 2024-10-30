@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-step',
+  selector: 'app-description-step',
   standalone: true,
   imports: [],
   template: `
     <p>
-      step works!
+      description-step works!
     </p>
   `,
   styles: ``
 })
-export class StepComponent {
+export class DescriptionStepComponent {
 
 }

@@ -31,6 +31,9 @@
       "@pipes/*": ["src/app/shared/pipes/*"],
       "@core/*": ["src/app/core/*"],
       "@i18n/*": ["src/app/i18n/*"],
+      "@user/*": ["src/app/protected/user/*"],
+      "@tenant/*": ["src/app/protected/tenant/*"],
+      "@landlord/*": ["src/app/protected/landlord/*"],
     }
   },
   "angularCompilerOptions": {
