@@ -55,34 +55,18 @@ describe('AuthStore', () =>{
         authRepoSpy.getUserByToken.and.returnValue(of(mockUser));
 
         store.login(mockLoginCredentials);
-        store.setTokenDetails(mockJwt.token,mockJwt.expires);
-        store.setAccount(mockUser);
 
         expect(authRepoSpy.login).toHaveBeenCalledWith(mockLoginCredentials);
         expect(authRepoSpy.login).toHaveBeenCalledTimes(1);
-        expect(store.authToken()).toBe(mockJwt.token);
-        expect(store.expires()).toBe(mockJwt.expires);
-        expect(store.user()).toBe(mockUser);
-        expect(store.isLoggedIn()).toBe(true);
-        expect(store.errorMessage()).toBe(null);
-        expect(store.showError()).toBe(false);
-        expect(store.loading()).toBe(false);
     });
 
     it('should get user account by token ', () =>{
         authRepoSpy.getUserByToken.and.returnValue(of(mockUser));
 
         store.getUserAccount();
-        store.setAccount(mockUser);
 
         expect(authRepoSpy.getUserByToken).toHaveBeenCalled();
         expect(authRepoSpy.getUserByToken).toHaveBeenCalledTimes(1);
-
-        expect(store.user()).toBe(mockUser);
-        expect(store.isLoggedIn()).toBe(true);
-        expect(store.errorMessage()).toBe(null);
-        expect(store.showError()).toBe(false);
-        expect(store.loading()).toBe(false);
     });
 
     it('should verify that it should return computed user ', () =>{

@@ -39,7 +39,7 @@ export const UserStore = signalStore(
                 loading:false
             })
         },
-        setSelectedUser(selectedUser:UserModel){
+        setSelectedUser(selectedUser:UserModel| null){
             patchState(state,{
                 selectedUser,
                 errorMessage:null,
@@ -143,7 +143,7 @@ export const UserStore = signalStore(
                     userRepo.deleteUser(id).pipe(
                         tapResponse({
                             next:(result)=>{
-                                state.setLoading(false)
+                                state.setSelectedUser(null)
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error)

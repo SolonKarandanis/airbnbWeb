@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { UserRepository } from '../repository/user.repository';
 import { UserStore } from './user.store';
+import { of } from 'rxjs';
+import { SearchResult } from '@models/search.model';
+import { mockCreateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
 
 type UserStore = InstanceType<typeof UserStore>;
 
 describe('UserStore', () =>{
     let store: UserStore;
     let userRepoSpy: jasmine.SpyObj<UserRepository>;
+    let searchResult: SearchResult<any>;
 
     beforeEach(()=>{
         userRepoSpy = jasmine.createSpyObj('UserRepository',[
@@ -29,9 +33,121 @@ describe('UserStore', () =>{
         });
 
         store = TestBed.inject(UserStore);
+
+        searchResult = {
+            countRows: 1,
+            list: [],
+        };
     });
 
     it('should be created', () => {
         expect(store).toBeTruthy();
+    });
+
+    it('should search users ', () =>{
+        searchResult.list = [mockUser];
+        userRepoSpy.searchUsers.and.returnValue(of(searchResult));
+
+        store.searchUsers(mockUserSearchRequest);
+
+        expect(userRepoSpy.searchUsers).toHaveBeenCalledWith(mockUserSearchRequest);
+        expect(userRepoSpy.searchUsers).toHaveBeenCalledTimes(1);
+    });
+
+    it('should get user by id ', () =>{
+        const userId: string = '1';
+        userRepoSpy.getUserById.and.returnValue(of(mockUser));
+
+        store.getUserById(userId);
+
+        expect(userRepoSpy.getUserById).toHaveBeenCalledWith(userId);
+        expect(userRepoSpy.getUserById).toHaveBeenCalledTimes(1);
+    });
+
+    it('should register user ', () =>{
+        userRepoSpy.registerUser.and.returnValue(of(mockUser));
+
+        store.registerUser(mockCreateUserRequest);
+
+        expect(userRepoSpy.registerUser).toHaveBeenCalledWith(mockCreateUserRequest);
+        expect(userRepoSpy.registerUser).toHaveBeenCalledTimes(1);
+    });
+
+    it('should update user ', () =>{
+        const userId: string = '1';
+        userRepoSpy.updateUser.and.returnValue(of(mockUser));
+
+        store.updateUser({id:userId,request:mockCreateUserRequest});
+
+        expect(userRepoSpy.updateUser).toHaveBeenCalledWith(userId,mockCreateUserRequest);
+        expect(userRepoSpy.updateUser).toHaveBeenCalledTimes(1);
+    });
+
+    it('should delete user ', () =>{
+        const userId: string = '1';
+        userRepoSpy.deleteUser.and.returnValue(of());
+
+        store.deleteUser(userId);
+
+        expect(userRepoSpy.deleteUser).toHaveBeenCalledWith(userId);
+        expect(userRepoSpy.deleteUser).toHaveBeenCalledTimes(1);
+    });
+
+    it('should activate user ', () =>{
+        const userId: string = '1';
+        userRepoSpy.activateUser.and.returnValue(of(mockUser));
+
+        store.activateUser(userId);
+
+        expect(userRepoSpy.activateUser).toHaveBeenCalledWith(userId);
+        expect(userRepoSpy.activateUser).toHaveBeenCalledTimes(1);
+    });
+
+    it('should deactivate user ', () =>{
+        const userId: string = '1';
+        userRepoSpy.deactivateUser.and.returnValue(of(mockUser));
+
+        store.deactivateUser(userId);
+
+        expect(userRepoSpy.deactivateUser).toHaveBeenCalledWith(userId);
+        expect(userRepoSpy.deactivateUser).toHaveBeenCalledTimes(1);
+    });
+
+    it('should verify that it should return computed user', () =>{
+        store.setSelectedUser(mockUser);
+
+        expect(store.getUser()).toBe(mockUser);
+    });
+
+    it('should verify that it should return computed user id', () =>{
+        store.setSelectedUser(mockUser);
+
+        expect(store.getUserId()).toBe(mockUser.publicId);
+    });
+
+    it('should verify that it should return computed username', () =>{
+        store.setSelectedUser(mockUser);
+
+        expect(store.getUsername()).toBe(mockUser.username);
+    });
+
+    it('should set search results ', () =>{
+        searchResult.list = [mockUser];
+        store.setSearchResults(searchResult.list,searchResult.countRows);
+
+        expect(store.searchResults()).toBe(searchResult.list);
+        expect(store.totalCount()).toBe(searchResult.countRows);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
+    });
+
+    it('should set selected user ', () =>{
+        store.setSelectedUser(mockUser);
+
+        expect(store.selectedUser()).toBe(mockUser);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
     });
 });
