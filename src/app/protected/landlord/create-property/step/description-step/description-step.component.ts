@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, output, Output, viewChild } from '@angular/core';
+import { Component, input, output, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Description } from '@models/listing.model';
 import { InputTextModule } from 'primeng/inputtext';
@@ -37,7 +37,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea'
         } @else {
           <div class="placeholder-validation"></div>
         }
-        
+
       </form>
     </div>
   `,

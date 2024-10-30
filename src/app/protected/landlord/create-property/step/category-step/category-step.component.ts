@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, input, OnInit, output, Output } from '@angular/core';
+import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Category, CategoryName } from '@models/category.model';
 import { CategoryService } from 'src/app/protected/layout/navbar/category/category.service';
