@@ -3,11 +3,19 @@ import { GenericService } from "@core/services/generic.service";
 import { LandLordStore } from "../store/landlord.store";
 import { NewListingPicture } from "@models/picture.model";
 import { NewListing } from "@models/listing.model";
+import { Step } from "@landlord/create-property/step.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LandlordService extends GenericService{
+
+    CATEGORY = "category";
+    LOCATION = "location";
+    INFO = "info";
+    PHOTOS = "photos";
+    DESCRIPTION = "description";
+    PRICE = "price";
 
     private landlordStore = inject(LandLordStore);
 
@@ -41,6 +49,48 @@ export class LandlordService extends GenericService{
     */
     public executeCreateListing(pictures: NewListingPicture[],newListing:NewListing):void{
         this.landlordStore.createListing({pictures,newListing});
+    }
+
+    public initializeSteps():Step[]{
+        const steps= [
+            {
+              id: this.CATEGORY,
+              idNext: this.LOCATION,
+              idPrevious: null,
+              isValid: false
+            },
+            {
+              id: this.LOCATION,
+              idNext: this.INFO,
+              idPrevious: this.CATEGORY,
+              isValid: false
+            },
+            {
+              id: this.INFO,
+              idNext: this.PHOTOS,
+              idPrevious: this.LOCATION,
+              isValid: false
+            },
+            {
+              id: this.PHOTOS,
+              idNext: this.DESCRIPTION,
+              idPrevious: this.INFO,
+              isValid: false
+            },
+            {
+              id: this.DESCRIPTION,
+              idNext: this.PRICE,
+              idPrevious: this.PHOTOS,
+              isValid: false
+            },
+            {
+              id: this.PRICE,
+              idNext: null,
+              idPrevious: this.DESCRIPTION,
+              isValid: false
+            }
+          ];
+        return steps;
     }
 }
 
