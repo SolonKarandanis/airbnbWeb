@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, OnInit, output, Output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Category, CategoryName } from '@models/category.model';
 import { CategoryService } from 'src/app/protected/layout/navbar/category/category.service';
@@ -54,11 +54,8 @@ export class CategoryStepComponent implements OnInit{
 
   public categoryName = input.required<CategoryName>();
 
-  @Output()
-  categoryChange = new EventEmitter<CategoryName>();
-
-  @Output()
-  stepValidityChange = new EventEmitter<boolean>();
+  public categoryChange = output<CategoryName>();
+  public stepValidityChange = output<boolean>();
 
   public categories: Category[] | undefined;
 
