@@ -26,7 +26,7 @@ import { CategoryService } from 'src/app/protected/layout/navbar/category/catego
     </div>
   `,
   styles: `
-    @import "../../../../../assets/scss/airbnb-variables";
+    @import "../../../../../../assets/scss/airbnb-variables";
 
     .categories {
       

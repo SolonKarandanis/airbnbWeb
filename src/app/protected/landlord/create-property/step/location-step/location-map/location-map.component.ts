@@ -22,7 +22,7 @@ import { ToastService } from 'src/app/protected/layout/toast.service';
     </p>
   `,
   styles: `
-    @import "./../../../../../../assets/scss/airbnb-variables";
+    @import "./../../../../../../../assets/scss/airbnb-variables";
 
     ::ng-deep .autocomplete-airbnb {
       width: 400px!important;
