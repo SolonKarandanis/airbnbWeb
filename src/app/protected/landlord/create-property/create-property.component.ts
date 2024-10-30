@@ -29,7 +29,41 @@ import { PriceVO } from '@models/listing-vo.model';
   ],
   template: `
     <div class="px-4">
-      
+      @switch (this.currentStep.id){
+        @case (listingService.CATEGORY) {
+          <app-category-step [categoryName]="newListing.category"
+            (categoryChange)="onCategoryChange($event)"
+            (stepValidityChange)="onValidityChange($event)"></app-category-step>
+        }
+        @case (listingService.LOCATION) {
+          <!-- <app-location-step [location]="newListing.location"
+            (locationChange)="onLocationChange($event)"
+            (stepValidityChange)="onValidityChange($event)">
+
+          </app-location-step> -->
+        }
+        @case (listingService.INFO){
+          <div class="mb-5">
+            <h1 class="mb-1">Share some basics about your place</h1>
+            <h2 class="mt-0">You'll add more details later, like bed types.</h2>
+          </div>
+        }
+        @case (listingService.PHOTOS){
+          <app-picture-step [pictures]="pictures"
+            (picturesChange)="onPictureChange($event)"
+            (stepValidityChange)="onValidityChange($event)"></app-picture-step>
+        }
+        @case (listingService.DESCRIPTION){
+          <app-description-step [description]="newListing.description"
+            (descriptionChange)="onDescriptionChange($event)"
+            (stepValidityChange)="onValidityChange($event)"></app-description-step>
+        }
+        @case (listingService.PRICE){
+          <app-price-step [price]="newListing.price"
+            (priceChange)="onPriceChange($event)"
+            (stepValidityChange)="onValidityChange($event)"></app-price-step>
+        }
+      }
     </div>
   `,
   styles: ``
@@ -37,10 +71,11 @@ import { PriceVO } from '@models/listing-vo.model';
 export class CreatePropertyComponent {
 
   private dialogDynamicRef = inject(DynamicDialogRef);
-  private listingService = inject(LandlordService);
   private toastService = inject(ToastService);
   private userService = inject(UserService);
   private router = inject(Router);
+
+  protected listingService = inject(LandlordService);
 
   steps = this.listingService.initializeSteps();
 
