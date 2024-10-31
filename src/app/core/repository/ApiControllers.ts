@@ -8,4 +8,5 @@ export enum ApiControllers {
     SAVED_SEARCH = 'savedSearches',
     SEARCH_CONFIGURATION='searchConfiguration',
     FILES='files',
+    COUNTRY='country',
 }
