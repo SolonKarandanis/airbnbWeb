@@ -15,6 +15,8 @@ import { Description, NewListing, NewListingInfo } from '@models/listing.model';
 import { NewListingPicture } from '@models/picture.model';
 import { CategoryName } from '@models/category.model';
 import { PriceVO } from '@models/listing-vo.model';
+import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
+
 
 @Component({
   selector: 'app-create-property',
@@ -25,7 +27,8 @@ import { PriceVO } from '@models/listing-vo.model';
     InfoStepComponent,
     PictureStepComponent,
     DescriptionStepComponent,
-    PriceStepComponent
+    PriceStepComponent,
+    FooterStepComponent,
   ],
   template: `
     <div class="px-4">
