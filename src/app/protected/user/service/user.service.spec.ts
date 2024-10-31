@@ -2,7 +2,15 @@ import { UserStore } from './../store/user.store';
 import { TestBed } from '@angular/core/testing';
 
 import { UserService } from './user.service';
-import { mockCreateUserForm, mockCreateUserRequest, mockSearchUserForm, mockUpdateUserForm, mockUpdateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
+import { 
+  mockCreateUserForm, 
+  mockCreateUserRequest, 
+  mockSearchUserForm, 
+  mockUpdateUserForm, 
+  mockUpdateUserRequest, 
+  mockUser, 
+  mockUserSearchRequest 
+} from 'src/app/testing/mockData';
 import { SearchService } from '@core/services/search.service';
 import { UserAccountStatus } from '@models/user.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
