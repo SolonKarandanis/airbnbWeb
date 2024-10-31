@@ -125,7 +125,7 @@ export class LocationMapComponent {
 
   private listenToLocation() {
     effect(() => {
-      const countries = this.countryService.countries();
+      const countries = this.countryService.countries;
       if (countries) {
         this.countries = countries;
         this.filteredCountries = countries;
