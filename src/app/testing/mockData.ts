@@ -9,6 +9,7 @@ import { CardListing, CreatedListing, Description, DisplayPicture, LandlordListi
 import { FormControl, FormGroup } from '@angular/forms';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
 import { NewListingPicture } from '@models/picture.model';
+import { Country, CountryName, OfficialAndCommon } from '@models/country.model';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -277,4 +278,83 @@ export const mockNewListing:NewListing={
 export const mockNewListingPicture:NewListingPicture={
     file:mockFile,
     urlDisplay: 'test'
+}
+
+
+export const mockCountry:Country={
+    name:{
+        common:"Aruba",
+        official:"Aruba",
+        native:{
+            "nld": {
+                "official": "Aruba",
+                "common": "Aruba"
+            },
+            "pap": {
+                "official": "Aruba",
+                "common": "Aruba"
+            }
+        }
+    },
+    tld:[
+        ".aw"
+    ],
+    cca2: "AW",
+    ccn3: "533",
+    cca3: "ABW",
+    cioc: "ARU",
+    independent: false,
+    status: "officially-assigned",
+    currencies: {
+        "AWG": {
+            "name": "Aruban florin",
+            "symbol": "\u0192"
+        }
+    },
+    idd:{
+        root: "+2",
+        suffixes: [
+          "97"
+        ]
+    },
+    capital: [
+        "Oranjestad"
+    ],
+    altSpellings: [
+        "AW"
+    ],
+    region: "Americas",
+    subregion: "Caribbean",
+    languages: {
+        "nld": "Dutch",
+        "pap": "Papiamento"
+    },
+    translations:{
+        "ces": {
+            "official": "Aruba",
+            "common": "Aruba"
+        },
+        "deu": {
+            "official": "Aruba",
+            "common": "Aruba"
+        },
+    },
+    latlng:[
+        12.5,
+        -69.96666666
+    ],
+    landlocked: false,
+    borders: [],
+    area: 180,
+    flag: "\ud83c\udde6\ud83c\uddfc",
+    demonyms:{
+        "eng": {
+            "f": "Aruban",
+            "m": "Aruban"
+        },
+        "fra": {
+            "f": "Arubaise",
+            "m": "Arubais"
+        }
+    }
 }
