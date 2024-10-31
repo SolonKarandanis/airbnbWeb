@@ -10,7 +10,8 @@ export class CountryService extends GenericService{
   private _countries: Country[]=[]
   public countries = computed(()=>this._countries)
 
-  constructor(){
+  constructor(
+  ){
     super()
     // fetch all countries in countries variable
   }
