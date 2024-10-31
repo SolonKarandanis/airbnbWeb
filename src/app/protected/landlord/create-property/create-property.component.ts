@@ -71,6 +71,14 @@ import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
         }
       }
     </div>
+    <app-footer-step 
+      [currentStep]="currentStep"
+      [isAllStepsValid]="isAllStepsValid()"
+      [loading]="listingService.isLoading"
+      (finish)="createListing()"
+      (next)="nextStep()"
+      (previous)="previousStep()">
+    </app-footer-step>
   `,
   styles: ``
 })
@@ -104,6 +112,10 @@ export class CreatePropertyComponent {
   };
 
   pictures:NewListingPicture[] = [] 
+
+  createListing(): void{
+    
+  }
 
   nextStep(): void {
     if (this.currentStep.idNext !== null) {
