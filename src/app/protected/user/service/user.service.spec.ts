@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { UserStore } from './../store/user.store';
 import { TestBed } from '@angular/core/testing';
 
@@ -94,7 +95,7 @@ describe('UserService', () => {
 
   it('should execute update user ', () =>{
     const userId: string = '1';
-    service.userId=userId;
+    service.userId=signal(userId);
     searchServiceSpy.toUpdateUserRequest.and.returnValue(mockUpdateUserRequest);
     
     service.executeUpdateUser(mockUpdateUserForm);
@@ -107,7 +108,7 @@ describe('UserService', () => {
 
   it('should execute delete user ', () =>{
     const userId: string = '1';
-    service.userId=userId;
+    service.userId=signal(userId);
 
     service.executeDeleteUser();
 
@@ -117,7 +118,7 @@ describe('UserService', () => {
 
   it('should execute activate user ', () =>{
     const userId: string = '1';
-    service.userId=userId;
+    service.userId=signal(userId);
 
     service.executeActivateUser();
 
@@ -127,7 +128,7 @@ describe('UserService', () => {
 
   it('should execute deactivate user ', () =>{
     const userId: string = '1';
-    service.userId=userId;
+    service.userId=signal(userId);
 
     service.executeDeactivateUser();
 
@@ -175,7 +176,7 @@ describe('UserService', () => {
   });
 
   it('should initialize an update users FormGroup', () => {
-    service.user=mockUser;
+    service.user=signal(mockUser);
     const frmGroup = service.initUpdateUserForm();
     const formValues = frmGroup.value;
 

@@ -163,7 +163,6 @@ export class CreatePropertyComponent {
     effect(() => {
       const publicId = this.listingService.createdListingPublicId();
       if (publicId) {
-        console.log('inside');
         this.dialogDynamicRef.close(publicId);
       } 
     });

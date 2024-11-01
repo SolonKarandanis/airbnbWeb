@@ -12,13 +12,13 @@ export class TenantService extends GenericService{
 
     private tenantStore = inject(TenantStore);
 
-    public isLoading = this.tenantStore.loading();
-    public searchResults = this.tenantStore.searchResults();
-    public totalCount = this.tenantStore.totalCount();
-    public selectedListing = this.tenantStore.selectedListing();
-    public selectedBooking = this.tenantStore.selectedBooking();
-    public availabilityDates = this.tenantStore.availabilityDates();
-    public bookedListings = this.tenantStore.bookedListings();
+    public isLoading = this.tenantStore.loading;
+    public searchResults = this.tenantStore.searchResults;
+    public totalCount = this.tenantStore.totalCount;
+    public selectedListing = this.tenantStore.selectedListing;
+    public selectedBooking = this.tenantStore.selectedBooking;
+    public availabilityDates = this.tenantStore.availabilityDates;
+    public bookedListings = this.tenantStore.bookedListings;
 
     /**
     * Get the Listings by category

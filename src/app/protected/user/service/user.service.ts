@@ -17,11 +17,11 @@ export class UserService extends GenericService{
   private searchService = inject(SearchService);
   private translateService = inject(TranslateService);
 
-  public user = this.userStore.getUser();
-  public userId = this.userStore.getUserId();
-  public isLoading = this.userStore.loading();
-  public searchResults = this.userStore.searchResults();
-  public totalCount = this.userStore.totalCount();
+  public user = this.userStore.getUser;
+  public userId = this.userStore.getUserId;
+  public isLoading = this.userStore.loading;
+  public searchResults = this.userStore.searchResults;
+  public totalCount = this.userStore.totalCount;
 
 
   /**
@@ -49,7 +49,7 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeUpdateUser(form: FormGroup<UpdateUserForm>):void{
-    const id = this.userId;
+    const id = this.userId();
     if(id){
       const request = this.searchService.toUpdateUserRequest(form);
       this.userStore.updateUser({id,request});
@@ -62,8 +62,9 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeDeleteUser():void{
-    if(this.userId){
-      this.userStore.deleteUser(this.userId);
+    const id = this.userId();
+    if(id){
+      this.userStore.deleteUser(id);
     }
   }
 
@@ -73,8 +74,9 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeActivateUser():void{
-    if(this.userId){
-      this.userStore.activateUser(this.userId);
+    const id = this.userId();
+    if(id){
+      this.userStore.activateUser(id);
     }
   }
 
@@ -84,8 +86,9 @@ export class UserService extends GenericService{
   * @returns nothing
   */
   public executeDeactivateUser():void{
-    if(this.userId){
-      this.userStore.deactivateUser(this.userId);
+    const id = this.userId();
+    if(id){
+      this.userStore.deactivateUser(id);
     }
   }
 
@@ -104,12 +107,13 @@ export class UserService extends GenericService{
    * @returns A FormGroup with the appropriate fields
    */
   public initUpdateUserForm(): FormGroup<UpdateUserForm>{
+    const user = this.user();
     return this.formBuilder.group<UpdateUserForm>({
-      username: new FormControl(this.user!.username),
-      firstName: new FormControl(this.user!.firstName),
-      lastName: new FormControl(this.user!.lastName),
-      email: new FormControl(this.user!.email),
-      role: new FormControl(this.user!.role,{nonNullable: true}),
+      username: new FormControl(user!.username),
+      firstName: new FormControl(user!.firstName),
+      lastName: new FormControl(user!.lastName),
+      email: new FormControl(user!.email),
+      role: new FormControl(user!.role,{nonNullable: true}),
     })
   }
 
