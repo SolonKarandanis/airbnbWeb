@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LandlordService } from '@landlord/service/landlord.service';
 import { CategoryStepComponent } from './step/category-step/category-step.component';
@@ -71,7 +71,7 @@ import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
     <app-footer-step 
       [currentStep]="currentStep"
       [isAllStepsValid]="isAllStepsValid()"
-      [loading]="listingService.isLoading"
+      [loading]="listingService.isLoading()"
       (finish)="createListing()"
       (next)="nextStep()"
       (previous)="previousStep()">
@@ -105,7 +105,11 @@ export class CreatePropertyComponent {
     price: {value: 0}
   };
 
-  pictures:NewListingPicture[] = [] 
+  pictures:NewListingPicture[] = []
+
+  constructor(){
+    this.listenToSuccessfullCreation();
+  }
 
   createListing(): void{
     this.listingService.executeCreateListing(this.pictures,this.newListing);
@@ -155,6 +159,15 @@ export class CreatePropertyComponent {
     this.newListing.price = newPrice;
   }
 
+  private listenToSuccessfullCreation() {
+    effect(() => {
+      const publicId = this.listingService.createdListingPublicId();
+      if (publicId) {
+        console.log('inside');
+        this.dialogDynamicRef.close(publicId);
+      } 
+    });
+  }
 
 
 }

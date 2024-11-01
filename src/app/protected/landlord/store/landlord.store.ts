@@ -9,7 +9,6 @@ import { tapResponse } from "@ngrx/operators";
 import { ErrorResponse } from "@models/error.model";
 import { CardListing, NewListing } from "@models/listing.model";
 import { NewListingPicture } from "@models/picture.model";
-import { Router } from "@angular/router";
 import { UtilService } from "@core/services/util.service";
 
 export const LandLordStore = signalStore(
@@ -55,7 +54,6 @@ export const LandLordStore = signalStore(
         state,
         landlordRepo = inject(LandlordRepository),
         utilService = inject(UtilService),
-        router = inject(Router),
     )=>({
         getAllListings: rxMethod<void>(
             pipe(

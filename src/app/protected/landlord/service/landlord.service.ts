@@ -19,11 +19,11 @@ export class LandlordService extends GenericService{
 
     private landlordStore = inject(LandLordStore);
 
-    public isLoading = this.landlordStore.loading();
-    public selectedListing = this.landlordStore.selectedListing();
-    public searchResults = this.landlordStore.searchResults();
-    public totalCount = this.landlordStore.totalCount();
-    public createdListingPublicId = this.landlordStore.createdListingPublicId();
+    public isLoading = this.landlordStore.loading;
+    public selectedListing = this.landlordStore.selectedListing;
+    public searchResults = this.landlordStore.searchResults;
+    public totalCount = this.landlordStore.totalCount;
+    public createdListingPublicId = this.landlordStore.createdListingPublicId;
 
     /**
     * Get all the Card Listings

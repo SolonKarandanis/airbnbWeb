@@ -12,7 +12,6 @@ describe('LandLordStore', () =>{
     let store: LandLordStore;
     let landlordRepoSpy: jasmine.SpyObj<LandlordRepository>;
     let utilServiceSpy: jasmine.SpyObj<UtilService>;
-    let routerSpy: jasmine.SpyObj<Router>;
 
     beforeEach(()=>{
         landlordRepoSpy = jasmine.createSpyObj('LandlordRepository',[
@@ -22,9 +21,6 @@ describe('LandLordStore', () =>{
         ]);
         utilServiceSpy = jasmine.createSpyObj('MessageService',[
             'showMessage',
-        ]);
-        routerSpy = jasmine.createSpyObj('Router',[
-            'navigate',
         ]);
 
 
@@ -37,10 +33,6 @@ describe('LandLordStore', () =>{
               {
                 provide: UtilService,
                 useValue: utilServiceSpy,
-              },
-              {
-                provide: Router,
-                useValue: routerSpy,
               },
             ]
         });
