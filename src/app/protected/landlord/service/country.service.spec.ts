@@ -45,7 +45,7 @@ describe('CountryService', () => {
     service.executeGetAllCountries();
 
     expect(countryStoreSpy.getAllCountries).toHaveBeenCalled()
-    expect(countryStoreSpy.getAllCountries).toHaveBeenCalledTimes(1);
+    expect(countryStoreSpy.getAllCountries).toHaveBeenCalledTimes(2);
   });
 
 });

@@ -34,7 +34,7 @@ describe('CountryRepository', () =>{
             },
         });
 
-        const req = httpTesting.expectOne(`/assets/countries.json`, 'Request to get all countries');
+        const req = httpTesting.expectOne(`assets/countries.json`, 'Request to get all countries');
 
         expect(req.request.method).toBe('GET');
         expect(req.request.params.keys().length).toBe(0);
@@ -51,7 +51,7 @@ describe('CountryRepository', () =>{
             },
         });
 
-        const req = httpTesting.expectOne(`/assets/countries.json`, 'Request to get a country by code');
+        const req = httpTesting.expectOne(`assets/countries.json`, 'Request to get a country by code');
 
         expect(req.request.method).toBe('GET');
         expect(req.request.params.keys().length).toBe(0);
