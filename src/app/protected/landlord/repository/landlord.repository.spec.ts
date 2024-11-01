@@ -68,7 +68,7 @@ describe('LandlordRepository', () =>{
 
     it('should create a new listing', () =>{
         const formData = new FormData();
-        formData.append("picture-" + 0, mockNewListingPicture.file);
+        formData.append("images", mockNewListingPicture.file);
 
         repository.createListing([mockNewListingPicture],mockNewListing).subscribe({
             next: (result: CreatedListing) => {

@@ -108,8 +108,7 @@ export class CreatePropertyComponent {
   pictures:NewListingPicture[] = [] 
 
   createListing(): void{
-    console.log(this.pictures);
-    console.log(this.newListing);
+    this.listingService.executeCreateListing(this.pictures,this.newListing);
   }
 
   nextStep(): void {

@@ -11,6 +11,7 @@ import { CardListing, NewListing } from "@models/listing.model";
 import { NewListingPicture } from "@models/picture.model";
 import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
+import { UtilService } from "@core/services/util.service";
 
 export const LandLordStore = signalStore(
     { providedIn: 'root' },
@@ -51,22 +52,22 @@ export const LandLordStore = signalStore(
     withMethods((
         state,
         landlordRepo = inject(LandlordRepository),
-        messageService = inject(MessageService),
+        utilService = inject(UtilService),
         router = inject(Router),
     )=>({
         getAllListings: rxMethod<void>(
             pipe(
                 tap(() => {
-                    state.setLoading(true)
+                    state.setLoading(true);
                 }),
                 switchMap(()=> 
                     landlordRepo.getAllListings().pipe(
                         tapResponse({
                             next:(result)=>{
-                                state.setSearchResults(result)
+                                state.setSearchResults(result);
                             },
                             error: (error:ErrorResponse) =>{
-                                state.setError(error)
+                                state.setError(error);
                             }
                         })
                     )
@@ -76,16 +77,16 @@ export const LandLordStore = signalStore(
         deleteListing: rxMethod<string>(
             pipe(
                 tap(() => {
-                    state.setLoading(true)
+                    state.setLoading(true);
                 }),
                 switchMap((id)=>
                     landlordRepo.deleteListing(id).pipe(
                         tapResponse({
                             next:()=>{
-                                state.setLoading(false)
+                                state.setLoading(false);
                             },
                             error: (error:ErrorResponse) =>{
-                                state.setError(error)
+                                state.setError(error);
                             }
                         })
                     )
@@ -101,10 +102,12 @@ export const LandLordStore = signalStore(
                     landlordRepo.createListing(pictures,newListing).pipe(
                         tapResponse({
                             next:({publicId})=>{
-                                state.setCreatedListingPublicId(publicId)
+                                state.setCreatedListingPublicId(publicId);
+                                utilService.showMessage('success','Listing Created Successfully');
                             },
                             error: (error:ErrorResponse) =>{
-                                state.setError(error)
+                                state.setError(error);
+                                utilService.showMessage('error',"Couldn't create your listing, please try again.");
                             }
                         })
                     )

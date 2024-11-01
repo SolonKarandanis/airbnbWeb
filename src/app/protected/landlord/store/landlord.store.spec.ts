@@ -4,14 +4,14 @@ import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
 import { mockCardListing, mockCreatedListing, mockNewListing, mockNewListingPicture } from "src/app/testing/mockData";
 import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
+import { UtilService } from "@core/services/util.service";
 
 type LandLordStore = InstanceType<typeof LandLordStore>;
 
 describe('LandLordStore', () =>{
     let store: LandLordStore;
     let landlordRepoSpy: jasmine.SpyObj<LandlordRepository>;
-    let messageServiceSpy: jasmine.SpyObj<MessageService>;
+    let utilServiceSpy: jasmine.SpyObj<UtilService>;
     let routerSpy: jasmine.SpyObj<Router>;
 
     beforeEach(()=>{
@@ -20,8 +20,8 @@ describe('LandLordStore', () =>{
             'deleteListing',
             'createListing',
         ]);
-        messageServiceSpy = jasmine.createSpyObj('MessageService',[
-            'add',
+        utilServiceSpy = jasmine.createSpyObj('MessageService',[
+            'showMessage',
         ]);
         routerSpy = jasmine.createSpyObj('Router',[
             'navigate',
@@ -35,8 +35,8 @@ describe('LandLordStore', () =>{
                 useValue: landlordRepoSpy,
               },
               {
-                provide: MessageService,
-                useValue: messageServiceSpy,
+                provide: UtilService,
+                useValue: utilServiceSpy,
               },
               {
                 provide: Router,
