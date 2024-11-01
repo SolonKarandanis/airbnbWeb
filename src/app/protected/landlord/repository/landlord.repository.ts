@@ -1,4 +1,3 @@
-import { HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { ApiControllers } from "@core/repository/ApiControllers";
 import { BaseRepository } from "@core/repository/base.repository";
@@ -40,10 +39,11 @@ export class LandlordRepository  extends BaseRepository{
     public createListing( pictures: NewListingPicture[],newListing:NewListing):Observable<CreatedListing>{
         const formData = new FormData();
         for(let i = 0; i < pictures.length; ++i) {
-            formData.append("images", pictures[i].file);
+            const file = pictures[i].file;
+            formData.append("images", file, file.name);
         }
         formData.append('dto', this.utilsService.createJsonBlob(newListing));
-        return this.http.post<CreatedListing>(`${ApiControllers.LANDLORD}`, formData,);
+        return this.http.post<CreatedListing>(`${ApiControllers.LANDLORD}`, formData);
     }
 }
 

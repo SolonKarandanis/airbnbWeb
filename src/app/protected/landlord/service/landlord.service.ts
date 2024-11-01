@@ -23,6 +23,7 @@ export class LandlordService extends GenericService{
     public selectedListing = this.landlordStore.selectedListing();
     public searchResults = this.landlordStore.searchResults();
     public totalCount = this.landlordStore.totalCount();
+    public createdListingPublicId = this.landlordStore.createdListingPublicId();
 
     /**
     * Get all the Card Listings

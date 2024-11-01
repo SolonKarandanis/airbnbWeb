@@ -18,6 +18,7 @@ describe('LandlordService', () => {
             'selectedListing',
             'searchResults',
             'totalCount',
+            'createdListingPublicId'
           ]);
 
         TestBed.configureTestingModule({

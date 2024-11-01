@@ -10,7 +10,6 @@ import { ErrorResponse } from "@models/error.model";
 import { CardListing, NewListing } from "@models/listing.model";
 import { NewListingPicture } from "@models/picture.model";
 import { Router } from "@angular/router";
-import { MessageService } from "primeng/api";
 import { UtilService } from "@core/services/util.service";
 
 export const LandLordStore = signalStore(
@@ -47,6 +46,9 @@ export const LandLordStore = signalStore(
         },
         setError(error:ErrorResponse){
             patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+        },
+        resetCreatedListingPublicId(){
+            patchState(state,{createdListingPublicId:null});
         }
     })),
     withMethods((
@@ -96,6 +98,7 @@ export const LandLordStore = signalStore(
         createListing: rxMethod<{pictures: NewListingPicture[],newListing:NewListing}>(
             pipe(
                 tap(() => {
+                    state.resetCreatedListingPublicId();
                     state.setLoading(true)
                 }),
                 switchMap(({pictures,newListing})=>

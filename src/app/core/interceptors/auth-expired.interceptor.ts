@@ -17,7 +17,6 @@ export const authExpired: HttpInterceptorFn = (
         request = request.clone({
             setHeaders: {
               Authorization: `Bearer ${userToken}`,
-              'Content-Type':  'application/json',
             },
             // withCredentials:true
           });
