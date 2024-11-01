@@ -1,9 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastService } from '../../layout/toast.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LandlordService } from '@landlord/service/landlord.service';
-import { UserService } from '@user/service/user.service';
 import { CategoryStepComponent } from './step/category-step/category-step.component';
 import { LocationStepComponent } from './step/location-step/location-step.component';
 import { InfoStepComponent } from './step/info-step/info-step.component';
@@ -85,9 +82,6 @@ import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
 export class CreatePropertyComponent {
 
   private dialogDynamicRef = inject(DynamicDialogRef);
-  private toastService = inject(ToastService);
-  private userService = inject(UserService);
-  private router = inject(Router);
 
   protected listingService = inject(LandlordService);
 
@@ -114,7 +108,8 @@ export class CreatePropertyComponent {
   pictures:NewListingPicture[] = [] 
 
   createListing(): void{
-    
+    console.log(this.pictures);
+    console.log(this.newListing);
   }
 
   nextStep(): void {

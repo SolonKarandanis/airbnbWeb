@@ -3,12 +3,16 @@ import { LandLordStore } from "./landlord.store";
 import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
 import { mockCardListing, mockCreatedListing, mockNewListing, mockNewListingPicture } from "src/app/testing/mockData";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
 
 type LandLordStore = InstanceType<typeof LandLordStore>;
 
 describe('LandLordStore', () =>{
     let store: LandLordStore;
     let landlordRepoSpy: jasmine.SpyObj<LandlordRepository>;
+    let messageServiceSpy: jasmine.SpyObj<MessageService>;
+    let routerSpy: jasmine.SpyObj<Router>;
 
     beforeEach(()=>{
         landlordRepoSpy = jasmine.createSpyObj('LandlordRepository',[
@@ -16,12 +20,27 @@ describe('LandLordStore', () =>{
             'deleteListing',
             'createListing',
         ]);
+        messageServiceSpy = jasmine.createSpyObj('MessageService',[
+            'add',
+        ]);
+        routerSpy = jasmine.createSpyObj('Router',[
+            'navigate',
+        ]);
+
 
         TestBed.configureTestingModule({
             providers:[
               {
                 provide: LandlordRepository,
                 useValue: landlordRepoSpy,
+              },
+              {
+                provide: MessageService,
+                useValue: messageServiceSpy,
+              },
+              {
+                provide: Router,
+                useValue: routerSpy,
               },
             ]
         });

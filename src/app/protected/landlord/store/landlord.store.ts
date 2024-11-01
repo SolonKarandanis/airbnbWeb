@@ -9,6 +9,8 @@ import { tapResponse } from "@ngrx/operators";
 import { ErrorResponse } from "@models/error.model";
 import { CardListing, NewListing } from "@models/listing.model";
 import { NewListingPicture } from "@models/picture.model";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
 
 export const LandLordStore = signalStore(
     { providedIn: 'root' },
@@ -49,6 +51,8 @@ export const LandLordStore = signalStore(
     withMethods((
         state,
         landlordRepo = inject(LandlordRepository),
+        messageService = inject(MessageService),
+        router = inject(Router),
     )=>({
         getAllListings: rxMethod<void>(
             pipe(
