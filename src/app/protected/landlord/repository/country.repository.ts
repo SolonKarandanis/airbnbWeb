@@ -13,7 +13,7 @@ export class CountryRepository  extends BaseRepository{
     * @returns An observable with the Countries
     */
     public getAllCountries():Observable<Country[]>{
-        return this.http.get<Country[]>(`/assets/countries.json`);
+        return this.http.get<Country[]>(`assets/countries.json`);
     }
 
     /**
@@ -22,6 +22,6 @@ export class CountryRepository  extends BaseRepository{
     * @returns An observable with the Country
     */
     public getCountryByCode(code: string): Observable<Country>{
-        return this.http.get<Country>(`/assets/countries.json`);
+        return this.http.get<Country>(`assets/countries.json`);
     }
 }

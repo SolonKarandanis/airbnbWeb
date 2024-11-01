@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { GenericService } from '@core/services/generic.service';
 import { CountryStore } from '@landlord/store/country.store';
 import { Country } from '@models/country.model';
@@ -10,18 +10,22 @@ type CountryStore = InstanceType<typeof CountryStore>;
 })
 export class CountryService extends GenericService{
 
-  public isLoading:boolean;
-  public countries:Country[];
-  public selectedCountry:Country| null;
+  public isLoading:Signal<boolean>;
+  public countries:Signal<Country[]>;
+  public selectedCountry:Signal<Country| null>;
 
   constructor(
     private countryStore:CountryStore,
   ){
     super()
     // fetch all countries in countries variable
-    this.isLoading = this.countryStore.loading();
-    this.countries=this.countryStore.countries();
-    this.selectedCountry=this.countryStore.selectedCountry();
+    this.isLoading = this.countryStore.loading;
+    this.countries=this.countryStore.countries;
+    this.selectedCountry=this.countryStore.selectedCountry;
+
+    if(this.countries.length===0){
+      this.executeGetAllCountries();
+    }
   }
 
   /**
@@ -36,5 +40,11 @@ export class CountryService extends GenericService{
   */
   public executeGetCountryByCode(code: string):void{
     this.countryStore.getCountryByCode(code);
+  }
+
+  public getCountryByCode(code: string): Country {
+    const filtered= this.countries()
+      .filter(country => country.cca3 === code);
+    return filtered[0];
   }
 }

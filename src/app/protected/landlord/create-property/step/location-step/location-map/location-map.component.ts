@@ -101,8 +101,8 @@ export class LocationMapComponent {
   }
 
   currentLocation: Country | undefined;
-  countries: Array<Country> = [];
-  filteredCountries: Array<Country> = [];
+  countries: Country[] = [];
+  filteredCountries: Country[] = [];
 
 
   constructor() {
@@ -125,7 +125,7 @@ export class LocationMapComponent {
 
   private listenToLocation() {
     effect(() => {
-      const countries = this.countryService.countries;
+      const countries = this.countryService.countries();
       if (countries) {
         this.countries = countries;
         this.filteredCountries = countries;
@@ -152,8 +152,9 @@ export class LocationMapComponent {
   }
 
   search(newCompleteEvent: AutoCompleteCompleteEvent): void {
+    const query = newCompleteEvent.query;
     this.filteredCountries =
-      this.countries.filter(country => country.name.common.toLowerCase().startsWith(newCompleteEvent.query))
+      this.countries.filter(country => country.name.common.toLowerCase().startsWith(query.toLowerCase()))
   }
 
   // protected readonly filter = filter;
