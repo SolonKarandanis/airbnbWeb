@@ -111,7 +111,9 @@ export class CardListingComponent {
     effect(() => {
       const listing = this.listing();
       const country =this.countryService.getCountryByCode(listing.location);
-      this.listing().location = country.region + ", " + country.name.common
+      if(country){
+        this.listing().location = country.region + ", " + country.name.common
+      }
     });
   }
 
