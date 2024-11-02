@@ -1,7 +1,7 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { PropertiesComponent } from "@landlord/properties/properties.component";
 import { RoleGuard } from "@core/guards/role.guard";
+import { RolesConstants } from "@core/guards/SecurityConstants";
 
 export const protectedRoutes: Routes =[
   {
@@ -10,16 +10,12 @@ export const protectedRoutes: Routes =[
   },
   {
     path: 'landlord/properties',
-    component: PropertiesComponent,
+    loadComponent: () => 
+      import('./landlord/properties/properties.component').then((m)=>m.PropertiesComponent),
     canActivate: [RoleGuard],
     data: {
-      allowedRoles: ["ROLE_LANDLORD"]
+      allowedRoles: [RolesConstants.ROLE_LANDLORD]
     }
-  },
-  {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
   },
     
 ]
