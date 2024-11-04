@@ -29,9 +29,9 @@ export class AuthService extends GenericService{
 
     effect(()=>{
       const loggedIn=this.isAuthenticated();
-      if(loggedIn){
+      if(!loggedIn){
         untracked(()=>{
-          this.navigateToHome();
+          this.navigateToLogin();
         });
       }
     });
