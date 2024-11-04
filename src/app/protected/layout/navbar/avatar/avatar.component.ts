@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -36,7 +36,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     width: 50px;
     height: 50px;
   }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent {
 
