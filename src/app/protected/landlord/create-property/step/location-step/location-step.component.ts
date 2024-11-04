@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { LocationMapComponent } from './location-map/location-map.component';
 
 @Component({
@@ -16,7 +16,8 @@ import { LocationMapComponent } from './location-map/location-map.component';
         (locationChange)="onLocationChange($event)"></app-location-map>
     </div>
   `,
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LocationStepComponent {
 

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import {ToolbarModule} from "primeng/toolbar";
@@ -93,7 +93,8 @@ import { CreatePropertyComponent } from '@landlord/create-property/create-proper
     width: 380px;
   }
   
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent implements OnInit{
 

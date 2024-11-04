@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
@@ -38,7 +38,8 @@ export type Control = "GUESTS" | "BEDROOMS" | "BEDS" | "BATHS"
       (valueChange)="onInfoChange($event, 'BATHS')">
     </app-info-step-control>
   `,
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoStepComponent {
 

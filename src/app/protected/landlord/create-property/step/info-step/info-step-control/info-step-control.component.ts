@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -31,7 +31,8 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
     .value {
       width: 15px;
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InfoStepControlComponent {
 

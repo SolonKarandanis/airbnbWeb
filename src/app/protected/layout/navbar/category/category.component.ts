@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CategoryService } from './category.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -74,7 +74,8 @@ import { Category, CategoryName } from '@models/category.model';
         border-bottom: 2px $border-color solid;
       }
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryComponent implements OnInit {
 

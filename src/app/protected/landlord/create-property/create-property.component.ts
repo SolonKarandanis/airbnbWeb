@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LandlordService } from '@landlord/service/landlord.service';
 import { CategoryStepComponent } from './step/category-step/category-step.component';
@@ -77,7 +77,8 @@ import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
       (previous)="previousStep()">
     </app-footer-step>
   `,
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreatePropertyComponent {
 

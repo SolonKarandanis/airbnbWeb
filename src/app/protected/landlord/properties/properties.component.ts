@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { LandlordService } from '@landlord/service/landlord.service';
 import { CardListing } from '@models/listing.model';
@@ -39,7 +39,8 @@ import { CardListingComponent } from '@shared/card-listing/card-listing.componen
       }
     }
   `,
-  styles: ``
+  styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PropertiesComponent {
 

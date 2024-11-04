@@ -1,4 +1,4 @@
-import { Component, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PriceVO } from '@models/listing-vo.model';
@@ -41,7 +41,8 @@ import { InputTextModule } from 'primeng/inputtext';
     .placeholder-validation {
       height: 21px;
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PriceStepComponent {
 

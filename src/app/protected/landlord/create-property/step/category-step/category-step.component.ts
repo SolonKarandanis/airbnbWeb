@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Category, CategoryName } from '@models/category.model';
 import { CategoryService } from 'src/app/protected/layout/navbar/category/category.service';
@@ -46,7 +46,8 @@ import { CategoryService } from 'src/app/protected/layout/navbar/category/catego
       }
 
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CategoryStepComponent implements OnInit{
 

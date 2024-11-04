@@ -1,4 +1,4 @@
-import { Component, input, output, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Description } from '@models/listing.model';
 import { InputTextModule } from 'primeng/inputtext';
@@ -45,7 +45,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea'
     .placeholder-validation {
       height: 21px;
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DescriptionStepComponent {
 

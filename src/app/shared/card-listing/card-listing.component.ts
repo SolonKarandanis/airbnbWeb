@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { Component, effect, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CountryService } from '@landlord/service/country.service';
@@ -60,7 +60,8 @@ import { CategoryService } from 'src/app/protected/layout/navbar/category/catego
       left: calc(100% - 140px);
       top: 10px;
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardListingComponent {
 

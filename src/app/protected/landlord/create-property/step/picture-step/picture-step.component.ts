@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NewListingPicture } from '@models/picture.model';
 import { ButtonModule } from 'primeng/button';
@@ -47,7 +47,8 @@ import { InputTextModule } from 'primeng/inputtext';
     .container-picture {
       width: 50%;
     }
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PictureStepComponent {
 
