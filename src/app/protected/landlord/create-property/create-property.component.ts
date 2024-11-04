@@ -13,6 +13,7 @@ import { NewListingPicture } from '@models/picture.model';
 import { CategoryName } from '@models/category.model';
 import { PriceVO } from '@models/listing-vo.model';
 import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -85,6 +86,8 @@ export class CreatePropertyComponent {
   private dialogDynamicRef = inject(DynamicDialogRef);
 
   protected listingService = inject(LandlordService);
+
+  private router = inject(Router);
 
   steps = this.listingService.initializeSteps();
 
@@ -165,8 +168,13 @@ export class CreatePropertyComponent {
       const publicId = this.listingService.createdListingPublicId();
       if (publicId) {
         this.dialogDynamicRef.close(publicId);
+        this.navigateToProperties();
       } 
     });
+  }
+
+  private navigateToProperties():void{
+    this.router.navigate(["landlord", "properties"]);
   }
 
 

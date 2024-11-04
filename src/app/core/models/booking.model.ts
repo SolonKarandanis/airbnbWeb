@@ -1,3 +1,4 @@
+import { LoadingModel } from "./BaseModel.model";
 import { PriceVO } from "./listing-vo.model";
 import { DisplayPicture } from "./listing.model";
 
@@ -16,7 +17,7 @@ export interface Booking{
   fkListing: string,
 }
   
-export interface BookedListing {
+export interface BookedListing extends LoadingModel{
     location: string,
     cover: DisplayPicture,
     totalPrice: PriceVO,

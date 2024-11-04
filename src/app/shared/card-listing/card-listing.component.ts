@@ -39,10 +39,10 @@ import { CategoryService } from 'src/app/protected/layout/navbar/category/catego
         }
       </div>
       <button 
-        [disabled]="loading()" 
+        [disabled]="listing().loading" 
         class="absolute trash-btn p-button"
         (click)="onClickAction()">
-        @if (loading()) {
+        @if (listing().loading) {
           <fa-icon icon="circle-notch" animation="spin"></fa-icon>
         } @else {
           <fa-icon icon="trash-can"></fa-icon>
@@ -71,7 +71,6 @@ export class CardListingComponent {
 
   listing = input.required<CardListing | BookedListing>();
   cardMode = input<"landlord" | "booking">();
-  loading = input<boolean>(false);
 
   deleteListing = output<CardListing>();
   cancelBooking = output<BookedListing>();

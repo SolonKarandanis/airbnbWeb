@@ -64,6 +64,7 @@ export class PropertiesComponent {
   }
 
   onDeleteListing(listing: CardListing): void {
+    listing.loading = true;
     this.landlordService.executeDeleteListing(listing.publicId);
   }
 

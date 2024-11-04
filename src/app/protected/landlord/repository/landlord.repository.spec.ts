@@ -56,14 +56,20 @@ describe('LandlordRepository', () =>{
 
     it('should delete listing by id', () =>{
         const id ='1';
-        repository.deleteListing(id).subscribe();
+        repository.deleteListing(id).subscribe({
+            next: (result: CardListing[]) => {
+                expect(result).toBeTruthy();
+                expect(Array.isArray(result)).toBeTrue();
+                expect(result[0]).toEqual(mockCardListing);
+            },
+        });
 
         const req = httpTesting.expectOne(`${apiUrl}/listings/${id}`, 'Request to delete listing by id');
 
         expect(req.request.method).toBe('DELETE');
         expect(req.request.params.keys().length).toBe(0);
 
-        req.flush(null);
+        req.flush([mockCardListing]);
     });
 
     it('should create a new listing', () =>{

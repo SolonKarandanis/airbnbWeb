@@ -26,8 +26,8 @@ export class LandlordRepository  extends BaseRepository{
     * @param id The listing's ID
     * @returns An observable that resolves to no data
     */
-    public deleteListing(id:string):Observable<void>{
-        return this.http.delete<void>(`${ApiControllers.LANDLORD}/listings/${id}`);
+    public deleteListing(id:string):Observable<CardListing[]>{
+        return this.http.delete<CardListing[]>(`${ApiControllers.LANDLORD}/listings/${id}`);
     }
 
     /**

@@ -82,11 +82,13 @@ export const LandLordStore = signalStore(
                 switchMap((id)=>
                     landlordRepo.deleteListing(id).pipe(
                         tapResponse({
-                            next:()=>{
-                                state.setLoading(false);
+                            next:(result)=>{
+                                state.setSearchResults(result);
+                                utilService.showMessage('success','Listing Successfully Deleted');
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error);
+                                utilService.showMessage('error',"Couldn't delete listing");
                             }
                         })
                     )
