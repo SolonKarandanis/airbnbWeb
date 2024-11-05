@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { GenericService } from "@core/services/generic.service";
 import { TenantStore } from "../store/tenant.store";
-import { ListingSearchRequest } from "@models/search.model";
+import { ListingSearchRequest, Paging } from "@models/search.model";
 import { CategoryName } from "@models/category.model";
 import { CreateBooking } from "@models/booking.model";
 
@@ -23,25 +23,16 @@ export class TenantService extends GenericService{
     /**
     * Get the Listings by category
     * @param category the category of the listing
-    * @param page the page number
-    * @param size the results per page
-    * @param sortField the field according to which the results will be sorted
-    * @param sortOrder the sort order
+    * @param pageRequest the page request
     * @returns nothing
     */
     public executeGetAllListingsByBookingAndCategory(
         category:CategoryName,
-        page: number, 
-        size: number, 
-        sortField?: string, 
-        sortOrder?: string
+        pageRequest:Paging
     ):void{
         this.tenantStore.getAllListingsByBookingAndCategory({
             category,
-            page,
-            size,
-            sortField,
-            sortOrder
+            pageRequest
         });
     }
 

@@ -9,7 +9,7 @@ import { ErrorResponse } from "@models/error.model";
 import { TenantRepository } from "../repository/tenant.repository";
 import { BookingRepository } from "../repository/booking.repository";
 import { CategoryName } from "@models/category.model";
-import { ListingSearchRequest } from "@models/search.model";
+import { ListingSearchRequest, Paging } from "@models/search.model";
 import { CreateBooking } from "@models/booking.model";
 
 export const TenantStore = signalStore(
@@ -28,17 +28,14 @@ export const TenantStore = signalStore(
     )=>({
         getAllListingsByBookingAndCategory: rxMethod<{
             category:CategoryName, 
-            page: number,
-            size: number,
-            sortField?: string,
-            sortOrder?: string
+            pageRequest:Paging
         }>(
             pipe(
                 tap(() => {
                     patchState(state,{loading:true,showError:false});
                 }),
-                switchMap(({category,page,size,sortField,sortOrder})=> 
-                    tenantRepo.getAllListingsByBookingAndCategory(category,page,size,sortField,sortOrder).pipe(
+                switchMap(({category,pageRequest})=> 
+                    tenantRepo.getAllListingsByBookingAndCategory(category,pageRequest).pipe(
                         tapResponse({
                             next:({countRows,list})=>{
                                 patchState(state,{

@@ -4,7 +4,7 @@ import { ApiControllers } from "@core/repository/ApiControllers";
 import { BaseRepository } from "@core/repository/base.repository";
 import { CategoryName } from "@models/category.model";
 import { CardListing, Listing } from "@models/listing.model";
-import { ListingSearchRequest, SearchResult } from "@models/search.model";
+import { ListingSearchRequest, Paging, SearchResult } from "@models/search.model";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,26 +15,21 @@ export class TenantRepository  extends BaseRepository{
     /**
     * Get the Listings by category
     * @param category the category of the listing
-    * @param page the page number
-    * @param size the results per page
-    * @param sortField the field according to which the results will be sorted
-    * @param sortOrder the sort order
+    * @param pageRequest the page request
     * @returns An Observable of the list of listings found
     */
     public getAllListingsByBookingAndCategory(
         category:CategoryName,
-        page: number, 
-        size: number, 
-        sortField?: string, 
-        sortOrder?: string
+        pageRequest:Paging
     ):Observable<SearchResult<CardListing>>{
+        const {limit,page,sortDirection,sortField} = pageRequest;
         let queryParams = new HttpParams()
             .append('category', category)
             .append('page', page)
-            .append('size', size);
+            .append('size', limit);
 
-        if (sortField && sortOrder) {
-            queryParams = queryParams.append('sortField', sortField).append('sortOrder', sortOrder);
+        if (sortField && sortDirection) {
+            queryParams = queryParams.append('sortField', sortField).append('sortOrder', sortDirection);
         }
         return this.http.get<SearchResult<CardListing>>(`${ApiControllers.TENANT}/listing/by-category`, { params: queryParams });
     }
