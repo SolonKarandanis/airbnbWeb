@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -8,7 +8,7 @@ import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TranslationModule } from 'src/app/i18n/translation.module';
 import { ButtonModule } from 'primeng/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormErrorComponent } from '@components/form-error/form-error.component';
 
 @Component({
@@ -240,9 +240,14 @@ export class LoginComponent implements OnInit{
 
   private authService = inject(AuthService);
   private fb= inject(FormBuilder);
+  private router= inject(Router);
 
   public isLoading = this.authService.isLoading;
   public isFormSubmitted=false;
+
+  constructor(){
+    this.listenToSuccessfullLogin();
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -284,6 +289,21 @@ export class LoginComponent implements OnInit{
           Validators.maxLength(100),
         ]),
       ]
+    });
+  }
+
+  private listenToSuccessfullLogin():void{
+    effect(() => {
+      const loggedIn = this.authService.isLoggedIn();
+      if (loggedIn) {
+        this.navigateToHome();
+      } 
+    });
+  }
+
+  private navigateToHome():void{
+    this.router.navigate(['/home'], {
+      queryParams: {},
     });
   }
 
