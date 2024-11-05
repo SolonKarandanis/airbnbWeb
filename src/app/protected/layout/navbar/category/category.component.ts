@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { CategoryService } from './category.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,7 +10,7 @@ import { Category, CategoryName } from '@models/category.model';
   standalone: true,
   imports: [FontAwesomeModule],
   template: `
-    @if (isHome) {
+    @if (isHome()) {
       <div class="categories pt-3 mx-8">
         @for (category of categories; track category.technicalName) {
           @if (category.technicalName !== 'ALL') {
@@ -85,7 +85,7 @@ export class CategoryComponent implements OnInit {
 
   currentActivateCategory = this.categoryService.getCategoryByDefault();
 
-  isHome = true;
+  isHome = signal(true);
   router = inject(Router);
   activatedRoute = inject(ActivatedRoute);
 
@@ -105,8 +105,9 @@ export class CategoryComponent implements OnInit {
     )
       .subscribe({
         next: (evt: NavigationEnd) => {
-          this.isHome = evt.url.split("?")[0] === "/";
-          if (this.isHome && evt.url.indexOf("?") === -1) {
+          const url =evt.url;
+          this.isHome.set(url.split("?")[0] === "/home");
+          if (this.isHome() && evt.url.indexOf("?") === -1) {
             const categoryByTechnicalName = this.categoryService.getCategoryByTechnicalName("ALL");
             this.categoryService.changeCategory(categoryByTechnicalName!);
           }

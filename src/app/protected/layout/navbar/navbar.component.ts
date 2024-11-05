@@ -29,7 +29,7 @@ import { CreatePropertyComponent } from '@landlord/create-property/create-proper
     <div class="sticky top-0 border-bottom-1 border-gray-200 shadow-1 z-1">
       <p-toolbar [styleClass]="'bg-white border-top-none border-x-none border-noround'
         + 'sm:flex sm:justify-content-center sm:w-full md:flex md:justify-content-between px-8'">
-        <div class="p-toolbar-group-start pl-1 sm:hidden md:flex cursor-pointer" routerLink="/">
+        <div class="p-toolbar-group-start pl-1 sm:hidden md:flex cursor-pointer" routerLink="/home">
           <fa-icon [icon]="['fab', 'airbnb']" size="3x" class="text-primary"></fa-icon>
           <div class="font-bold text-primary pl-2 text-2xl">airbnb</div>
         </div>

@@ -17,5 +17,10 @@ export const protectedRoutes: Routes =[
       allowedRoles: [RolesConstants.ROLE_LANDLORD]
     }
   },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
     
 ]
