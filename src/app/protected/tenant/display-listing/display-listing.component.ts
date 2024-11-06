@@ -9,6 +9,7 @@ import { CategoryService } from '../../layout/navbar/category/category.service';
 import { CountryService } from '@landlord/service/country.service';
 import { DisplayPicture, Listing } from '@models/listing.model';
 import { map } from 'rxjs';
+import { VarDirective } from '@shared/directives/ng-var.directive';
 
 @Component({
   selector: 'app-display-listing',
@@ -17,7 +18,8 @@ import { map } from 'rxjs';
     NgClass,
     FaIconComponent,
     AvatarComponent,
-    BookDateComponent
+    BookDateComponent,
+    VarDirective,
   ],
   styles: `
     .gallery{
@@ -159,11 +161,13 @@ export class DisplayListingComponent implements OnInit {
   protected vm = computed(()=>{
     const loading = this.loading();
     const listing = this.listing();
-    const category = this.categoryService.getCategoryByTechnicalName(listing!.category);
-    const country =this.countryService.getCountryByCode(listing!.location);
+    let category = null;
+    
     if(listing){
+      const country =this.countryService.getCountryByCode(listing.location);
       listing.pictures = this.putCoverPictureFirst(listing.pictures);
       listing.location = country.region + ", " + country.name.common;
+      category = this.categoryService.getCategoryByTechnicalName(listing!.category);
     }
 
     return {
