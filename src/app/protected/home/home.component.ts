@@ -29,6 +29,13 @@ import { Category } from '@models/category.model';
         }
       </div>
     }
+    @if (!vm.loading && vm.emptySearch) {
+      <div class="flex flex-column align-items-center justify-content-center h-10rem">
+        <h1>No match for your search !</h1>
+        <div class="text-xl">Try with different parameters</div>
+        <button class="p-button mt-3" (click)="onResetSearchFilter()">Reset all the filters</button>
+      </div>
+    }
    }
   `,
   styles: ``,
@@ -44,6 +51,7 @@ export class HomeComponent implements OnDestroy{
   private loading:Signal<boolean> = this.tenantService.isLoading;
   private searchResults:Signal<CardListing[]> = this.tenantService.searchResults;
   private totalCount:Signal<number|null> = this.tenantService.totalCount;
+  private emptySearch:Signal<boolean> = computed(()=> this.totalCount() ===0 ? true:false );
 
   private pageRequest: Paging = {limit:20,page:0};
   private categoryServiceSubscription: Subscription | undefined;
@@ -57,19 +65,29 @@ export class HomeComponent implements OnDestroy{
       this.categoryServiceSubscription.unsubscribe();
     }
   }
+  
 
   protected vm = computed(()=>{
     const loading = this.loading();
     const searchResults = this.searchResults();
     const totalCount = this.totalCount();
-    const emptySearch = signal(false);
+    const emptySearch = this.emptySearch();
 
     return {
       loading,
       searchResults,
-      totalCount
+      totalCount,
+      emptySearch
     }
   });
+
+  onResetSearchFilter():void{
+    const defaultCat = this.categoryService.getCategoryByDefault();
+    this.router.navigate(["/"], {
+      queryParams: {"category": defaultCat.technicalName}
+    });
+    this.categoryService.changeCategory(defaultCat);
+  }
 
   private listenToGetAllCategory():void{
     this.categoryServiceSubscription=this.categoryService.changeCategoryObs.subscribe({
@@ -78,6 +96,8 @@ export class HomeComponent implements OnDestroy{
       }
     });
   }
+
+  
 
 
 }
