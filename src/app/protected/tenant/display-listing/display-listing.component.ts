@@ -1,14 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { AvatarComponent } from '../../layout/navbar/avatar/avatar.component';
+import { BookDateComponent } from '@tenant/book-date/book-date.component';
+import { TenantService } from '@tenant/service/tenant.service';
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../../layout/navbar/category/category.service';
+import { CountryService } from '@landlord/service/country.service';
 
 @Component({
   selector: 'app-display-listing',
   standalone: true,
-  imports: [],
-  template: `
-    <p>
-      display-listing works!
-    </p>
-  `,
+  imports: [
+    NgClass,
+    FaIconComponent,
+    AvatarComponent,
+    BookDateComponent
+  ],
   styles: `
     .gallery{
       display: grid;
@@ -76,8 +84,22 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       }
     }
   `,
+  template: `
+   <p>
+     display-listing works!
+   </p>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DisplayListingComponent {
+export class DisplayListingComponent implements OnInit {
+
+  private tenantService = inject(TenantService);
+  private activatedRoute = inject(ActivatedRoute);
+  private categoryService = inject(CategoryService);
+  private countryService = inject(CountryService);
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
 }

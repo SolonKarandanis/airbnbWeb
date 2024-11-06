@@ -1,7 +1,10 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
 import { Listing } from '@models/listing.model';
+import { TenantService } from '@tenant/service/tenant.service';
 import { CalendarModule } from 'primeng/calendar';
 import {MessageModule} from "primeng/message";
 
@@ -22,9 +25,17 @@ import {MessageModule} from "primeng/message";
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookDateComponent {
-
+export class BookDateComponent implements OnInit{
+  
   listing = input.required<Listing>();
   listingPublicId = input.required<string>();
+
+  private bookingService = inject(TenantService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  ngOnInit(): void {
+    this.bookingService.executeCheckAvailability(this.listingPublicId());
+  }
 
 }
