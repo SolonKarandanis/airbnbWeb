@@ -7,7 +7,8 @@ import { TenantService } from '@tenant/service/tenant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../layout/navbar/category/category.service';
 import { CountryService } from '@landlord/service/country.service';
-import { Listing } from '@models/listing.model';
+import { DisplayPicture, Listing } from '@models/listing.model';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-display-listing',
@@ -154,10 +155,16 @@ export class DisplayListingComponent implements OnInit {
   private listing:Signal<Listing| null> = this.tenantService.selectedListing;
   private loading:Signal<boolean> = this.tenantService.isLoading;
 
+
   protected vm = computed(()=>{
     const loading = this.loading();
     const listing = this.listing();
     const category = this.categoryService.getCategoryByTechnicalName(listing!.category);
+    const country =this.countryService.getCountryByCode(listing!.location);
+    if(listing){
+      listing.pictures = this.putCoverPictureFirst(listing.pictures);
+      listing.location = country.region + ", " + country.name.common;
+    }
 
     return {
       loading,
@@ -167,7 +174,25 @@ export class DisplayListingComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.extractIdParamFromRouter();
+  }
+
+  private extractIdParamFromRouter() {
+    this.activatedRoute.queryParams.pipe(
+      map(params => params['id'])
+    ).subscribe({
+      next: publicId => this.tenantService.executeGetListingById(publicId)
+    })
+  }
+
+  private putCoverPictureFirst(pictures:DisplayPicture[]) {
+    const coverIndex = pictures.findIndex(picture => picture.isCover);
+    if (coverIndex) {
+      const cover = pictures[coverIndex];
+      pictures.splice(coverIndex, 1);
+      pictures.unshift(cover);
+    }
+    return pictures;
   }
 
 }
