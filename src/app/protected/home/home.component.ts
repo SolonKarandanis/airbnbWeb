@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnDestroy, signal, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, Signal } from '@angular/core';
 import { CategoryService } from '../layout/navbar/category/category.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CardListingComponent } from '@shared/card-listing/card-listing.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { TenantService } from '@tenant/service/tenant.service';
 import { CardListing } from '@models/listing.model';
 import { Paging } from '@models/search.model';
@@ -45,7 +45,6 @@ export class HomeComponent implements OnDestroy{
 
   private tenantService = inject(TenantService);
   private categoryService = inject(CategoryService);
-  private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
 
   private loading:Signal<boolean> = this.tenantService.isLoading;
