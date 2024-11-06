@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { AvatarComponent } from '../../layout/navbar/avatar/avatar.component';
 import { BookDateComponent } from '@tenant/book-date/book-date.component';
@@ -133,7 +133,7 @@ import { VarDirective } from '@shared/directives/ng-var.directive';
               <div class="border-1 my-4 w-full border-solid border-200"></div>
               <div>{{ listing.description.description.value }}</div>
             </div>
-            <!-- <app-book-date [listingPublicId]="currentPublicId" [listing]="listing"></app-book-date> -->
+            <app-book-date [listingPublicId]="vm.currentPublicId" [listing]="listing"></app-book-date>
           </div>
         </ng-container>
       }
@@ -156,24 +156,28 @@ export class DisplayListingComponent implements OnInit {
 
   private listing:Signal<Listing| null> = this.tenantService.selectedListing;
   private loading:Signal<boolean> = this.tenantService.isLoading;
+  private currentPublicId:WritableSignal<string>= signal('');
 
 
   protected vm = computed(()=>{
     const loading = this.loading();
     const listing = this.listing();
     let category = null;
-    
     if(listing){
       const country =this.countryService.getCountryByCode(listing.location);
+      console.log(country);
       listing.pictures = this.putCoverPictureFirst(listing.pictures);
       listing.location = country.region + ", " + country.name.common;
-      category = this.categoryService.getCategoryByTechnicalName(listing!.category);
+      category = this.categoryService.getCategoryByTechnicalName(listing.category);
     }
+
+    const currentPublicId = this.currentPublicId();
 
     return {
       loading,
       listing,
-      category
+      category,
+      currentPublicId
     }
   });
 
@@ -185,8 +189,13 @@ export class DisplayListingComponent implements OnInit {
     this.activatedRoute.queryParams.pipe(
       map(params => params['id'])
     ).subscribe({
-      next: publicId => this.tenantService.executeGetListingById(publicId)
+      next: publicId => this.fetchListing(publicId)
     })
+  }
+
+  private fetchListing(publicId: string){
+    this.currentPublicId.set(publicId);
+    this.tenantService.executeGetListingById(publicId)
   }
 
   private putCoverPictureFirst(pictures:DisplayPicture[]) {
