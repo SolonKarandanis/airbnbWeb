@@ -264,7 +264,8 @@ export const mockCardListing:CardListing={
     location:'test',
     cover:mockDisplayPicture,
     bookingCategory:'ALL',
-    publicId:'test'
+    publicId:'test',
+    loading:false,
 }
 
 export const mockNewListing:NewListing={
