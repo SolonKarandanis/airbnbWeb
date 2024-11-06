@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { AvatarComponent } from '../../layout/navbar/avatar/avatar.component';
 import { BookDateComponent } from '@tenant/book-date/book-date.component';
@@ -7,6 +7,7 @@ import { TenantService } from '@tenant/service/tenant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../layout/navbar/category/category.service';
 import { CountryService } from '@landlord/service/country.service';
+import { Listing } from '@models/listing.model';
 
 @Component({
   selector: 'app-display-listing',
@@ -85,9 +86,61 @@ import { CountryService } from '@landlord/service/country.service';
     }
   `,
   template: `
-   <p>
-     display-listing works!
-   </p>
+    @if(vm(); as vm){
+      @if (vm.listing  && !vm.loading){
+        <ng-container *ngVar="vm.listing as listing">
+          <h1>{{ listing.description.title.value }}</h1>
+          <div class="gallery">
+            @for (picture of listing.pictures; track picture.file; let index = $index){
+              <div class="border-1 border-transparent bg-cover bg-center bg-no-repeat h-full w-full"
+                  [class.cover]="picture.isCover"
+                  [ngClass]="'gallery-picture-'+ (index + 1)"
+                  [style.background-image]="'url(' + 'data:' + picture.fileContentType + ';base64,' + picture.file + ')'">
+              </div>
+            }
+          </div>
+          <div class="flex justify-content-between mt-4">
+            <div id="content" class="flex-grow-1 mr-7">
+              <div class="text-xl font-bold">{{ listing.location }}</div>
+              <ol>
+                <li>{{ listing.infos.guests.value }} guests</li>
+                <li>
+                  <fa-icon icon="circle"></fa-icon>
+                  <span>{{ listing.infos.bedrooms.value }} bedrooms</span>
+                </li>
+                <li>
+                  <fa-icon icon="circle"></fa-icon>
+                  <span>{{ listing.infos.beds.value }} beds</span>
+                </li>
+                <li>
+                  <fa-icon icon="circle"></fa-icon>
+                  <span>{{ listing.infos.baths.value }} baths</span>
+                </li>
+              </ol>
+              <div class="border-1 my-4 w-full border-solid border-200"></div>
+              <div class="flex justify-content-start align-items-center" *ngVar="vm.category as category">
+                <fa-icon class="ml-2" [icon]="category?.icon!" size="2x"></fa-icon>
+                <div class="ml-4">This house is of type {{ category?.displayName }}</div>
+              </div>
+              <div class="border-1 my-4 w-full border-solid border-200"></div>
+              <div class="landlord flex justify-content-start align-items-center">
+                <app-avatar [imageUrl]="listing.landlord.imageUrl" avatarSize="avatar-xl"></app-avatar>
+                <div class="font-bold ml-3">Hosted by {{ listing.landlord.firstname }}</div>
+              </div>
+              <div class="border-1 my-4 w-full border-solid border-200"></div>
+              <div>{{ listing.description.description.value }}</div>
+            </div>
+            <!-- <app-book-date [listingPublicId]="currentPublicId" [listing]="listing"></app-book-date> -->
+          </div>
+        </ng-container>
+      }
+
+      @if (vm.loading) {
+        <div class="flex justify-content-center align-items-center">
+          <fa-icon class="ml-2 text-primary" icon="circle-notch" size="3x" animation="spin"></fa-icon>
+        </div>
+      }
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -97,6 +150,21 @@ export class DisplayListingComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private categoryService = inject(CategoryService);
   private countryService = inject(CountryService);
+
+  private listing:Signal<Listing| null> = this.tenantService.selectedListing;
+  private loading:Signal<boolean> = this.tenantService.isLoading;
+
+  protected vm = computed(()=>{
+    const loading = this.loading();
+    const listing = this.listing();
+    const category = this.categoryService.getCategoryByTechnicalName(listing!.category);
+
+    return {
+      loading,
+      listing,
+      category
+    }
+  });
 
   ngOnInit(): void {
     throw new Error('Method not implemented.');
