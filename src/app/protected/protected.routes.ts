@@ -18,6 +18,11 @@ export const protectedRoutes: Routes =[
     }
   },
   {
+    path: 'listing',
+    loadComponent: () => 
+      import('./tenant/display-listing/display-listing.component').then((m)=>m.DisplayListingComponent),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
