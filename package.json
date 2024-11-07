@@ -29,6 +29,7 @@
     "@ngrx/store": "^18.0.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "dayjs": "^1.11.13",
     "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.0.0",
