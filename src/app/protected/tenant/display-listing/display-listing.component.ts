@@ -178,11 +178,6 @@ export class DisplayListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.extractIdParamFromRouter();
-    const currentPublicId = this.currentPublicId();
-    if(currentPublicId){
-      console.log(currentPublicId);
-      this.tenantService.executeCheckAvailability(currentPublicId);
-    }
   }
 
   private extractIdParamFromRouter() {
