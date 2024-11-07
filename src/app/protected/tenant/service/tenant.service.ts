@@ -1,9 +1,10 @@
-import { inject, Injectable } from "@angular/core";
+import { computed, inject, Injectable } from "@angular/core";
 import { GenericService } from "@core/services/generic.service";
 import { TenantStore } from "../store/tenant.store";
 import { ListingSearchRequest, Paging } from "@models/search.model";
 import { CategoryName } from "@models/category.model";
 import { CreateBooking } from "@models/booking.model";
+import { CountryStore } from "@landlord/store/country.store";
 
 @Injectable({
     providedIn: 'root'

@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { AvatarComponent } from '../../layout/navbar/avatar/avatar.component';
 import { BookDateComponent } from '@tenant/book-date/book-date.component';
@@ -157,22 +157,21 @@ export class DisplayListingComponent implements OnInit {
   private categoryService = inject(CategoryService);
   private countryService = inject(CountryService);
 
-  private listing:Signal<Listing| null> = this.tenantService.selectedListing;
   private loading:Signal<boolean> = this.tenantService.isLoading;
   private currentPublicId:Signal<string | null>= this.tenantService.currentPublicId;
 
-
+  
   protected vm = computed(()=>{
     const loading = this.loading();
-    const listing = this.listing();
-    let category = null;
+    const listing = this.tenantService.selectedListing();
+    let category
     if(listing){
       const country =this.countryService.getCountryByCode(listing.location);
-      console.log(country);
+      listing.location = country.region + ", " + country.name.common
       listing.pictures = this.putCoverPictureFirst(listing.pictures);
-      listing.location = country.region + ", " + country.name.common;
       category = this.categoryService.getCategoryByTechnicalName(listing.category);
     }
+
     const currentPublicId = this.currentPublicId();
 
     return {

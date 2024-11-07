@@ -3,7 +3,7 @@ import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
 import { CountryState, initialCountryState } from "./country.state";
 import { ErrorResponse } from "@models/error.model";
 import { Country } from "@models/country.model";
-import { inject } from "@angular/core";
+import { computed, inject, Signal } from "@angular/core";
 import { CountryRepository } from "@landlord/repository/country.repository";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, switchMap, tap } from "rxjs";
@@ -14,6 +14,9 @@ export const CountryStore = signalStore(
     withDevtools('country'),
     withState<CountryState>(initialCountryState),
     withMethods((state)=>({
+        findCountryByCode: (code: string): Signal<Country> => computed(() => {
+            return state.countries().filter(country => country.cca3 === code)[0];
+        }),
         setCountries(countries:Country[]){
             patchState(state,{
                 countries,

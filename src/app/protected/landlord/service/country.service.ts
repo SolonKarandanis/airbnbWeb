@@ -43,8 +43,6 @@ export class CountryService extends GenericService{
   }
 
   public getCountryByCode(code: string): Country {
-    const filtered= this.countries()
-      .filter(country => country.cca3 === code);
-    return filtered[0];
+    return this.countryStore.findCountryByCode(code)();
   }
 }
