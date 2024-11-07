@@ -24,9 +24,9 @@ export class BookingRepository  extends BaseRepository{
     * @param listingPublicId the requested listingPublicId
     * @returns An observable with the availability dates
     */
-    public checkAvailability(listingPublicId:string):Observable<BookedDates>{
+    public checkAvailability(listingPublicId:string):Observable<BookedDates[]>{
         let queryParams = new HttpParams().append('listingPublicId',listingPublicId);
-        return this.http.get<BookedDates>(`${ApiControllers.BOOKING}/check-availability`,{ params: queryParams });
+        return this.http.get<BookedDates[]>(`${ApiControllers.BOOKING}/check-availability`,{ params: queryParams });
     }
 
     /**

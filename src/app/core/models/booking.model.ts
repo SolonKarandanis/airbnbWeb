@@ -1,6 +1,7 @@
 import { LoadingModel } from "./BaseModel.model";
 import { PriceVO } from "./listing-vo.model";
 import { DisplayPicture } from "./listing.model";
+import {Dayjs} from "dayjs";
 
 export interface BookedDates {
     startDate: string;
@@ -33,8 +34,8 @@ export interface CreateBooking {
 }
 
 export interface BookedDatesDTOFromClient {
-    // startDate: Dayjs,
-    // endDate: Dayjs,
+    startDate: Dayjs,
+    endDate: Dayjs,
 }
   
 export interface BookedListing {

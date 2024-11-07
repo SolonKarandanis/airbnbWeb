@@ -10,7 +10,7 @@ export type TenantState ={
     readonly selectedListing:Listing | null;
     readonly currentPublicId: string | null;
     readonly selectedBooking: Booking | null;
-    readonly availabilityDates: BookedDates | null;
+    readonly availabilityDates: BookedDates[];
     readonly bookedListings: BookedListing[];
 }
 
@@ -23,6 +23,6 @@ export const initialTenantState: TenantState = {
     selectedListing:null,
     currentPublicId:null,
     selectedBooking: null,
-    availabilityDates: null,
+    availabilityDates: [],
     bookedListings: []
 };

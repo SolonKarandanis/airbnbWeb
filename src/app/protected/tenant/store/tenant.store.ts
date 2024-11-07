@@ -57,7 +57,7 @@ export const TenantStore = signalStore(
                 loading:false
             })
         },
-        setAvailabilityDates(availabilityDates:BookedDates){
+        setAvailabilityDates(availabilityDates:BookedDates[]){
             patchState(state,{
                 availabilityDates,
                 errorMessage:null,
