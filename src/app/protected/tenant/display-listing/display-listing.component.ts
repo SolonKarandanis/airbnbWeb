@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { AvatarComponent } from '../../layout/navbar/avatar/avatar.component';
 import { BookDateComponent } from '@tenant/book-date/book-date.component';
@@ -7,7 +7,7 @@ import { TenantService } from '@tenant/service/tenant.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../../layout/navbar/category/category.service';
 import { CountryService } from '@landlord/service/country.service';
-import { DisplayPicture, Listing } from '@models/listing.model';
+import { DisplayPicture } from '@models/listing.model';
 import { map } from 'rxjs';
 import { VarDirective } from '@shared/directives/ng-var.directive';
 
@@ -155,7 +155,6 @@ export class DisplayListingComponent implements OnInit {
   private countryService = inject(CountryService);
 
   private loading:Signal<boolean> = this.tenantService.isLoading;
-  private currentPublicId:Signal<string | null>= this.tenantService.currentPublicId;
 
   
   protected vm = computed(()=>{
