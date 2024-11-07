@@ -1,7 +1,7 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
 import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import {initialTenantState,TenantState } from "./tenant.state"
-import { computed, inject } from "@angular/core";
+import { inject } from "@angular/core";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, switchMap, tap } from "rxjs";
 import { tapResponse } from "@ngrx/operators";
@@ -12,6 +12,7 @@ import { CategoryName } from "@models/category.model";
 import { ListingSearchRequest, Paging } from "@models/search.model";
 import { BookedDates, BookedListing, Booking, CreateBooking } from "@models/booking.model";
 import { CardListing, Listing } from "@models/listing.model";
+import { UtilService } from "@core/services/util.service";
 
 export const TenantStore = signalStore(
     { providedIn: 'root' },
@@ -76,6 +77,7 @@ export const TenantStore = signalStore(
         state,
         tenantRepo = inject(TenantRepository),
         bookingRepo = inject(BookingRepository),
+        utilService = inject(UtilService),
     )=>({
         getAllListingsByBookingAndCategory: rxMethod<{
             category:CategoryName, 
@@ -160,9 +162,11 @@ export const TenantStore = signalStore(
                         tapResponse({
                             next:(result)=>{
                                state.setSelectedBooking(result);
+                               utilService.showMessage('success','Booking created successfully');
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error);
+                                utilService.showMessage('error',"Booking creation failed");
                             }
                         })
                     )

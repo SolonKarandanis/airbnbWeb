@@ -89,6 +89,10 @@ export class TenantService extends GenericService{
         this.tenantStore.getLandlordBookedListings();
     }
 
+    public resetSelectedBooking():void{
+        this.tenantStore.setSelectedBooking(null);
+    }
+
     /**
     * Cancel a booking
     * @param bookingPublicId bookingPublicId

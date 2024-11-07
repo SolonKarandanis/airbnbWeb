@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, OnInit, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -57,7 +57,8 @@ import {MessageModule} from "primeng/message";
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookDateComponent {
+export class BookDateComponent implements OnInit{
+  
   
   listing = input.required<Listing>();
 
@@ -72,6 +73,14 @@ export class BookDateComponent {
   public bookingDates = new Array<Date>();
   public minDate = new Date();
   public totalPrice = 0;
+
+  constructor() {
+    this.listenToCreateBooking()
+  }
+
+  ngOnInit(): void {
+    this.bookingService.resetSelectedBooking();
+  }
   
   validateMakeBooking() {
     return this.bookingDates.length === 2
@@ -123,5 +132,18 @@ export class BookDateComponent {
     }
 
     return dates;
+  }
+
+  private listenToCreateBooking():void{
+    effect(() => {
+      const booking = this.bookingService.selectedBooking();
+      if (booking) {
+        this.navigateToBooking();
+      } 
+    });
+  }
+
+  private navigateToBooking():void{
+    this.router.navigate(["/booking"]);
   }
 }
