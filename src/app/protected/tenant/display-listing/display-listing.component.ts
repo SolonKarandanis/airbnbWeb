@@ -133,7 +133,10 @@ import { VarDirective } from '@shared/directives/ng-var.directive';
               <div class="border-1 my-4 w-full border-solid border-200"></div>
               <div>{{ listing.description.description.value }}</div>
             </div>
-            <app-book-date [listingPublicId]="vm.currentPublicId" [listing]="listing"></app-book-date>
+            @if (vm.currentPublicId) {
+              <app-book-date [listingPublicId]="vm.currentPublicId" [listing]="listing"></app-book-date>
+            }
+            
           </div>
         </ng-container>
       }
@@ -156,7 +159,7 @@ export class DisplayListingComponent implements OnInit {
 
   private listing:Signal<Listing| null> = this.tenantService.selectedListing;
   private loading:Signal<boolean> = this.tenantService.isLoading;
-  private currentPublicId:WritableSignal<string>= signal('');
+  private currentPublicId:Signal<string | null>= this.tenantService.currentPublicId;
 
 
   protected vm = computed(()=>{
@@ -170,7 +173,6 @@ export class DisplayListingComponent implements OnInit {
       listing.location = country.region + ", " + country.name.common;
       category = this.categoryService.getCategoryByTechnicalName(listing.category);
     }
-
     const currentPublicId = this.currentPublicId();
 
     return {
@@ -194,7 +196,6 @@ export class DisplayListingComponent implements OnInit {
   }
 
   private fetchListing(publicId: string){
-    this.currentPublicId.set(publicId);
     this.tenantService.executeGetListingById(publicId)
   }
 

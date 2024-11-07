@@ -19,6 +19,7 @@ export class TenantService extends GenericService{
     public selectedBooking = this.tenantStore.selectedBooking;
     public availabilityDates = this.tenantStore.availabilityDates;
     public bookedListings = this.tenantStore.bookedListings;
+    public currentPublicId = this.tenantStore.currentPublicId;
 
     /**
     * Get the Listings by category

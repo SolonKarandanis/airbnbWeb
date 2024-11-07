@@ -10,7 +10,8 @@ import { TenantRepository } from "../repository/tenant.repository";
 import { BookingRepository } from "../repository/booking.repository";
 import { CategoryName } from "@models/category.model";
 import { ListingSearchRequest, Paging } from "@models/search.model";
-import { CreateBooking } from "@models/booking.model";
+import { BookedDates, BookedListing, Booking, CreateBooking } from "@models/booking.model";
+import { CardListing, Listing } from "@models/listing.model";
 
 export const TenantStore = signalStore(
     { providedIn: 'root' },
@@ -20,6 +21,56 @@ export const TenantStore = signalStore(
 
     })=>({
 
+    })),
+    withMethods((state)=>({
+        setSearchResults(searchResults:CardListing[],totalCount:number){
+            patchState(state,{
+                searchResults,
+                totalCount,
+                errorMessage:null,
+                showError:false,
+                loading:false
+            })
+        },
+        setSelectedListing(selectedListing:Listing| null,currentPublicId: string | null){
+            patchState(state,{
+                selectedListing,
+                currentPublicId,
+                errorMessage:null,
+                showError:false,
+                loading:false
+            })
+        },
+        setSelectedBooking(selectedBooking:Booking| null){
+            patchState(state,{
+                selectedBooking,
+                errorMessage:null,
+                showError:false,
+                loading:false
+            })
+        },
+        setBookedListings(bookedListings:BookedListing[]){
+            patchState(state,{
+                bookedListings,
+                errorMessage:null,
+                showError:false,
+                loading:false
+            })
+        },
+        setAvailabilityDates(availabilityDates:BookedDates){
+            patchState(state,{
+                availabilityDates,
+                errorMessage:null,
+                showError:false,
+                loading:false
+            })
+        },
+        setLoading(loading:boolean){
+            patchState(state,{loading:loading,showError:false});
+        },
+        setError(error:ErrorResponse){
+            patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+        }
     })),
     withMethods((
         state,
@@ -32,22 +83,16 @@ export const TenantStore = signalStore(
         }>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap(({category,pageRequest})=> 
                     tenantRepo.getAllListingsByBookingAndCategory(category,pageRequest).pipe(
                         tapResponse({
                             next:({countRows,list})=>{
-                                patchState(state,{
-                                    searchResults: list,
-                                    totalCount:countRows,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                state.setSearchResults(list,countRows);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -57,22 +102,16 @@ export const TenantStore = signalStore(
         searchListings: rxMethod<ListingSearchRequest>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap((request)=> 
                     tenantRepo.searchListings(request).pipe(
                         tapResponse({
                             next:({countRows,list})=>{
-                                patchState(state,{
-                                    searchResults: list,
-                                    totalCount:countRows,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                state.setSearchResults(list,countRows);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -82,21 +121,16 @@ export const TenantStore = signalStore(
         getListingById: rxMethod<string>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap((id)=> 
                     tenantRepo.getListingById(id).pipe(
                         tapResponse({
                             next:(result)=>{
-                                patchState(state,{
-                                    selectedListing:result,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                               state.setSelectedListing(result,id);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -106,21 +140,16 @@ export const TenantStore = signalStore(
         createBooking: rxMethod<CreateBooking>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap((request)=> 
                     bookingRepo.createBooking(request).pipe(
                         tapResponse({
                             next:(result)=>{
-                                patchState(state,{
-                                    selectedBooking: result,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                               state.setSelectedBooking(result);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -130,21 +159,16 @@ export const TenantStore = signalStore(
         checkAvailability: rxMethod<string>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap((id)=> 
                     bookingRepo.checkAvailability(id).pipe(
                         tapResponse({
                             next:(result)=>{
-                                patchState(state,{
-                                    availabilityDates:result,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                state.setAvailabilityDates(result);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -154,21 +178,16 @@ export const TenantStore = signalStore(
         getTenantBookedListings: rxMethod<void>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap(()=> 
                     bookingRepo.getTenantBookedListings().pipe(
                         tapResponse({
                             next:(result)=>{
-                                patchState(state,{
-                                    bookedListings:result,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                state.setBookedListings(result);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -178,21 +197,16 @@ export const TenantStore = signalStore(
         getLandlordBookedListings: rxMethod<void>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap(()=> 
                     bookingRepo.getLandlordBookedListings().pipe(
                         tapResponse({
                             next:(result)=>{
-                                patchState(state,{
-                                    bookedListings:result,
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                state.setBookedListings(result);
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )
@@ -202,7 +216,7 @@ export const TenantStore = signalStore(
         cancelBooking:rxMethod<{bookingPublicId:string,listingPublicId:string,byLandlord:boolean}>(
             pipe(
                 tap(() => {
-                    patchState(state,{loading:true,showError:false});
+                    state.setLoading(true);
                 }),
                 switchMap(({bookingPublicId,byLandlord,listingPublicId})=> 
                     bookingRepo.cancelBooking(bookingPublicId,listingPublicId,byLandlord).pipe(
@@ -215,7 +229,7 @@ export const TenantStore = signalStore(
                                 })
                             },
                             error: (error:ErrorResponse) =>{
-                                patchState(state,{loading:false,showError:true,errorMessage:'Error'});
+                                state.setError(error);
                             }
                         })
                     )

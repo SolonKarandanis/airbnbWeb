@@ -8,6 +8,7 @@ export type TenantState ={
     readonly searchResults: CardListing[];
     readonly totalCount:number| null;
     readonly selectedListing:Listing | null;
+    readonly currentPublicId: string | null;
     readonly selectedBooking: Booking | null;
     readonly availabilityDates: BookedDates | null;
     readonly bookedListings: BookedListing[];
@@ -20,6 +21,7 @@ export const initialTenantState: TenantState = {
     searchResults: [],
     totalCount: null,
     selectedListing:null,
+    currentPublicId:null,
     selectedBooking: null,
     availabilityDates: null,
     bookedListings: []

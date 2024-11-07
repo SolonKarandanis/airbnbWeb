@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -34,8 +34,16 @@ export class BookDateComponent implements OnInit{
   private authService = inject(AuthService);
   private router = inject(Router);
 
+  // private currentPublicId:Signal<string | null>= this.bookingService.currentPublicId;
+
   ngOnInit(): void {
     this.bookingService.executeCheckAvailability(this.listingPublicId());
+    // const currentPublicId = this.currentPublicId();
+    // console.log(currentPublicId);
+    // if(currentPublicId){
+    //   console.log('in');
+    //   this.bookingService.executeCheckAvailability(currentPublicId);
+    // }
   }
 
 }
