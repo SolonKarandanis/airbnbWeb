@@ -23,6 +23,11 @@ export const protectedRoutes: Routes =[
       import('./tenant/display-listing/display-listing.component').then((m)=>m.DisplayListingComponent),
   },
   {
+    path: "booking",
+    loadComponent: () => 
+      import('./tenant/booked-listing/booked-listing.component').then((m)=>m.BookedListingComponent),
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
