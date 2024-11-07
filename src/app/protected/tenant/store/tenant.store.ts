@@ -128,11 +128,24 @@ export const TenantStore = signalStore(
                         tapResponse({
                             next:(result)=>{
                                state.setSelectedListing(result,id);
+                            
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error);
                             }
-                        })
+                        }),
+                        switchMap(()=>
+                            bookingRepo.checkAvailability(id).pipe(
+                                tapResponse({
+                                    next:(result)=>{
+                                        state.setAvailabilityDates(result);
+                                    },
+                                    error: (error:ErrorResponse) =>{
+                                        state.setError(error);
+                                    }
+                                })
+                            )
+                        )
                     )
                 )
             )

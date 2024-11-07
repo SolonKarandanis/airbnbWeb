@@ -133,10 +133,7 @@ import { VarDirective } from '@shared/directives/ng-var.directive';
               <div class="border-1 my-4 w-full border-solid border-200"></div>
               <div>{{ listing.description.description.value }}</div>
             </div>
-            @if (vm.currentPublicId) {
-              <app-book-date [listingPublicId]="vm.currentPublicId" [listing]="listing"></app-book-date>
-            }
-            
+            <app-book-date  [listing]="listing"></app-book-date>
           </div>
         </ng-container>
       }
@@ -165,25 +162,27 @@ export class DisplayListingComponent implements OnInit {
     const loading = this.loading();
     const listing = this.tenantService.selectedListing();
     let category
-    if(listing){
+    if(listing ){
       const country =this.countryService.getCountryByCode(listing.location);
       listing.location = country.region + ", " + country.name.common
       listing.pictures = this.putCoverPictureFirst(listing.pictures);
       category = this.categoryService.getCategoryByTechnicalName(listing.category);
     }
 
-    const currentPublicId = this.currentPublicId();
-
     return {
       loading,
       listing,
       category,
-      currentPublicId
     }
   });
 
   ngOnInit(): void {
     this.extractIdParamFromRouter();
+    const currentPublicId = this.currentPublicId();
+    if(currentPublicId){
+      console.log(currentPublicId);
+      this.tenantService.executeCheckAvailability(currentPublicId);
+    }
   }
 
   private extractIdParamFromRouter() {

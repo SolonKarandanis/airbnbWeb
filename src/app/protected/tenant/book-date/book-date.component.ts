@@ -28,7 +28,6 @@ import {MessageModule} from "primeng/message";
 export class BookDateComponent implements OnInit{
   
   listing = input.required<Listing>();
-  listingPublicId = input.required<string>();
 
   private bookingService = inject(TenantService);
   private authService = inject(AuthService);
@@ -36,7 +35,6 @@ export class BookDateComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.bookingService.executeCheckAvailability(this.listingPublicId());
   }
 
 }
