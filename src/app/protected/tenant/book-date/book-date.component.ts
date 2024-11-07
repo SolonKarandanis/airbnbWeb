@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, input, OnInit, Sign
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { BookedDates, BookedDatesDTOFromClient, CreateBooking } from '@models/booking.model';
+import { BookedDates,  CreateBooking } from '@models/booking.model';
 import dayjs from "dayjs";
 import { Listing } from '@models/listing.model';
 import { TenantService } from '@tenant/service/tenant.service';
