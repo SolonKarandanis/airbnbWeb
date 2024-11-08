@@ -62,9 +62,17 @@ export class BookedListingComponent {
     }
   });
 
+  constructor() {
+    this.fetchBookings();
+  }
+
   onCancelBooking(bookedListing: BookedListing):void {
     bookedListing.loading = true;
     this.bookingService.executeCancelBooking(bookedListing.bookingPublicId, bookedListing.listingPublicId, false);
+  }
+
+  private fetchBookings() {
+    this.bookingService.executeGetTenantBookedListings();
   }
 
   private listenCancelBooking():void{
