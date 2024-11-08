@@ -9,6 +9,7 @@ import { Listing } from '@models/listing.model';
 import { TenantService } from '@tenant/service/tenant.service';
 import { CalendarModule } from 'primeng/calendar';
 import {MessageModule} from "primeng/message";
+import { UtilService } from '@core/services/util.service';
 
 @Component({
   selector: 'app-book-date',
@@ -64,6 +65,7 @@ export class BookDateComponent implements OnInit{
 
   private bookingService = inject(TenantService);
   private authService = inject(AuthService);
+  private utilService = inject(UtilService);
   private router = inject(Router);
 
   private currentPublicId:Signal<string | null>= this.bookingService.currentPublicId;
@@ -106,8 +108,8 @@ export class BookDateComponent implements OnInit{
     if(currentPublicId){
       const newBooking: CreateBooking = {
         listingPublicId: currentPublicId,
-        startDate: this.bookingDates[0].toDateString(),
-        endDate: this.bookingDates[1].toDateString(),
+        startDate: this.utilService.convertDateObjectsToAirbnbFormat(this.bookingDates[0])!,
+        endDate: this.utilService.convertDateObjectsToAirbnbFormat(this.bookingDates[1])!,
       }
       this.bookingService.executeCreateBooking(newBooking);
     }

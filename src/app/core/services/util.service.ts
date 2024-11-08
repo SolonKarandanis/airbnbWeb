@@ -151,12 +151,12 @@ export class UtilService {
   }
 
   /**
-   * Convert a Date object to the CCM specific format (this function is a wrapper of the Angular Date Pipe)
+   * Convert a Date object to the Airbnb specific format (this function is a wrapper of the Angular Date Pipe)
    * @param date The date object to convert
    * @returns The converted date string or null
    */
-  convertDateObjectsToDutFormat(date: Date): string | null {
-    return this.datePipe.transform(date, 'yyyy-MM-dd HH:mm:ss');
+  convertDateObjectsToAirbnbFormat(date: Date): string | null {
+    return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm:ss Z');
   }
 
 
