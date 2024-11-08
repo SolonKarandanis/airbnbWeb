@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, input, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, OnInit, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
@@ -30,7 +30,7 @@ import { UtilService } from '@core/services/util.service';
           [inline]="true"
           [touchUI]="false"
           [selectOtherMonths]="true"
-          [disabledDates]="bookedDates"
+          [disabledDates]="bookedDates()"
           selectionMode="range">
       </p-calendar>
       <button class="p-button mt-4 w-full justify-content-center"
@@ -69,10 +69,11 @@ export class BookDateComponent implements OnInit{
   private router = inject(Router);
 
   private currentPublicId:Signal<string | null>= this.bookingService.currentPublicId;
-  public bookedDates = this.mapBookedDatesToDate(this.bookingService.availabilityDates());
+  private availabilityDates = this.bookingService.availabilityDates;
   public isAuthenticated = this.authService.isAuthenticated();
 
   public bookingDates = new Array<Date>();
+  public bookedDates = computed(()=> this.mapBookedDatesToDate(this.availabilityDates()));
   public minDate = new Date();
   public totalPrice = 0;
 
@@ -82,6 +83,7 @@ export class BookDateComponent implements OnInit{
 
   ngOnInit(): void {
     this.bookingService.resetSelectedBooking();
+    const dates = this.availabilityDates();
   }
   
   validateMakeBooking() {
@@ -126,8 +128,8 @@ export class BookDateComponent implements OnInit{
 
   private getDatesInRange(bookedDate: BookedDates) {
     const dates = new Array<Date>();
-    const endDate = dayjs(bookedDate.endDate);
-    let currentDate = dayjs(bookedDate.startDate);
+    const endDate = dayjs(bookedDate.endDate,'dd-MM-yyyy HH:mm:ss Z');
+    let currentDate = dayjs(bookedDate.startDate, 'dd-MM-yyyy HH:mm:ss Z');
     while (currentDate <= endDate) {
       dates.push(currentDate.toDate());
       currentDate = currentDate.add(1, "day");
