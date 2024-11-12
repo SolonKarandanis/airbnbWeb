@@ -249,7 +249,7 @@ export class RegisterComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.userService.resetCreatedUserId();
   }
 
   registerUser():void{
