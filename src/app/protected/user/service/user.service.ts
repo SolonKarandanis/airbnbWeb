@@ -22,6 +22,7 @@ export class UserService extends GenericService{
   public isLoading = this.userStore.loading;
   public searchResults = this.userStore.searchResults;
   public totalCount = this.userStore.totalCount;
+  public createdUserId = this.userStore.createdUserId;
 
 
   /**
@@ -100,6 +101,14 @@ export class UserService extends GenericService{
   public executeSearchUsers(searchForm: FormGroup<UserSearchForm>):void{
     const request = this.searchService.toUserSearchRequest(searchForm);
     this.userStore.searchUsers(request);
+  }
+
+  /**
+  * Reset created user id
+  * @returns nothing
+  */
+  public resetCreatedUserId():void{
+    this.userStore.setCreatedUserId(null);
   }
 
   /**

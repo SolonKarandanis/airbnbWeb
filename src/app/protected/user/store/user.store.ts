@@ -47,6 +47,11 @@ export const UserStore = signalStore(
                 loading:false
             })
         },
+        setCreatedUserId(createdUserId:string | null){
+            patchState(state,{
+                createdUserId,
+            })
+        },
         setLoading(loading:boolean){
             patchState(state,{loading:loading,showError:false});
         },
@@ -106,6 +111,7 @@ export const UserStore = signalStore(
                         tapResponse({
                             next:(result)=>{
                                 state.setSelectedUser(result)
+                                state.setCreatedUserId(result.publicId);
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error)

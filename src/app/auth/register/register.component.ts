@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '@user/service/user.service';
 
 @Component({
   selector: 'app-register',
@@ -235,5 +238,9 @@ import { Component } from '@angular/core';
   `,
 })
 export class RegisterComponent {
+
+  private authService = inject(UserService);
+  private fb= inject(FormBuilder);
+  private router= inject(Router);
 
 }

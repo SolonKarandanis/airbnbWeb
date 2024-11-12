@@ -7,6 +7,7 @@ export type UserState ={
     readonly selectedUser: UserModel| null;
     readonly searchResults: UserModel[];
     readonly totalCount:number| null;
+    readonly createdUserId:string|null;
     // roles:RoleModel[] | undefined;
     // operations: OperationModel[] | undefined;
 }
@@ -17,5 +18,6 @@ export const initialUserState: UserState = {
     showError:false,
     selectedUser: null,
     searchResults: [],
-    totalCount: null
+    totalCount: null,
+    createdUserId:null,
 };
