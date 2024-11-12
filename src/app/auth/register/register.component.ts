@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@user/service/user.service';
@@ -106,8 +106,7 @@ import { UserService } from '@user/service/user.service';
     cursor: pointer;
   }
 
-  form .category label .dot {
-    height: 18px;
+  form .category label .dot {listenToSuccessfullLogin
     width: 18px;
     border-radius: 50%;
     margin-right: 10px;
@@ -237,10 +236,37 @@ import { UserService } from '@user/service/user.service';
     </div>
   `,
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
 
-  private authService = inject(UserService);
+  private userService = inject(UserService);
   private fb= inject(FormBuilder);
   private router= inject(Router);
+
+  public isLoading = this.userService.isLoading;
+
+  constructor(){
+    this.listenToSuccessfullCreation();
+  }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  registerUser():void{
+
+  }
+
+  private listenToSuccessfullCreation(){
+    effect(()=>{
+      const publicId = this.userService.createdUserId();
+      if (publicId){
+        this.navigateToLogin();
+      }
+    })
+  }
+
+  private navigateToLogin():void{
+    this.router.navigate(["/login"]);
+  }
 
 }
