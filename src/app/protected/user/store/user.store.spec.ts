@@ -150,4 +150,13 @@ describe('UserStore', () =>{
         expect(store.showError()).toBe(false);
         expect(store.loading()).toBe(false);
     });
+
+    it('should set created user id ', () =>{
+        store.setCreatedUserId(mockUser.publicId);
+
+        expect(store.createdUserId()).toBe(mockUser.publicId);
+        expect(store.errorMessage()).toBe(null);
+        expect(store.showError()).toBe(false);
+        expect(store.loading()).toBe(false);
+    });
 });

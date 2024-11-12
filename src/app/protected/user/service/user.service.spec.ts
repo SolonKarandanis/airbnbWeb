@@ -39,7 +39,9 @@ describe('UserService', () => {
       'getUserId',
       'loading',
       'searchResults',
-      'totalCount'
+      'totalCount',
+      'createdUserId',
+      'setCreatedUserId'
     ]);
 
     searchServiceSpy= jasmine.createSpyObj('SearchService',[
@@ -145,6 +147,13 @@ describe('UserService', () => {
     expect(searchServiceSpy.toUserSearchRequest).toHaveBeenCalledTimes(1);
     expect(userStoreSpy.searchUsers).toHaveBeenCalledWith(mockUserSearchRequest);
     expect(userStoreSpy.searchUsers).toHaveBeenCalledTimes(1);
+  });
+
+  it('should reset created user id ', () =>{
+    service.resetCreatedUserId();
+
+    expect(userStoreSpy.setCreatedUserId).toHaveBeenCalledWith(null);
+    expect(userStoreSpy.setCreatedUserId).toHaveBeenCalledTimes(1);
   });
 
   it('should initialize a search users FormGroup', () => {
