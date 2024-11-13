@@ -69,9 +69,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                 </div>
               </div>
               <div class="role-details">
-                <input type="radio" name="gender" id="dot-1">
-                <input type="radio" name="gender" id="dot-2">
-                <input type="radio" name="gender" id="dot-3">
                 <span class="role-title">Role</span>
                 <div class="category">
                   <label for="landlord">
