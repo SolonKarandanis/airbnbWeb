@@ -3,16 +3,17 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { TranslationModule } from '@i18n/translation.module';
+import { BaseComponent } from '@shared/abstract/BaseComponent';
 import { UserService } from '@user/service/user.service';
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   styleUrls: ['./register.component.scss'],
   imports: [
-    CheckboxModule,
+    RadioButtonModule,
     ReactiveFormsModule,
     ButtonModule,
     TranslationModule,
@@ -26,31 +27,45 @@ import { CheckboxModule } from 'primeng/checkbox';
               <div class="user-details">
                 <div class="input-box">
                   <span class="details">Username</span>
-                  <input type="text" placeholder="Enter your username">
+                  <input 
+                    type="text" 
+                    placeholder="Enter your username"
+                    formControlName="username">
                 </div>
                 <div class="input-box">
                   <span class="details">Email</span>
-                  <input type="text" placeholder="Enter your email" >
+                  <input 
+                    type="text" 
+                    placeholder="Enter your email" 
+                    formControlName="email">
                 </div>
                 <div class="input-box">
                   <span class="details">Password</span>
-                  <input type="text" placeholder="Enter your password" >
+                  <input 
+                    type="text" 
+                    placeholder="Enter your password" 
+                    formControlName="password">
                 </div>
                 <div class="input-box">
                   <span class="details">Confirm Password</span>
-                  <input type="text" placeholder="Confirm your password" >
+                  <input 
+                    type="text" 
+                    placeholder="Confirm your password" 
+                    formControlName="confirmPassword">
                 </div>
                 <div class="input-box">
                   <span class="details">First Name</span>
-                  <input type="text" placeholder="Enter your name" >
+                  <input 
+                    type="text" 
+                    placeholder="Enter your name" 
+                    formControlName="firstName">
                 </div>
                 <div class="input-box">
                   <span class="details">Last Name</span>
-                  <input type="text" placeholder="Enter your name" >
-                </div>
-                <div class="input-box">
-                  <span class="details">Phone Number</span>
-                  <input type="text" placeholder="Enter your number" >
+                  <input 
+                    type="text" 
+                    placeholder="Enter your name" 
+                    formControlName="lastName">
                 </div>
               </div>
               <div class="role-details">
@@ -60,14 +75,14 @@ import { CheckboxModule } from 'primeng/checkbox';
                 <span class="role-title">Role</span>
                 <div class="category">
                   <label for="landlord">
-                    <p-checkbox 
+                    <p-radioButton 
                       formControlName="role" 
                       value={{landlord}} 
                       inputId="landlord" />
                     <span class="role">Landlord</span>
                   </label>
                   <label for="tenant">
-                    <p-checkbox 
+                    <p-radioButton 
                       formControlName="role" 
                       value={{tenant}} 
                       inputId="tenant" />
@@ -76,7 +91,11 @@ import { CheckboxModule } from 'primeng/checkbox';
                 </div>
               </div>
               <div class="button">
-                <button type="submit">Register</button>
+                <button 
+                  type="submit"
+                  (click)="registerUser()">
+                  Register
+                </button>
               </div>
             </form>
           </div>
@@ -84,18 +103,18 @@ import { CheckboxModule } from 'primeng/checkbox';
     </div>
   `,
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent extends BaseComponent implements OnInit{
 
   private userService = inject(UserService);
   private router= inject(Router);
 
   public isLoading = this.userService.isLoading;
-  public form!: FormGroup;
 
   public landlord:RolesConstants = RolesConstants.ROLE_LANDLORD;
   public tenant:RolesConstants = RolesConstants.ROLE_TENANT;
 
   constructor(){
+    super();
     this.listenToSuccessfullCreation();
   }
 
@@ -105,7 +124,9 @@ export class RegisterComponent implements OnInit{
   }
 
   registerUser():void{
-
+    console.log(this.form.value);
+    // this.validateAllFormFields();
+    // this.userService.executeRegisterUser(this.form);
   }
 
   private listenToSuccessfullCreation(){

@@ -1,7 +1,5 @@
-import {  Directive, HostListener, inject, OnDestroy, QueryList, ViewChildren } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { Observable, Subject } from "rxjs";
-import { SubSink } from 'subsink';
+import {  Directive,inject, QueryList, ViewChildren } from "@angular/core";
+import {  FormControl, FormGroup } from "@angular/forms";
 import { FormInput } from "./FormInput.interface";
 import { FORM_INPUT } from "./formInput.token";
 import { TranslateService } from "@ngx-translate/core";
@@ -9,34 +7,24 @@ import { TranslateService } from "@ngx-translate/core";
 @Directive({
   standalone:true
 })
-export class BaseComponent implements OnDestroy {
+export class BaseComponent  {
 
-  protected formBuilder = inject(FormBuilder);
   protected translate = inject(TranslateService)
 
-  private _subject: Subject<void> = new Subject<void>();
-  public form: FormGroup;
-  protected subsink = new SubSink();
-  public vm$: Observable<any>;
-  public isFormSubmitted=false;
+  protected form!: FormGroup;
+  protected isFormSubmitted=false;
 
-  protected get destroy$(): Observable<void> {
-    return this._subject.asObservable();
-  }
   // BaseFormField
 
-   @ViewChildren(FORM_INPUT) inputChildren: QueryList<FormInput>;
+   @ViewChildren(FORM_INPUT) inputChildren!: QueryList<FormInput>;
   // @ViewChildren(SelectComponent) selectChildren: QueryList<SelectComponent>;
 
-
-  @HostListener('window:beforeunload')
-  public ngOnDestroy() {
-    this._subject.next();
-    this._subject.complete();
-    this.subsink.unsubscribe();
+  protected get controls() {
+    return this.form.controls;
   }
 
-  public clear(){
+
+  protected clear(){
     this.form.reset();
     this.isFormSubmitted=false;
     // this.inputChildren.forEach((input: FormInput) => {
@@ -44,7 +32,7 @@ export class BaseComponent implements OnDestroy {
     // });
   }
 
-  public isFormValid(){
+  protected isFormValid(){
     return this.isFormSubmitted || !this.form?.dirty
   }
 
