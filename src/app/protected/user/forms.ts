@@ -22,6 +22,7 @@ export interface UpdateUserForm{
 export interface CreateUserForm{
     username: FormControl<string|null|undefined>;
     password: FormControl<string|null|undefined>;
+    confirmPassword: FormControl<string|null|undefined>;
     firstName: FormControl<string|null|undefined>;
     lastName: FormControl<string|null|undefined>;
     email: FormControl<string|null|undefined>;

@@ -142,6 +142,22 @@ export class UserService extends GenericService{
   }
 
   /**
+   * Initialize the reactive form for creating users
+   * @returns A FormGroup with the appropriate fields
+   */
+  public initCreateUserForm():FormGroup<CreateUserForm>{
+    return this.formBuilder.group<CreateUserForm>({
+      email: new FormControl(null),
+      username: new FormControl(null),
+      password:new FormControl(null),
+      confirmPassword:new FormControl(null),
+      firstName: new FormControl(null),
+      lastName:new FormControl(null),
+      role:new FormControl()
+    });
+  }
+
+  /**
    * Get the columns for users in order to initialize the data table
    * @returns The columns of the table
    */

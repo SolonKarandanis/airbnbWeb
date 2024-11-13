@@ -1,12 +1,11 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@user/service/user.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
   styles: `
   .body{
     height: 100vh;
@@ -106,7 +105,7 @@ import { UserService } from '@user/service/user.service';
     cursor: pointer;
   }
 
-  form .category label .dot {listenToSuccessfullLogin
+  form .category label .dot {
     width: 18px;
     border-radius: 50%;
     margin-right: 10px;
@@ -175,6 +174,7 @@ import { UserService } from '@user/service/user.service';
     }
   }
 `,
+  imports: [],
   template: `
     <div class="body">
       <div class="container">
@@ -239,10 +239,10 @@ import { UserService } from '@user/service/user.service';
 export class RegisterComponent implements OnInit{
 
   private userService = inject(UserService);
-  private fb= inject(FormBuilder);
   private router= inject(Router);
 
   public isLoading = this.userService.isLoading;
+  public form!: FormGroup;
 
   constructor(){
     this.listenToSuccessfullCreation();
@@ -250,6 +250,7 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.resetCreatedUserId();
+    this.form = this.userService.initCreateUserForm();
   }
 
   registerUser():void{
