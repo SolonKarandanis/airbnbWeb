@@ -2,6 +2,7 @@ import { Component, effect, inject, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RolesConstants } from '@core/guards/SecurityConstants';
+import { TranslationModule } from '@i18n/translation.module';
 import { UserService } from '@user/service/user.service';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -14,6 +15,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     CheckboxModule,
     ReactiveFormsModule,
     ButtonModule,
+    TranslationModule,
   ],
   template: `
     <div class="body">
@@ -24,27 +26,31 @@ import { CheckboxModule } from 'primeng/checkbox';
               <div class="user-details">
                 <div class="input-box">
                   <span class="details">Username</span>
-                  <input type="text" placeholder="Enter your username" required>
-                </div>
-                <div class="input-box">
-                  <span class="details">Password</span>
-                  <input type="text" placeholder="Enter your password" required>
-                </div>
-                <div class="input-box">
-                  <span class="details">Confirm Password</span>
-                  <input type="text" placeholder="Confirm your password" required>
-                </div>
-                <div class="input-box">
-                  <span class="details">Full Name</span>
-                  <input type="text" placeholder="Enter your name" required>
+                  <input type="text" placeholder="Enter your username">
                 </div>
                 <div class="input-box">
                   <span class="details">Email</span>
-                  <input type="text" placeholder="Enter your email" required>
+                  <input type="text" placeholder="Enter your email" >
+                </div>
+                <div class="input-box">
+                  <span class="details">Password</span>
+                  <input type="text" placeholder="Enter your password" >
+                </div>
+                <div class="input-box">
+                  <span class="details">Confirm Password</span>
+                  <input type="text" placeholder="Confirm your password" >
+                </div>
+                <div class="input-box">
+                  <span class="details">First Name</span>
+                  <input type="text" placeholder="Enter your name" >
+                </div>
+                <div class="input-box">
+                  <span class="details">Last Name</span>
+                  <input type="text" placeholder="Enter your name" >
                 </div>
                 <div class="input-box">
                   <span class="details">Phone Number</span>
-                  <input type="text" placeholder="Enter your number" required>
+                  <input type="text" placeholder="Enter your number" >
                 </div>
               </div>
               <div class="role-details">
