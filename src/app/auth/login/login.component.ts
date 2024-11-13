@@ -3,7 +3,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TranslationModule } from 'src/app/i18n/translation.module';
