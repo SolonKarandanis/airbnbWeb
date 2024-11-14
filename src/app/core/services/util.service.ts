@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,7 +24,6 @@ export class UtilService {
   private datePipe = new DatePipe('en');
 
   constructor(
-    private http: HttpClient, 
     private router: Router,
     private messageService:MessageService,
     private translate:TranslateService,
