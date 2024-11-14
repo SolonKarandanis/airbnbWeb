@@ -9,6 +9,7 @@ import { pipe, switchMap, tap } from "rxjs";
 import { tapResponse } from "@ngrx/operators";
 import { ErrorResponse } from "@models/error.model";
 import { CreateUserRequest, UpdateUserRequest, UserModel } from "@models/user.model";
+import { UtilService } from "@core/services/util.service";
 
 export const UserStore = signalStore(
     { providedIn: 'root' },
@@ -62,6 +63,7 @@ export const UserStore = signalStore(
     withMethods((
         state,
         userRepo = inject(UserRepository),
+        utilService = inject(UtilService),
     )=>({
         searchUsers: rxMethod<UserSearchRequest>(
             pipe(
@@ -112,9 +114,11 @@ export const UserStore = signalStore(
                             next:(result)=>{
                                 state.setSelectedUser(result)
                                 state.setCreatedUserId(result.publicId);
+                                utilService.showMessage('success','User Successfully Registered');
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error)
+                                utilService.showMessage('error',"Couldn't rgister user");
                             }
                         })
                     )

@@ -1,12 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { UserStore } from '../store/user.store';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserAccountStatus } from '@models/user.model';
 import { GenericService } from '@core/services/generic.service';
 import { SearchService } from '@core/services/search.service';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchTableColumn } from '@models/search.model';
+import { RolesConstants } from '@core/guards/SecurityConstants';
 
 @Injectable({
   providedIn: 'root'
@@ -147,13 +148,13 @@ export class UserService extends GenericService{
    */
   public initCreateUserForm():FormGroup<CreateUserForm>{
     return this.formBuilder.group<CreateUserForm>({
-      email: new FormControl(null),
-      username: new FormControl(null),
-      password:new FormControl(null),
-      confirmPassword:new FormControl(null),
-      firstName: new FormControl(null),
-      lastName:new FormControl(null),
-      role:new FormControl()
+      email: new FormControl(null,[Validators.required,]),
+      username: new FormControl(null,[Validators.required,]),
+      password:new FormControl(null,[Validators.required,]),
+      confirmPassword:new FormControl(null,[Validators.required,]),
+      firstName: new FormControl(null,[Validators.required,]),
+      lastName:new FormControl(null,[Validators.required,]),
+      role:new FormControl(RolesConstants.ROLE_TENANT,[Validators.required])
     });
   }
 
