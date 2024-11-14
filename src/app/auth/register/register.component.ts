@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { TranslationModule } from '@i18n/translation.module';
 import { BaseComponent } from '@shared/abstract/BaseComponent';
+import { FormErrorComponent } from '@shared/components/form-error/form-error.component';
+import { EmailDirective } from '@shared/directives/email.directive';
 import { UserService } from '@user/service/user.service';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -17,6 +19,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     ReactiveFormsModule,
     ButtonModule,
     TranslationModule,
+    FormErrorComponent,
+    EmailDirective,
   ],
   template: `
     <div class="body">
@@ -30,28 +34,44 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                   <input 
                     type="text" 
                     placeholder="Enter your username"
+                    autocomplete="username"
                     formControlName="username">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('username')"
+                      [validationErrors]="form.get('username')?.errors" />
                 </div>
                 <div class="input-box">
                   <span class="details">Email</span>
                   <input 
-                    type="text" 
+                    type="email" 
                     placeholder="Enter your email" 
+                    autocomplete="email"
                     formControlName="email">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('email')"
+                      [validationErrors]="form.get('email')?.errors" />
                 </div>
                 <div class="input-box">
                   <span class="details">Password</span>
                   <input 
-                    type="text" 
-                    placeholder="Enter your password" 
+                    type="password" 
+                    placeholder="Enter your password"
+                    autocomplete="new-password"
                     formControlName="password">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('password')"
+                      [validationErrors]="form.get('password')?.errors" />
                 </div>
                 <div class="input-box">
                   <span class="details">Confirm Password</span>
                   <input 
-                    type="text" 
+                    type="password" 
                     placeholder="Confirm your password" 
+                    autocomplete="new-password"
                     formControlName="confirmPassword">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('confirmPassword')"
+                      [validationErrors]="form.get('confirmPassword')?.errors" />
                 </div>
                 <div class="input-box">
                   <span class="details">First Name</span>
@@ -59,6 +79,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                     type="text" 
                     placeholder="Enter your name" 
                     formControlName="firstName">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('firstName')"
+                      [validationErrors]="form.get('firstName')?.errors" />
                 </div>
                 <div class="input-box">
                   <span class="details">Last Name</span>
@@ -66,6 +89,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                     type="text" 
                     placeholder="Enter your name" 
                     formControlName="lastName">
+                    <app-form-error 
+                      [displayLabels]="isFieldValid('lastName')"
+                      [validationErrors]="form.get('lastName')?.errors" />
                 </div>
               </div>
               <div class="role-details">
@@ -122,7 +148,7 @@ export class RegisterComponent extends BaseComponent implements OnInit{
 
   registerUser():void{
     console.log(this.form.value);
-    // this.validateAllFormFields();
+    this.validateAllFormFields();
     // this.userService.executeRegisterUser(this.form);
   }
 
