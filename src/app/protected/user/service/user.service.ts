@@ -166,7 +166,7 @@ export class UserService extends GenericService{
         const passConf: string = frmGroup.get('confirmPassword')?.value;
         const samePass: boolean = pass === passConf;
 
-        return samePass ? null : { samePassword: true };
+        return samePass ? null : { samePassword: {message: "Passwords don't match"} };
     };
   }
 

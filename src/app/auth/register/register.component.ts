@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     TranslationModule,
     FormErrorComponent,
     EmailDirective,
+    CommonModule
   ],
   template: `
     <div class="body">
@@ -72,9 +74,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                     <app-form-error 
                       [displayLabels]="isFieldValid('confirmPassword')"
                       [validationErrors]="form.get('confirmPassword')?.errors" />
-                    <app-form-error 
-                      [displayLabels]="!isFormValid()"
-                      [validationErrors]="getValidationError('samePassword')" />
+                    <div *ngIf="!isFormValid()">
+                        {{ form.errors?.['samePassword'].message}}
+                    </div>
                 </div>
                 <div class="input-box">
                   <span class="details">{{ "REGISTER.LABELS.first-name" | translate }}</span>
@@ -82,6 +84,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                     type="text" 
                     placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-first-name' | translate }}" 
                     formControlName="firstName">
+                    
                     <app-form-error 
                       [displayLabels]="isFieldValid('firstName')"
                       [validationErrors]="form.get('firstName')?.errors" />
