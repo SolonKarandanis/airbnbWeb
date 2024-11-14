@@ -18,6 +18,7 @@ import { RolesConstants } from '@core/guards/SecurityConstants';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchTableColumn } from '@models/search.model';
 import { UtilService } from '@core/services/util.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 type UserStore = InstanceType<typeof UserStore>;
 
@@ -51,6 +52,10 @@ describe('UserService', () => {
       'toUserSearchRequest',
       'toCreateUserRequest'
     ]);
+
+    utilServiceSpy = jasmine.createSpyObj('UtilService', [], {
+      strongPasswordRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*"\'()+,-./:;<=>?[\\]^_`{|}~])(?=.{10,})',
+    });
 
     translateSpy = jasmine.createSpyObj('TranslateService', ['instant']);
 
@@ -160,6 +165,46 @@ describe('UserService', () => {
 
     expect(userStoreSpy.setCreatedUserId).toHaveBeenCalledWith(null);
     expect(userStoreSpy.setCreatedUserId).toHaveBeenCalledTimes(1);
+  });
+
+  it('should check if passwords are same (valid)', () => {
+    const frmGroup = new FormGroup(
+        {
+            password: new FormControl('password'),
+            confirmPassword: new FormControl('password'),
+        },
+        [service.samePasswords()]
+    );
+
+    expect(frmGroup.valid).toBeTrue();
+  });
+
+  it('should check if passwords are same (invalid)', () => {
+      const frmGroup = new FormGroup(
+          {
+              password: new FormControl('password'),
+              confirmPassword: new FormControl('confirmPassword'),
+          },
+          [service.samePasswords()]
+      );
+
+      expect(frmGroup.valid).toBeFalse();
+  });
+
+  it('should check if password is strong (true)', () => {
+      const frmGroup = new FormGroup({
+          password: new FormControl("VVj[$u'ex9", [service.strongPassword(true)]),
+      });
+
+      expect(frmGroup.valid).toBeTrue();
+  });
+
+  it('should check if password is strong (false)', () => {
+      const frmGroup = new FormGroup({
+          password: new FormControl('password', [service.strongPassword(true)]),
+      });
+
+      expect(frmGroup.valid).toBeFalse();
   });
 
   it('should initialize a search users FormGroup', () => {

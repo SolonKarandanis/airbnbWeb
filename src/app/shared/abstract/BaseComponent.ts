@@ -1,5 +1,5 @@
 import {  Directive,inject, QueryList, ViewChildren } from "@angular/core";
-import {  FormControl, FormGroup } from "@angular/forms";
+import {  FormControl, FormGroup, ValidationErrors } from "@angular/forms";
 import { FormInput } from "./FormInput.interface";
 import { FORM_INPUT } from "./formInput.token";
 import { TranslateService } from "@ngx-translate/core";
@@ -31,9 +31,12 @@ export class BaseComponent  {
     //   input.clear();
     // });
   }
+  protected isFormValid():boolean{
+    return this.isFormSubmitted || (!this.form?.dirty &&  !this.form?.invalid && this.form.errors !==null);
+  }
 
-  protected isFormValid(){
-    return this.isFormSubmitted || !this.form?.dirty
+  protected getValidationError(formError: string):ValidationErrors | null | undefined{
+    return this.form.errors?.[formError];
   }
 
   protected isFieldValid(field: string): boolean | undefined {

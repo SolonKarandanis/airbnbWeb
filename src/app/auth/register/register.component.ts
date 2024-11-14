@@ -72,6 +72,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                     <app-form-error 
                       [displayLabels]="isFieldValid('confirmPassword')"
                       [validationErrors]="form.get('confirmPassword')?.errors" />
+                    <app-form-error 
+                      [displayLabels]="!isFormValid()"
+                      [validationErrors]="getValidationError('samePassword')" />
                 </div>
                 <div class="input-box">
                   <span class="details">{{ "REGISTER.LABELS.first-name" | translate }}</span>
@@ -147,6 +150,7 @@ export class RegisterComponent extends BaseComponent implements OnInit{
   }
 
   registerUser():void{
+    console.log(this.form);
     this.validateAllFormFields();
     // this.userService.executeRegisterUser(this.form);
   }

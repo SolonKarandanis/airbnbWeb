@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { UserStore } from '../store/user.store';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { UserAccountStatus } from '@models/user.model';
 import { GenericService } from '@core/services/generic.service';
 import { SearchService } from '@core/services/search.service';
@@ -157,8 +157,31 @@ export class UserService extends GenericService{
       firstName: new FormControl(null,[Validators.required,]),
       lastName:new FormControl(null,[Validators.required,]),
       role:new FormControl(RolesConstants.ROLE_TENANT,[Validators.required])
-    });
+    },{validators: this.samePasswords()});
   }
+
+  public samePasswords(): ValidatorFn {
+    return (frmGroup: AbstractControl): ValidationErrors | null => {
+        const pass: string = frmGroup.get('password')?.value;
+        const passConf: string = frmGroup.get('confirmPassword')?.value;
+        const samePass: boolean = pass === passConf;
+
+        return samePass ? null : { samePassword: true };
+    };
+  }
+
+  public strongPassword(isViewEdit?: boolean): ValidatorFn {
+    return (frmGroup: AbstractControl): ValidationErrors | null => {
+        if (isViewEdit && frmGroup.value && frmGroup.value.length === 0) {
+            return null;
+        }
+
+        const regExp: RegExp = new RegExp(this.utilService.strongPasswordRegex);
+        const res = regExp.test(frmGroup.value);
+        return res ? null : { strongPassword: true };
+    };
+  }
+  
 
   /**
    * Get the columns for users in order to initialize the data table
