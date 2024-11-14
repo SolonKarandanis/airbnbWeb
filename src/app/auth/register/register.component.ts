@@ -153,9 +153,8 @@ export class RegisterComponent extends BaseComponent implements OnInit{
   }
 
   registerUser():void{
-    console.log(this.form);
     this.validateAllFormFields();
-    // this.userService.executeRegisterUser(this.form);
+    this.userService.executeRegisterUser(this.form);
   }
 
   private listenToSuccessfullCreation(){

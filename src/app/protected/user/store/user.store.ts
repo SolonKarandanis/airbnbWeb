@@ -118,7 +118,7 @@ export const UserStore = signalStore(
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error)
-                                utilService.showMessage('error',"Couldn't rgister user");
+                                utilService.showMessage('error',"Couldn't register user");
                             }
                         })
                     )
