@@ -143,5 +143,42 @@
                 "title": "Send manual notification"
             }
         }
+    },
+    "LOGIN": {
+        "title": "Login",
+        "LABELS": {
+            "username": "Username",
+            "password": "Password",
+            "agreement-header": "Terms of User Agreement"
+        },
+        "BUTTONS": {
+            "login": "Login",
+            "forgot-pass": "Forgot Password"
+        }
+    },
+    "REGISTER": {
+        "title": "Registration",
+        "LABELS": {
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "confirm-password": "Confirm Password",
+            "first-name": "First Name",
+            "last-name": "Last Name",
+            "role": "Role",
+            "landlord": "Landlord",
+            "tenant": "Tenant"
+        },
+        "PLACEHOLDERS":{
+            "enter-username": "Enter your username",
+            "enter-email": "Enter your email",
+            "enter-password": "Enter your password",
+            "confirm-password": "Confirm your password",
+            "enter-first-name": "Enter your First Name",
+            "enter-last-name": "Enter your Last Name"
+        },
+        "BUTTONS": {
+            "register": "Register"
+        }
     }
 }

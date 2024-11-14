@@ -25,15 +25,15 @@ import { RadioButtonModule } from 'primeng/radiobutton';
   template: `
     <div class="body">
       <div class="container">
-          <div class="title">Registration</div>
+          <div class="title">{{ "REGISTER.title" | translate }}</div>
           <div class="content">
             <form [formGroup]="form">
               <div class="user-details">
                 <div class="input-box">
-                  <span class="details">Username</span>
+                  <span class="details">{{ "REGISTER.LABELS.username" | translate }}</span>
                   <input 
                     type="text" 
-                    placeholder="Enter your username"
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-username' | translate }}" 
                     autocomplete="username"
                     formControlName="username">
                     <app-form-error 
@@ -41,10 +41,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                       [validationErrors]="form.get('username')?.errors" />
                 </div>
                 <div class="input-box">
-                  <span class="details">Email</span>
+                  <span class="details">{{ "REGISTER.LABELS.email" | translate }}</span>
                   <input 
                     type="email" 
-                    placeholder="Enter your email" 
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-email' | translate }}" 
                     autocomplete="email"
                     formControlName="email">
                     <app-form-error 
@@ -52,10 +52,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                       [validationErrors]="form.get('email')?.errors" />
                 </div>
                 <div class="input-box">
-                  <span class="details">Password</span>
+                  <span class="details">{{ "REGISTER.LABELS.password" | translate }}</span>
                   <input 
                     type="password" 
-                    placeholder="Enter your password"
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-password' | translate }}" 
                     autocomplete="new-password"
                     formControlName="password">
                     <app-form-error 
@@ -63,10 +63,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                       [validationErrors]="form.get('password')?.errors" />
                 </div>
                 <div class="input-box">
-                  <span class="details">Confirm Password</span>
+                  <span class="details">{{ "REGISTER.LABELS.confirm-password" | translate }}</span>
                   <input 
                     type="password" 
-                    placeholder="Confirm your password" 
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.confirm-password' | translate }}"
                     autocomplete="new-password"
                     formControlName="confirmPassword">
                     <app-form-error 
@@ -74,20 +74,20 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                       [validationErrors]="form.get('confirmPassword')?.errors" />
                 </div>
                 <div class="input-box">
-                  <span class="details">First Name</span>
+                  <span class="details">{{ "REGISTER.LABELS.first-name" | translate }}</span>
                   <input 
                     type="text" 
-                    placeholder="Enter your name" 
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-first-name' | translate }}" 
                     formControlName="firstName">
                     <app-form-error 
                       [displayLabels]="isFieldValid('firstName')"
                       [validationErrors]="form.get('firstName')?.errors" />
                 </div>
                 <div class="input-box">
-                  <span class="details">Last Name</span>
+                  <span class="details">{{ "REGISTER.LABELS.last-name" | translate }}</span>
                   <input 
                     type="text" 
-                    placeholder="Enter your name" 
+                    placeholder="{{ 'REGISTER.PLACEHOLDERS.enter-last-name' | translate }}" 
                     formControlName="lastName">
                     <app-form-error 
                       [displayLabels]="isFieldValid('lastName')"
@@ -95,21 +95,21 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                 </div>
               </div>
               <div class="role-details">
-                <span class="role-title">Role</span>
+                <span class="role-title">{{ "REGISTER.LABELS.role" | translate }}</span>
                 <div class="category">
                   <label for="landlord">
                     <p-radioButton 
                       formControlName="role" 
                       value={{landlord}} 
                       inputId="landlord" />
-                    <span class="role">Landlord</span>
+                    <span class="role">{{ "REGISTER.LABELS.landlord" | translate }}</span>
                   </label>
                   <label for="tenant">
                     <p-radioButton 
                       formControlName="role" 
                       value={{tenant}} 
                       inputId="tenant" />
-                    <span class="role">Tenant</span>
+                    <span class="role">{{ "REGISTER.LABELS.tenant" | translate }}</span>
                   </label>
                 </div>
               </div>
@@ -117,7 +117,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
                 <button 
                   type="submit"
                   (click)="registerUser()">
-                  Register
+                  {{ "REGISTER.BUTTONS.register" | translate }}
                 </button>
               </div>
             </form>
