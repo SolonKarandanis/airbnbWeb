@@ -17,6 +17,7 @@ import { UserAccountStatus } from '@models/user.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchTableColumn } from '@models/search.model';
+import { UtilService } from '@core/services/util.service';
 
 type UserStore = InstanceType<typeof UserStore>;
 
@@ -25,6 +26,7 @@ describe('UserService', () => {
   let userStoreSpy: jasmine.SpyObj<UserStore>;
   let searchServiceSpy: jasmine.SpyObj<SearchService>;
   let translateSpy: jasmine.SpyObj<TranslateService>;
+  let utilServiceSpy: jasmine.SpyObj<UtilService>;
 
   beforeEach(() => {
     userStoreSpy = jasmine.createSpyObj('UserStore',[
@@ -66,6 +68,10 @@ describe('UserService', () => {
         {
           provide: TranslateService,
           useValue: translateSpy,
+        },
+        {
+          provide: UtilService,
+          useValue: utilServiceSpy,
         },
       ]
     });

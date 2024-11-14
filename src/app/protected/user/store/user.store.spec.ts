@@ -4,13 +4,16 @@ import { UserStore } from './user.store';
 import { of } from 'rxjs';
 import { SearchResult } from '@models/search.model';
 import { mockCreateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
+import { UtilService } from '@core/services/util.service';
 
 type UserStore = InstanceType<typeof UserStore>;
 
 describe('UserStore', () =>{
     let store: UserStore;
     let userRepoSpy: jasmine.SpyObj<UserRepository>;
+    let utilServiceSpy: jasmine.SpyObj<UtilService>;
     let searchResult: SearchResult<any>;
+
 
     beforeEach(()=>{
         userRepoSpy = jasmine.createSpyObj('UserRepository',[
@@ -22,12 +25,19 @@ describe('UserStore', () =>{
             'activateUser',
             'deactivateUser',
         ]);
+        utilServiceSpy = jasmine.createSpyObj('MessageService',[
+            'showMessage',
+        ]);
 
         TestBed.configureTestingModule({
             providers:[
               {
                 provide: UserRepository,
                 useValue: userRepoSpy,
+              },
+              {
+                provide: UtilService,
+                useValue: utilServiceSpy,
               },
             ]
         });

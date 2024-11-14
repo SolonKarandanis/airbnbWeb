@@ -187,6 +187,7 @@ export const mockCreateUserForm:FormGroup= new FormGroup<CreateUserForm>({
     lastName: new FormControl(''),
     role:new FormControl(RolesConstants.ROLE_LANDLORD,{nonNullable: true}),
     password:new FormControl(''),
+    confirmPassword:new FormControl(''),
 });
 
 

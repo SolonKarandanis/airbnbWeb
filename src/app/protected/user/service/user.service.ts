@@ -8,6 +8,7 @@ import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchTableColumn } from '@models/search.model';
 import { RolesConstants } from '@core/guards/SecurityConstants';
+import { UtilService } from '@core/services/util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class UserService extends GenericService{
   private userStore = inject(UserStore);
   private searchService = inject(SearchService);
   private translateService = inject(TranslateService);
+  private utilService = inject(UtilService);
 
   public user = this.userStore.getUser;
   public userId = this.userStore.getUserId;
