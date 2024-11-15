@@ -1,4 +1,6 @@
+import { HttpContext } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { AUTHENTICATE_REQUEST } from "@core/guards/SecurityConstants";
 import { ApiControllers } from "@core/repository/ApiControllers";
 import { BaseRepository } from "@core/repository/base.repository";
 import { SearchResult, UserSearchRequest } from "@models/search.model";
@@ -37,7 +39,9 @@ export class UserRepository  extends BaseRepository{
     * @returns An Observable with the created user
     */
     public registerUser(request:CreateUserRequest):Observable<UserModel>{
-        return this.http.post<UserModel>(`${ApiControllers.USERS}`,request);
+        return this.http.post<UserModel>(`${ApiControllers.USERS}`,request,{
+            context: new HttpContext().set(AUTHENTICATE_REQUEST, false),
+        });
     }
 
     /**

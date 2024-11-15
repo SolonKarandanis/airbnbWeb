@@ -153,7 +153,12 @@ export class RegisterComponent extends BaseComponent implements OnInit{
   }
 
   registerUser():void{
-    this.validateAllFormFields();
+    if (this.form.invalid) {
+			Object.keys(this.controls).forEach(controlName =>
+				this.controls[controlName].markAsTouched()
+			);
+			return;
+		}
     this.userService.executeRegisterUser(this.form);
   }
 
