@@ -3,6 +3,7 @@ import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, throwError, retry, timer } from 'rxjs';
 import { ErrorService } from "../services/error.service";
+import { HttpUtil } from "@core/services/http-util.service";
 
 export const httpError: HttpInterceptorFn = (
     request: HttpRequest<unknown>,
@@ -10,6 +11,7 @@ export const httpError: HttpInterceptorFn = (
   ) =>{
     const router = inject(Router);
     const errorService = inject(ErrorService);
+    const httpUtil = inject(HttpUtil);
 
     let retriesCount = 0;
     let maxRetries = 0;
@@ -33,7 +35,7 @@ export const httpError: HttpInterceptorFn = (
             },
         }),
         catchError((error: HttpErrorResponse) =>{
-            const isMessageException: boolean = false;
+            const isMessageException: boolean = httpUtil.isHttpErrorMessageException(error);
             const errorArray: string[] = error.error;
             
             if (!isMessageException) {

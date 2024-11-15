@@ -11,20 +11,8 @@ export class HttpUtil {
 
     private readonly HttpErrorMessageExceptions: HttpErrorMessageException[] = [
         {
-            urlRegExp: ApiControllers.SEARCH + '/[0-9]+/approval-settings',
-            status: HttpStatusCode.NotFound,
-        },
-        {
-            urlRegExp: ApiControllers.SEARCH + '\\?contractId=[0-9]+&supplierId=[0-9]+',
-            status: HttpStatusCode.NotFound,
-        },
-        {
-            urlRegExp: ApiControllers.SEARCH + '/eo',
-            status: HttpStatusCode.Forbidden,
-        },
-        {
-            urlRegExp: ApiControllers.SEARCH + '/ca',
-            status: HttpStatusCode.Forbidden,
+            urlRegExp: ApiControllers.USERS,
+            status: HttpStatusCode.Ok,
         },
         {
             urlRegExp: ApiControllers.SEARCH,
