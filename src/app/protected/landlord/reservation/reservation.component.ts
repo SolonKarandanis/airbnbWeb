@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@a
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { BookedListing } from '@models/booking.model';
 import { CardListingComponent } from '@shared/card-listing/card-listing.component';
+import { VarDirective } from '@shared/directives/ng-var.directive';
 import { TenantService } from '@tenant/service/tenant.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { TenantService } from '@tenant/service/tenant.service';
   standalone: true,
   imports: [
     CardListingComponent,
-    FaIconComponent
+    FaIconComponent,
+    VarDirective,
   ],
   template: `
     <h1>My Reservation</h1>
