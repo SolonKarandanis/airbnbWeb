@@ -74,9 +74,4 @@ export class BookedListingComponent {
   private fetchBookings() {
     this.bookingService.executeGetTenantBookedListings();
   }
-
-  private listenCancelBooking():void{
-
-  }
-
 }

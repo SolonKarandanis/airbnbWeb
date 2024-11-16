@@ -239,11 +239,9 @@ export const TenantStore = signalStore(
                     bookingRepo.cancelBooking(bookingPublicId,listingPublicId,byLandlord).pipe(
                         tapResponse({
                             next:()=>{
-                                patchState(state,{
-                                    errorMessage:null,
-                                    showError:false,
-                                    loading:false
-                                })
+                                const remainingBookeListings =state.bookedListings()
+                                    .filter(bk=> !(bk.bookingPublicId===bookingPublicId && bk.listingPublicId===listingPublicId));
+                                state.setBookedListings(remainingBookeListings);
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error);
