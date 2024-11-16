@@ -122,7 +122,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
               <div class="button">
                 <button 
                   type="submit"
-                  (click)="registerUser()">
+                  (click)="registerUser()"
+                  [disabled]="isLoading()">
                   {{ "REGISTER.BUTTONS.register" | translate }}
                 </button>
               </div>
