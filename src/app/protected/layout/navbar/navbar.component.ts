@@ -6,12 +6,12 @@ import {MenuModule} from "primeng/menu";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import { AvatarComponent } from './avatar/avatar.component';
 import { CategoryComponent } from './category/category.component';
-import { ToastService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '@core/services/auth.service';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { CreatePropertyComponent } from '@landlord/create-property/create-property.component';
+import { SearchComponent } from '@tenant/search/search.component';
 
 @Component({
   selector: 'app-navbar',
@@ -102,7 +102,6 @@ export class NavbarComponent implements OnInit{
   guests = "Add guests";
   dates = "Any week";
 
-  private toastService = inject(ToastService);
   private authService = inject(AuthService);
   private dialogService = inject(DialogService);
   private activatedRoute = inject(ActivatedRoute);
@@ -121,8 +120,7 @@ export class NavbarComponent implements OnInit{
   currentMenuItems: MenuItem[] | undefined = [];
 
   ngOnInit(): void {
-    // this.authService.fetch(false);
-    // this.extractInformationForSearch();
+    this.extractInformationForSearch();
     this.currentMenuItems = this.fetchMenu();
     this.connectedUser = this.authService.loggedUser();
   }
@@ -183,15 +181,32 @@ export class NavbarComponent implements OnInit{
   }
 
   openNewSearch(): void {
-    // this.ref = this.dialogService.open(SearchComponent,
-    //   {
-    //     width: "40%",
-    //     header: "Search",
-    //     closable: true,
-    //     focusOnShow: true,
-    //     modal: true,
-    //     showHeader: true
-    //   });
+    this.ref = this.dialogService.open(SearchComponent,
+      {
+        width: "40%",
+        header: "Search",
+        closable: true,
+        focusOnShow: true,
+        modal: true,
+        showHeader: true
+      });
+  }
+
+  private extractInformationForSearch(): void{
+    // this.activatedRoute.queryParams.subscribe({
+    //   next: params => {
+    //     if (params["location"]) {
+    //       this.location = params["location"];
+    //       this.guests = params["guests"] + " Guests";
+    //       this.dates = dayjs(params["startDate"]).format("MMM-DD")
+    //         + " to " + dayjs(params["endDate"]).format("MMM-DD");
+    //     } else if (this.location !== "Anywhere") {
+    //       this.location = "Anywhere";
+    //       this.guests = "Add guests";
+    //       this.dates = "Any week";
+    //     }
+    //   }
+    // })
   }
 
 }
