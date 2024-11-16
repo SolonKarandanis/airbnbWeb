@@ -1,7 +1,6 @@
 import { LoadingModel } from "./BaseModel.model";
 import { CategoryName } from "./category.model";
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from "./listing-vo.model";
-import { NewListingPicture } from "./picture.model";
 
 
 export interface NewListingInfo {
