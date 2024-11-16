@@ -28,6 +28,15 @@ export const protectedRoutes: Routes =[
       import('./tenant/booked-listing/booked-listing.component').then((m)=>m.BookedListingComponent),
   },
   {
+    path: "landlord/reservation",
+    loadComponent: () => 
+      import('./landlord/reservation/reservation.component').then((m)=>m.ReservationComponent),
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [RolesConstants.ROLE_LANDLORD]
+    }
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
