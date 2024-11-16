@@ -33,7 +33,7 @@ export const authExpired: HttpInterceptorFn = (
             }, 
             error: (error) => {
                 if(error instanceof HttpErrorResponse){
-                    if(error.status === 403){
+                    if(error.status === 401){
                         // redirect to login
                         authService.logout()
                     }
