@@ -212,7 +212,6 @@ export class NavbarComponent implements OnInit{
   private extractInformationForSearch(): void{
     this.activatedRoute.queryParams.subscribe({
       next: params => {
-        console.log(params);
         if (params["location"]) {
           this.location.set(params["location"]);
           this.guests.set(params["guests"] + " Guests");

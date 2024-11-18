@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit
 import { CategoryService } from '../layout/navbar/category/category.service';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { CardListingComponent } from '@shared/card-listing/card-listing.component';
-import {  Router } from '@angular/router';
+import {  ActivatedRoute, Router } from '@angular/router';
 import { TenantService } from '@tenant/service/tenant.service';
 import { CardListing } from '@models/listing.model';
-import { Paging } from '@models/search.model';
-import { Subscription } from 'rxjs';
+import { ListingSearchRequest, Paging } from '@models/search.model';
+import { filter, Subscription } from 'rxjs';
 import { Category } from '@models/category.model';
+import { UtilService } from '@core/services/util.service';
 
 @Component({
   selector: 'app-home',
@@ -46,6 +47,8 @@ export class HomeComponent implements OnInit,OnDestroy{
   private tenantService = inject(TenantService);
   private categoryService = inject(CategoryService);
   private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private utilService = inject(UtilService);
 
   private loading:Signal<boolean> = this.tenantService.isLoading;
   private searchResults:Signal<CardListing[]> = this.tenantService.searchResults;
@@ -57,7 +60,6 @@ export class HomeComponent implements OnInit,OnDestroy{
 
   constructor(){
     this.listenToGetAllCategory();
-    this.listenToSearch();
   }
 
   ngOnInit(): void {
@@ -101,49 +103,27 @@ export class HomeComponent implements OnInit,OnDestroy{
     });
   }
 
-  private listenToSearch() {
-    // this.searchSubscription = this.tenantListingService.search.subscribe({
-    //   next: searchState => {
-    //     if (searchState.status === "OK") {
-    //       this.loading = false;
-    //       this.searchIsLoading = false;
-    //       this.listings = searchState.value?.content;
-    //       this.emptySearch = this.listings?.length === 0;
-    //     } else if (searchState.status === "ERROR") {
-    //       this.loading = false;
-    //       this.searchIsLoading = false;
-    //       this.toastService.send({
-    //         severity: "error", summary: "Error when search listing",
-    //       })
-    //     }
-    //   }
-    // })
-  }
-
   private startNewSearch(): void {
-    // this.activatedRoute.queryParams.pipe(
-    //   filter(params => params['location']),
-    // ).subscribe({
-    //   next: params => {
-    //     this.searchIsLoading = true;
-    //     this.loading = true;
-    //     const newSearch: Search = {
-    //       dates: {
-    //         startDate: dayjs(params["startDate"]).toDate(),
-    //         endDate: dayjs(params["endDate"]).toDate(),
-    //       },
-    //       infos: {
-    //         guests: {value: params['guests']},
-    //         bedrooms: {value: params['bedrooms']},
-    //         beds: {value: params['beds']},
-    //         baths: {value: params['baths']},
-    //       },
-    //       location: params['location'],
-    //     };
-
-    //     this.tenantListingService.searchListing(newSearch, this.pageRequest);
-    //   }
-    // })
+    this.activatedRoute.queryParams.pipe(
+      filter(params => params['location']),
+    ).subscribe({
+      next: params => {
+        const request:ListingSearchRequest={
+          startDate: this.utilService.convertDateObjectsToAirbnbFormat(params["startDate"])!,
+          endDate:this.utilService.convertDateObjectsToAirbnbFormat(params["endDate"])!,
+          location:params['location'],
+          guests:{value: params['guests']},
+          bedrooms:{value: params['bedrooms']},
+          beds:{value: params['beds']},
+          baths:{value: params['baths']},
+          paging:{
+            page:1,
+            limit:6
+          }
+        };
+        this.tenantService.executeSearchListings(request);
+      }
+    })
   }
   
 
