@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import {ToolbarModule} from "primeng/toolbar";
@@ -28,40 +28,42 @@ import dayjs from 'dayjs';
   providers:[DialogService],
   template: `
     <div class="sticky top-0 border-bottom-1 border-gray-200 shadow-1 z-1">
-      <p-toolbar [styleClass]="'bg-white border-top-none border-x-none border-noround'
-        + 'sm:flex sm:justify-content-center sm:w-full md:flex md:justify-content-between px-8'">
-        <div class="p-toolbar-group-start pl-1 sm:hidden md:flex cursor-pointer" routerLink="/home">
-          <fa-icon [icon]="['fab', 'airbnb']" size="3x" class="text-primary"></fa-icon>
-          <div class="font-bold text-primary pl-2 text-2xl">airbnb</div>
-        </div>
-        <div class="p-toolbar-group-center bg-white border-round-3xl p-0 border-1
-          border-gray-300 shadow-1 hover:shadow-2 middle-group search flex justify-content-around" (click)="openNewSearch()">
-          <button class="p-button border-round-left-3xl border-noround-right border-right-none
-            border-none bg-white text-dark focus:shadow-none">
-            {{location}}
-          </button>
-          <div class="border-1 border-left-none border-gray-300 separator"></div>
-          <button class="p-button border-none border-noround bg-white text-dark focus:shadow-none">
-            {{dates}}
-          </button>
-          <div class="border-1 border-left-none border-gray-300 separator"></div>
-          <button class="p-button guest-btn border-none border-round-right-3xl bg-white text-dark focus:shadow-none text-gray-400 p-2">
-            <div>{{guests}}</div>
-          </button>
-          <button class="mr-2 p-button search-icon flex align-items-center justify-content-center">
-            <fa-icon [icon]="'search'" class="text-sm"></fa-icon>
-          </button>
-        </div>
-        <div class="p-toolbar-group-end sm:hidden md:flex">
-          <a class="p-button p-button-link" (click)="openNewListing()">Airbnb your home</a>
-          <p-menu #menu [model]="currentMenuItems" [popup]="true" styleClass="border-round-xl mt-1"></p-menu>
-          <button (click)="menu.toggle($event)" class="menu flex align-content-center
-            justify-content-around ml-2 pl-3 p-2 border-gray-300 focus:shadow-none hover:shadow-1 border-round-3xl bg-white p-button">
-            <fa-icon [icon]="'bars'" class="text-sm text-dark mr-3"></fa-icon>
-            <app-avatar [imageUrl]="connectedUser?.imageUrl" avatarSize="avatar-sm"></app-avatar>
-          </button>
-        </div>
-      </p-toolbar>
+      @if(vm(); as vm){
+        <p-toolbar [styleClass]="'bg-white border-top-none border-x-none border-noround'
+            + 'sm:flex sm:justify-content-center sm:w-full md:flex md:justify-content-between px-8'">
+          <div class="p-toolbar-group-start pl-1 sm:hidden md:flex cursor-pointer" routerLink="/home">
+            <fa-icon [icon]="['fab', 'airbnb']" size="3x" class="text-primary"></fa-icon>
+            <div class="font-bold text-primary pl-2 text-2xl">airbnb</div>
+          </div>
+          <div class="p-toolbar-group-center bg-white border-round-3xl p-0 border-1
+            border-gray-300 shadow-1 hover:shadow-2 middle-group search flex justify-content-around" (click)="openNewSearch()">
+            <button class="p-button border-round-left-3xl border-noround-right border-right-none
+              border-none bg-white text-dark focus:shadow-none">
+              {{vm.location}}
+            </button>
+            <div class="border-1 border-left-none border-gray-300 separator"></div>
+            <button class="p-button border-none border-noround bg-white text-dark focus:shadow-none">
+              {{vm.dates}}
+            </button>
+            <div class="border-1 border-left-none border-gray-300 separator"></div>
+            <button class="p-button guest-btn border-none border-round-right-3xl bg-white text-dark focus:shadow-none text-gray-400 p-2">
+              <div>{{vm.guests}}</div>
+            </button>
+            <button class="mr-2 p-button search-icon flex align-items-center justify-content-center">
+              <fa-icon [icon]="'search'" class="text-sm"></fa-icon>
+            </button>
+          </div>
+          <div class="p-toolbar-group-end sm:hidden md:flex">
+            <a class="p-button p-button-link" (click)="openNewListing()">Airbnb your home</a>
+            <p-menu #menu [model]="currentMenuItems" [popup]="true" styleClass="border-round-xl mt-1"></p-menu>
+            <button (click)="menu.toggle($event)" class="menu flex align-content-center
+              justify-content-around ml-2 pl-3 p-2 border-gray-300 focus:shadow-none hover:shadow-1 border-round-3xl bg-white p-button">
+              <fa-icon [icon]="'bars'" class="text-sm text-dark mr-3"></fa-icon>
+              <app-avatar [imageUrl]="vm.connectedUser?.imageUrl" avatarSize="avatar-sm"></app-avatar>
+            </button>
+          </div>
+        </p-toolbar>
+      }
       <app-category />
     </div>
   `,
@@ -99,16 +101,31 @@ import dayjs from 'dayjs';
 })
 export class NavbarComponent implements OnInit{
 
-  location = "Anywhere";
-  guests = "Add guests";
-  dates = "Any week";
+  private location = signal("Anywhere");
+  private guests = signal("Add guests");
+  private dates = signal("Any week");
 
   private authService = inject(AuthService);
   private dialogService = inject(DialogService);
   private activatedRoute = inject(ActivatedRoute);
   private ref: DynamicDialogRef | undefined;
 
-  protected  connectedUser =this.authService.loggedUser();
+  protected vm = computed(()=>{
+    const connectedUser = this.authService.loggedUser();
+    const location = this.location();
+    const guests = this.guests();
+    const dates = this.dates();
+
+    return {
+      connectedUser,
+      location,
+      guests,
+      dates
+    }
+
+  });
+
+  // protected  connectedUser =this.authService.loggedUser();
 
   login(){
     // this.authService.login();
@@ -123,7 +140,6 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     this.extractInformationForSearch();
     this.currentMenuItems = this.fetchMenu();
-    this.connectedUser = this.authService.loggedUser();
   }
 
   hasToBeLandlord(): boolean {
@@ -198,14 +214,13 @@ export class NavbarComponent implements OnInit{
       next: params => {
         console.log(params);
         if (params["location"]) {
-          this.location = params["location"];
-          this.guests = params["guests"] + " Guests";
-          this.dates = dayjs(params["startDate"]).format("MMM-DD")
-            + " to " + dayjs(params["endDate"]).format("MMM-DD");
-        } else if (this.location !== "Anywhere") {
-          this.location = "Anywhere";
-          this.guests = "Add guests";
-          this.dates = "Any week";
+          this.location.set(params["location"]);
+          this.guests.set(params["guests"] + " Guests");
+          this.dates.set(dayjs(params["startDate"]).format("MMM-DD")+" to "+dayjs(params["endDate"]).format("MMM-DD"));
+        } else if (this.location() !== "Anywhere") {
+          this.location.set("Anywhere");
+          this.guests.set("Add guests");
+          this.dates.set("Any week");
         }
       }
     })
