@@ -12,6 +12,7 @@ import { AuthService } from '@core/services/auth.service';
 import { RolesConstants } from '@core/guards/SecurityConstants';
 import { CreatePropertyComponent } from '@landlord/create-property/create-property.component';
 import { SearchComponent } from '@tenant/search/search.component';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-navbar',
@@ -193,20 +194,21 @@ export class NavbarComponent implements OnInit{
   }
 
   private extractInformationForSearch(): void{
-    // this.activatedRoute.queryParams.subscribe({
-    //   next: params => {
-    //     if (params["location"]) {
-    //       this.location = params["location"];
-    //       this.guests = params["guests"] + " Guests";
-    //       this.dates = dayjs(params["startDate"]).format("MMM-DD")
-    //         + " to " + dayjs(params["endDate"]).format("MMM-DD");
-    //     } else if (this.location !== "Anywhere") {
-    //       this.location = "Anywhere";
-    //       this.guests = "Add guests";
-    //       this.dates = "Any week";
-    //     }
-    //   }
-    // })
+    this.activatedRoute.queryParams.subscribe({
+      next: params => {
+        console.log(params);
+        if (params["location"]) {
+          this.location = params["location"];
+          this.guests = params["guests"] + " Guests";
+          this.dates = dayjs(params["startDate"]).format("MMM-DD")
+            + " to " + dayjs(params["endDate"]).format("MMM-DD");
+        } else if (this.location !== "Anywhere") {
+          this.location = "Anywhere";
+          this.guests = "Add guests";
+          this.dates = "Any week";
+        }
+      }
+    })
   }
 
 }

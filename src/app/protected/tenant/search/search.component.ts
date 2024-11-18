@@ -4,7 +4,7 @@ import { FooterStepComponent } from '@shared/footer-step/footer-step.component';
 import { SearchDateComponent } from './search-date/search-date.component';
 import { InfoStepComponent } from '@landlord/create-property/step/info-step/info-step.component';
 import { Step } from '@landlord/create-property/step.model';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewListingInfo } from '@models/listing.model';
 import {  BookedDatesD } from '@models/booking.model';
@@ -145,18 +145,16 @@ export class SearchComponent {
   }
 
   search() {
-    this.router.navigate(["/"],
-      {
-        queryParams: {
-          location: this.newSearch.location,
-          guests: this.newSearch.infos.guests.value,
-          bedrooms: this.newSearch.infos.bedrooms.value,
-          beds: this.newSearch.infos.beds.value,
-          baths: this.newSearch.infos.baths.value,
-          startDate: dayjs(this.newSearch.dates.startDate).format("YYYY-MM-DD"),
-          endDate: dayjs(this.newSearch.dates.endDate).format("YYYY-MM-DD"),
-        }
-      });
+    const queryParams:Params ={
+      location: this.newSearch.location,
+      guests: this.newSearch.infos.guests.value,
+      bedrooms: this.newSearch.infos.bedrooms.value,
+      beds: this.newSearch.infos.beds.value,
+      baths: this.newSearch.infos.baths.value,
+      startDate: dayjs(this.newSearch.dates.startDate).format("YYYY-MM-DD"),
+      endDate: dayjs(this.newSearch.dates.endDate).format("YYYY-MM-DD"),
+    }
+    this.router.navigate(["/home"],{queryParams});
     this.dialogDynamicRef.close();
   }
 
