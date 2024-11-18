@@ -173,14 +173,13 @@ export class NavbarComponent implements OnInit{
     } else {
       return [
         {
-          label: "Sign up",
-          styleClass: "font-bold",
-          command: this.login
+          label: "My booking",
+          routerLink: "booking",
         },
         {
-          label: "Log in",
-          command: this.login
-        }
+          label: "Log out",
+          command: () => this.logout()
+        },
       ]
     }
   }
