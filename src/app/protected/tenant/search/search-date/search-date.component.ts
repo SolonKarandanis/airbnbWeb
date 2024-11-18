@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UtilService } from '@core/services/util.service';
-import { BookedDates } from '@models/booking.model';
+import {  BookedDatesD } from '@models/booking.model';
 import { CalendarModule } from 'primeng/calendar';
 
 @Component({
@@ -29,11 +28,10 @@ import { CalendarModule } from 'primeng/calendar';
 })
 export class SearchDateComponent {
 
-  private utilService = inject(UtilService);
 
-  dates = input.required<BookedDates>();
+  dates = input.required<BookedDatesD>();
 
-  datesChange = output<BookedDates>();
+  datesChange = output<BookedDatesD>();
   stepValidityChange = output<boolean>();
 
   protected searchDateRaw = new Array<Date>();
@@ -49,9 +47,9 @@ export class SearchDateComponent {
     const isDateValid = this.validateDateSearch();
     this.stepValidityChange.emit(isDateValid);
     if (isDateValid) {
-      const searchDate: BookedDates = {
-        startDate: this.utilService.convertDateObjectsToAirbnbFormat(this.searchDateRaw[0])!,
-        endDate: this.utilService.convertDateObjectsToAirbnbFormat(this.searchDateRaw[1])!
+      const searchDate: BookedDatesD = {
+        startDate: this.searchDateRaw[0],
+        endDate: this.searchDateRaw[1]
       }
       this.datesChange.emit(searchDate);
     }

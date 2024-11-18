@@ -7,8 +7,9 @@ import { Step } from '@landlord/create-property/step.model';
 import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NewListingInfo } from '@models/listing.model';
-import { BookedDates } from '@models/booking.model';
+import {  BookedDatesD } from '@models/booking.model';
 import { TenantService } from '@tenant/service/tenant.service';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-search',
@@ -24,26 +25,28 @@ import { TenantService } from '@tenant/service/tenant.service';
       @switch (this.currentStep.id){
         @case (LOCATION) {
           <h1>Where do you want to go?</h1>
-          <!-- <app-location-map 
+          <app-location-map 
             [location]="newSearch.location"
             [placeholder]="'Choose your country'"
-            (locationChange)="onNewLocation($event)"></app-location-map> -->
+            (locationChange)="onNewLocation($event)">
+          </app-location-map>
         }
         @case (DATES){
           <h1>When do you want to go?</h1>
-          <!-- <app-search-date 
+          <app-search-date 
             [dates]="newSearch.dates"
             (datesChange)="onNewDate($event)"
             (stepValidityChange)="onValidityChange($event)">
-          </app-search-date> -->
+          </app-search-date>
         }
         @case (GUESTS){
           <h1 class="mb-1">What are you looking for?</h1>
           <h2 class="mt-0">Number of beds, guests, etc.</h2>
-          <!-- <app-info-step 
+          <app-info-step 
             [infos]="newSearch.infos"
             (infoChange)="onInfoChange($event)"
-            (stepValidityChange)="onValidityChange($event)"></app-info-step> -->
+            (stepValidityChange)="onValidityChange($event)">
+          </app-info-step>
         }
       }
     </div>
@@ -94,19 +97,19 @@ export class SearchComponent {
 
   currentStep = this.steps[0];
 
-  // newSearch: Search = {
-  //   dates: {
-  //     startDate: new Date(),
-  //     endDate: new Date(),
-  //   },
-  //   infos: {
-  //     guests: {value: 0},
-  //     bedrooms: {value: 0},
-  //     beds: {value: 0},
-  //     baths: {value: 0}
-  //   },
-  //   location: ""
-  // };
+  newSearch: Search = {
+    dates: {
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+    infos: {
+      guests: {value: 0},
+      bedrooms: {value: 0},
+      beds: {value: 0},
+      baths: {value: 0}
+    },
+    location: ""
+  };
 
   nextStep() {
     if (this.currentStep.idNext !== null) {
@@ -130,38 +133,37 @@ export class SearchComponent {
 
   onNewLocation(newLocation: string): void {
     this.currentStep.isValid = true;
-    // this.newSearch.location = newLocation;
+    this.newSearch.location = newLocation;
   }
 
-  onNewDate(newDates: BookedDates) {
-    // this.newSearch.dates =  newDates
+  onNewDate(newDates: BookedDatesD) {
+    this.newSearch.dates =  newDates
   }
 
   onInfoChange(newInfo: NewListingInfo) {
-    // this.newSearch.infos = newInfo;
+    this.newSearch.infos = newInfo;
   }
 
   search() {
-    // this.loadingSearch = false;
-    // this.router.navigate(["/"],
-    //   {
-    //     queryParams: {
-    //       location: this.newSearch.location,
-    //       guests: this.newSearch.infos.guests.value,
-    //       bedrooms: this.newSearch.infos.bedrooms.value,
-    //       beds: this.newSearch.infos.beds.value,
-    //       baths: this.newSearch.infos.baths.value,
-    //       startDate: dayjs(this.newSearch.dates.startDate).format("YYYY-MM-DD"),
-    //       endDate: dayjs(this.newSearch.dates.endDate).format("YYYY-MM-DD"),
-    //     }
-    //   });
-    // this.dialogDynamicRef.close();
+    this.router.navigate(["/"],
+      {
+        queryParams: {
+          location: this.newSearch.location,
+          guests: this.newSearch.infos.guests.value,
+          bedrooms: this.newSearch.infos.bedrooms.value,
+          beds: this.newSearch.infos.beds.value,
+          baths: this.newSearch.infos.baths.value,
+          startDate: dayjs(this.newSearch.dates.startDate).format("YYYY-MM-DD"),
+          endDate: dayjs(this.newSearch.dates.endDate).format("YYYY-MM-DD"),
+        }
+      });
+    this.dialogDynamicRef.close();
   }
 
 }
 
 export interface Search {
   location: string,
-  dates: BookedDates,
+  dates: BookedDatesD,
   infos: NewListingInfo
 }

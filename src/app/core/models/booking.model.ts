@@ -8,6 +8,11 @@ export interface BookedDates {
     endDate: string;
 }
 
+export interface BookedDatesD {
+    startDate: Date;
+    endDate: Date;
+}
+
 export interface Booking{
   publicId: string,
   startDate: string,
