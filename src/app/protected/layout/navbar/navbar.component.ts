@@ -149,39 +149,28 @@ export class NavbarComponent implements OnInit{
 
 
   private fetchMenu(): MenuItem[] {
-    if (this.authService.isAuthenticated()) {
-      return [
-        {
-          label: "My properties",
-          routerLink: "landlord/properties",
-          visible: this.hasToBeLandlord(),
-        },
-        {
-          label: "My booking",
-          routerLink: "booking",
-        },
-        {
-          label: "My reservation",
-          routerLink: "landlord/reservation",
-          visible: this.hasToBeLandlord(),
-        },
-        {
-          label: "Log out",
-          command: () => this.logout()
-        },
-      ]
+    const menuItems: MenuItem[] = []
+    if (this.hasToBeLandlord()) {
+      menuItems.push({
+        label: "My properties",
+        routerLink: "landlord/properties",
+      });
+      menuItems.push({
+        label: "My reservation",
+        routerLink: "landlord/reservation",
+      });
+      
     } else {
-      return [
-        {
-          label: "My booking",
-          routerLink: "booking",
-        },
-        {
-          label: "Log out",
-          command: () => this.logout()
-        },
-      ]
+      menuItems.push({
+        label: "My booking",
+        routerLink: "booking",
+      });
     }
+    menuItems.push({
+      label: "Log out",
+      command: () => this.logout()
+    });
+    return menuItems;
   }
 
   openNewListing(): void {
