@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit,OnDestroy{
           beds:{value: params['beds']},
           baths:{value: params['baths']},
           paging:{
-            page:1,
+            page:0,
             limit:6
           }
         };
