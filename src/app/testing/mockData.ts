@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
 import { NewListingPicture } from '@models/picture.model';
 import { Country,} from '@models/country.model';
-import { BookedDates, BookedListing, CreateBooking } from '@models/booking.model';
+import { BookedDates, BookedListing, Booking, CreateBooking } from '@models/booking.model';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -304,6 +304,16 @@ export const mockBookedListing:BookedListing={
     totalPrice:mockPriceVO,
     dates:mockBookedDates,
     cover:mockDisplayPicture
+}
+
+export const mockBooking:Booking={
+    endDate:"test",
+    startDate:"test",
+    fkListing:"test",
+    fkTenant:"test",
+    publicId:"test",
+    totalPrice:0,
+    numberOfTravelers:2
 }
 
 
