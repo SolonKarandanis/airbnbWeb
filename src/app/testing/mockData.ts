@@ -10,6 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
 import { NewListingPicture } from '@models/picture.model';
 import { Country, CountryName, OfficialAndCommon } from '@models/country.model';
+import { BookedDates, BookedListing, CreateBooking } from '@models/booking.model';
 
 export const mockUser: UserModel ={
     username:"skaran",
@@ -257,7 +258,9 @@ export const mockCreatedListing:CreatedListing={
 };
 
 export const mockDisplayPicture:DisplayPicture={
-
+    file:"test",
+    fileContentType:"test",
+    isCover:true
 }
 
 export const mockCardListing:CardListing={
@@ -280,6 +283,27 @@ export const mockNewListing:NewListing={
 export const mockNewListingPicture:NewListingPicture={
     file:mockFile,
     urlDisplay: 'test'
+}
+
+export const mockBookedDates:BookedDates={
+    endDate:"test",
+    startDate:"test"
+}
+
+export const mockCreateBookingRequest:CreateBooking={
+    endDate:"test",
+    startDate:"test",
+    listingPublicId:"test"
+}
+
+export const mockBookedListing:BookedListing={
+    location:"test",
+    loading:false,
+    listingPublicId:"test",
+    bookingPublicId:"test",
+    totalPrice:mockPriceVO,
+    dates:mockBookedDates,
+    cover:mockDisplayPicture
 }
 
 
