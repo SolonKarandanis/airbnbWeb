@@ -25,7 +25,7 @@ describe('UserStore', () =>{
             'activateUser',
             'deactivateUser',
         ]);
-        utilServiceSpy = jasmine.createSpyObj('MessageService',[
+        utilServiceSpy = jasmine.createSpyObj('UtilService',[
             'showMessage',
         ]);
 
