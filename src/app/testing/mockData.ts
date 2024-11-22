@@ -5,7 +5,7 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JwtDTO, SubmitCredentialsDTO } from '@models/auth.model';
 import { GenericFile } from '@models/file.model';
 import { BathsVO, BedroomsVO, BedsVO, DescriptionVO, GuestsVO, PriceVO, TitleVO } from '@models/listing-vo.model';
-import { CardListing, CreatedListing, Description, DisplayPicture, LandlordListing, NewListing, NewListingInfo } from '@models/listing.model';
+import { CardListing, CreatedListing, Description, DisplayPicture, LandlordListing, Listing, NewListing, NewListingInfo } from '@models/listing.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CreateUserForm, UpdateUserForm, UserSearchForm } from '../protected/user/forms';
 import { NewListingPicture } from '@models/picture.model';
@@ -314,6 +314,16 @@ export const mockBooking:Booking={
     publicId:"test",
     totalPrice:0,
     numberOfTravelers:2
+}
+
+export const mockListing:Listing={
+    category:"ALL",
+    description: mockDescription,
+    infos: mockNewListingInfo,
+    landlord: mockLandlordListing,
+    location:"",
+    pictures:[mockDisplayPicture],
+    price:mockPriceVO
 }
 
 
