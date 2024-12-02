@@ -106,38 +106,6 @@
             "home": "Home"
         }
     },
-    "CONTACT": {
-        "COMMUNICATIONS": {
-            "title": "Manual notification",
-            "LABELS": {
-                "create-man-notif": "Create manual notification",
-                "subject": "Subject",
-                "message": "Message",
-                "attachment": "Attachment",
-                "choose-file": "Choose file",
-                "to": "To",
-                "no-recipients-selected": "To add more recipients, please use Add Recipients button."
-            },
-            "BUTTONS": {
-                "add-recipients": "Add Recipients"
-            },
-            "SIDEBAR": {
-                "title": "Contact",
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed faucibus velit. Nunc condimentum risus placerat ultrices varius. Integer elementum consectetur ultricies."
-            },
-            "DIALOG": {
-                "title": "Search & Select Recipients"
-            },
-            "MESSAGES": {
-                "summary": "Create manual notification",
-                "success": "Manual notification was sent successfully",
-                "error": "There was an error sending this manual notification"
-            },
-            "CONFIRM": {
-                "title": "Send manual notification"
-            }
-        }
-    },
     "LOGIN": {
         "title": "Login",
         "LABELS": {

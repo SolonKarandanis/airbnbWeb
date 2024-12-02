@@ -35,144 +35,110 @@
         },
         "FORMS": {
            "ERRORS": {
-                "required": "This field is required",
-                "email": "Enter a valid email address",
-                "minlength": "Minimum characters required: {{ requiredLength }}",
-                "maxlength": "Maximum characters required: {{ requiredLength }}",
-                "samePassword": "Passwords don't match",
-                "strongPassword": "Password strength must be \"strong\"",
-                "forbiddenValue": "The given value is not allowed for this field"
+                "required": "Αυτό το πεδίο είναι υποχρεωτικό",
+                "email": "Εισαγάγετε μια έγκυρη διεύθυνση email",
+                "minlength": "Απαιτούμενος ελάχιστος αριθμός χαρακτήρων: {{ requiredLength }}",
+                "maxlength": "Απαιτούμενος μέγιστος αριθμός χαρακτήρων: {{ requiredLength }}",
+                "samePassword": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
+                "strongPassword": "Η ισχύς του κωδικού πρόσβασης πρέπει να είναι \"strong\"",
+                "forbiddenValue": "Η δεδομένη τιμή δεν επιτρέπεται για αυτό το πεδίο"
             },
             "PLACEHOLDERS": {
-                "search": "Keywords",
-                "previous-value": "Previous value"
+                "search": "Λέξεις-κλειδιά",
+                "previous-value": "Προηγούμενη τιμή"
             },
             "ACTIONS": {
-                "title": "Actions"
+                "title": "Δράσεις"
             } 
         },
         "TABLES": {
-            "no-results": "No results found"
+            "no-results": "Δεν βρέθηκαν αποτελέσματα"
         },
         "TOOLTIPS": {
-            "no-image-found": "No image found",
-            "print-page": "Print this page"
+            "no-image-found": "Δεν βρέθηκε εικόνα",
+            "print-page": "Εκτυπώστε αυτήν τη σελίδα"
         },
         "CONFIRM-DIALOG": {
-            "sure-proceed": "Are you sure you want to proceed?"
+            "sure-proceed": "Είστε βέβαιοι ότι θέλετε να συνεχίσετε;"
         },
         "EMAIL": {
-            "sent": "Email has been sent"
+            "sent": "Το email έχει σταλεί"
         },
         "ERRORS": {
-            "unauthorized": "You are not logged in. Please, login first and then try again.",
-            "server": "Something went wrong. Error code",
-            "forbidden": "You are not authorized to access this resource.",
-            "not-found": "Cannot find the resource you are looking for...",
-            "summary": "Error",
-            "generic": "An error occured"
+            "unauthorized": "Δεν είστε συνδεδεμένοι. Παρακαλούμε, συνδεθείτε πρώτα και μετά προσπαθήστε ξανά.",
+            "server": "Κάτι πήγε στραβά. Κωδικός σφάλματος",
+            "forbidden": "Δεν έχετε εξουσιοδότηση πρόσβασης σε αυτόν τον πόρο.",
+            "not-found": "Δεν βρέθηκε ο πόρος που ψάχνετε...",
+            "summary": "Σφάλμα",
+            "generic": "Παρουσιάστηκε σφάλμα"
         },
         "SUCCESS": {
-            "summary": "success"
+            "summary": "επιτυχία"
         },
         "WARNING": {
-            "summary": "warning"
+            "summary": "προειδοποίηση"
         },
         "OTHER": {
-            "verifyingAccess": "Verifying Access",
+            "verifyingAccess": "Επαλήθευση πρόσβασης",
             "not-available": "N/A",
-            "not-specified": "Not Specified"
+            "not-specified": "Δεν προσδιορίζεται"
         },
         "LABELS": {
-            "all": "All",
+            "all": "Ολα",
             "id": "ID",
-            "date-created": "Date Created",
-            "status": "Status",
-            "downloads": "Downloads",
-            "auto-generated": "Auto Generated",
-            "comments": "Comments",
-            "chars-remaining": "{{chars}} characters remaining",
-            "remove-chars": "Maximum characters allowed: {{max}}. Remove {{chars}} characters.",
-            "loading-data-wait": "Loading data, please wait",
-            "remove-item-from-list": "Click to remove {{itemType}}",
-            "add-at-least-one-xx-in-list": "Add at least one {{itemType}}",
-            "searching": "Searching..."
+            "date-created": "Ημερομηνία δημιουργίας",
+            "status": "Κατάσταση",
+            "downloads": "Λήψεις",
+            "auto-generated": "Δημιουργήθηκε αυτόματα",
+            "comments": "Σχόλια",
+            "chars-remaining": "{{chars}} χαρακτήρες που απομένουν",
+            "remove-chars": "Απαιτούμενος μέγιστος αριθμός χαρακτήρων: {{max}}. Αφαιρέστε  {{chars}} χαρακτήρες.",
+            "loading-data-wait": "Φόρτωση δεδομένων, περιμένετε",
+            "searching": "Αναζήτηση..."
         }
     },
     "HEADER":{
         "MENU": {
-            "login-page": "Login page",
-            "home": "Home"
-        }
-    },
-    "CONTACT": {
-        "COMMUNICATIONS": {
-            "title": "Manual notification",
-            "LABELS": {
-                "create-man-notif": "Create manual notification",
-                "subject": "Subject",
-                "message": "Message",
-                "attachment": "Attachment",
-                "choose-file": "Choose file",
-                "to": "To",
-                "no-recipients-selected": "To add more recipients, please use Add Recipients button."
-            },
-            "BUTTONS": {
-                "add-recipients": "Add Recipients"
-            },
-            "SIDEBAR": {
-                "title": "Contact",
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed faucibus velit. Nunc condimentum risus placerat ultrices varius. Integer elementum consectetur ultricies."
-            },
-            "DIALOG": {
-                "title": "Search & Select Recipients"
-            },
-            "MESSAGES": {
-                "summary": "Create manual notification",
-                "success": "Manual notification was sent successfully",
-                "error": "There was an error sending this manual notification"
-            },
-            "CONFIRM": {
-                "title": "Send manual notification"
-            }
+            "login-page": "Σελίδα σύνδεσης",
+            "home": "Αρχική σελίδα"
         }
     },
     "LOGIN": {
-        "title": "Login",
+        "title": "Σύνδεση",
         "LABELS": {
-            "username": "Username",
-            "password": "Password",
-            "agreement-header": "Terms of User Agreement"
+            "username": "Όνομα χρήστη",
+            "password": "Κώδικας Πρόσβασης",
+            "agreement-header": "Όροι Συμφωνίας Χρήστη"
         },
         "BUTTONS": {
-            "login": "Login",
-            "forgot-pass": "Forgot Password",
-            "register": "Register"
+            "login": "Σύνδεση",
+            "forgot-pass": "Ξέχασα τον κωδικό πρόσβασης",
+            "register": "Εγγραφή"
         }
     },
     "REGISTER": {
-        "title": "Registration",
+        "title": "Εγγραφή",
         "LABELS": {
-            "username": "Username",
+            "username": "Όνομα χρήστη",
             "email": "Email",
-            "password": "Password",
-            "confirm-password": "Confirm Password",
-            "first-name": "First Name",
-            "last-name": "Last Name",
-            "role": "Role",
-            "landlord": "Landlord",
-            "tenant": "Tenant"
+            "password": "Κώδικας Πρόσβασης",
+            "confirm-password": "Επαλήθευση Κωδικού Πρόσβασης",
+            "first-name": "Ονομα",
+            "last-name": "Επώνυμο",
+            "role": "Ρόλος",
+            "landlord": "Οικοδεσπότης",
+            "tenant": "Ενοικιαστής"
         },
         "PLACEHOLDERS":{
-            "enter-username": "Enter your username",
-            "enter-email": "Enter your email",
-            "enter-password": "Enter your password",
-            "confirm-password": "Confirm your password",
-            "enter-first-name": "Enter your First Name",
-            "enter-last-name": "Enter your Last Name"
+            "enter-username": "Εισαγάγετε το όνομα χρήστη σας",
+            "enter-email": "Εισαγάγετε το email σας",
+            "enter-password": "Εισαγάγετε τον κωδικό πρόσβασής σας",
+            "confirm-password": "Επιβεβαιώστε τον κωδικό πρόσβασής σας",
+            "enter-first-name": "Εισαγάγετε το Όνομα σας",
+            "enter-last-name": "Εισαγάγετε το Επώνυμό σας"
         },
         "BUTTONS": {
-            "register": "Register"
+            "register": "Εγγραφή"
         }
     }
 }
