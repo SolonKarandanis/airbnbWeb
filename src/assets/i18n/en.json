@@ -1,9 +1,7 @@
 {
     "GLOBAL": {
-        "app-full-name": "electronic catalogues",
-        "eproc-link-text": "Go to eProc",
+        "app-full-name": "AirBnb",
         "login": "Login",
-        "eproc-url": "#",
         "UNAUTHORIZED": "You are not authorized to access this page",
         "BUTTONS": {
             "cancel": "Cancel",
@@ -24,10 +22,6 @@
             "ok": "OK",
             "yes": "Yes",
             "no": "No",
-            "add-to-cart": "Add to Cart",
-            "add-to-favourite": "Add to Favourite List",
-            "add-to-collection": "Add to Collection",
-            "add-to-compare": "Add to Comparison List",
             "download": "Download",
             "accept": "Accept",
             "decline": "Decline",
