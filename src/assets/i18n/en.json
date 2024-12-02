@@ -153,7 +153,8 @@
         },
         "BUTTONS": {
             "login": "Login",
-            "forgot-pass": "Forgot Password"
+            "forgot-pass": "Forgot Password",
+            "register": "Register"
         }
     },
     "REGISTER": {

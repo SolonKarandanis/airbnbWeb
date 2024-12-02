@@ -3,13 +3,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { faLock,faUser,faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubmitCredentialsDTO } from '@models/auth.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { TranslationModule } from 'src/app/i18n/translation.module';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink } from '@angular/router';
 import { FormErrorComponent } from '@components/form-error/form-error.component';
+import { BaseComponent } from '@shared/abstract/BaseComponent';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ import { FormErrorComponent } from '@components/form-error/form-error.component'
   <div class="container">
     <div class="screen">
       <div class="screen__content">
-        <form class="login" [formGroup]="loginForm">
+        <form class="login" [formGroup]="form">
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faUser"></fa-icon>
 					  <input 
@@ -40,7 +41,7 @@ import { FormErrorComponent } from '@components/form-error/form-error.component'
               autocomplete="username">
               <app-form-error 
                 [displayLabels]="isFieldValid('username')"
-                [validationErrors]="loginForm.get('username')?.errors" />
+                [validationErrors]="form.get('username')?.errors" />
           </div>
           <div class="login__field">
             <fa-icon class="login__icon" [icon]="faLock"></fa-icon>
@@ -52,7 +53,7 @@ import { FormErrorComponent } from '@components/form-error/form-error.component'
               autocomplete="current-password">
               <app-form-error 
                 [displayLabels]="isFieldValid('password')"
-                [validationErrors]="loginForm.get('password')?.errors" />
+                [validationErrors]="form.get('password')?.errors" />
           </div>
           <button 
             pButton 
@@ -69,7 +70,7 @@ import { FormErrorComponent } from '@components/form-error/form-error.component'
             [disabled]="isLoading()">
           </button>
           <div class="register-forget opacity">
-            <a routerLink="/auth/registration">REGISTER</a>
+            <a routerLink="/auth/registration">{{ "LOGIN.BUTTONS.register" | translate }}</a>
             <a href="">{{ "LOGIN.BUTTONS.forgot-pass" | translate }}</a>
           </div>
         </form>
@@ -84,21 +85,20 @@ import { FormErrorComponent } from '@components/form-error/form-error.component'
   </div>
   `,  
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent extends BaseComponent implements OnInit{
   
   faLock = faLock;
   faUser=faUser;
   faChevronRight=faChevronRight;
-  loginForm!: FormGroup;
 
   private authService = inject(AuthService);
   private fb= inject(FormBuilder);
   private router= inject(Router);
 
   public isLoading = this.authService.isLoading;
-  public isFormSubmitted=false;
 
   constructor(){
+    super();
     this.listenToSuccessfullLogin();
   }
 
@@ -106,26 +106,22 @@ export class LoginComponent implements OnInit{
     this.initForm();
   }
 
-  get f() {
-    return this.loginForm.controls;
-  }
-
   public login():void{
-    if (this.loginForm.invalid) {
-			Object.keys(this.f).forEach(controlName =>
-				this.f[controlName].markAsTouched()
+    if (this.form.invalid) {
+			Object.keys(this.controls).forEach(controlName =>
+				this.controls[controlName].markAsTouched()
 			);
 			return;
 		}
     const request:SubmitCredentialsDTO={
-      username: this.f['username'].value,
-      password: this.f['password'].value,
+      username: this.controls['username'].value,
+      password: this.controls['password'].value,
     }
     this.authService.login(request);
   }
 
   private initForm():void{
-    this.loginForm = this.fb.group({
+    this.form = this.fb.group({
       username:[
         '',
         Validators.compose([
@@ -158,19 +154,6 @@ export class LoginComponent implements OnInit{
     this.router.navigate(['/home'], {
       queryParams: {},
     });
-  }
-
-  public clear(){
-    this.loginForm.reset();
-    this.isFormSubmitted=false;
-    // this.inputChildren.forEach((input: FormInput) => {
-    //   input.clear();
-    // });
-  }
-
-  protected isFieldValid(field: string): boolean | undefined {
-    const control = this.loginForm.get(field);
-    return (!control?.valid && control?.touched) || (control?.untouched && this.isFormSubmitted);
   }
 
 }
