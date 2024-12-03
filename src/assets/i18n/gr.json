@@ -99,13 +99,16 @@
     },
     "HEADER":{
         "SEARCH":{
+            "title":"Αναζήτηση",
             "anywhere":"Οπουδήποτε",
             "any-week":"Οποιαδήποτε εβδομάδα",
             "add-guests":"Προσθήκη προσκεκλημένων"
         },
         "MENU": {
-            "login-page": "Σελίδα σύνδεσης",
-            "home": "Αρχική σελίδα"
+            "my-properties": "Τα ακίνητά μου",
+            "my-reservation": "Η κράτησή μου",
+            "my-booking":"Η κράτησή μου",
+            "log-out":"Αποσύνδεση"
         }
     },
     "FOOTER":{

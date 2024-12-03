@@ -102,13 +102,16 @@
     },
     "HEADER":{
         "SEARCH":{
+            "title":"Search",
             "anywhere":"Anywhere",
             "any-week":"Any week",
             "add-guests":"Add guests"
         },
         "MENU": {
-            "login-page": "Login page",
-            "home": "Home"
+            "my-properties": "My properties",
+            "my-reservation": "My reservation",
+            "my-booking":"My booking",
+            "log-out":"Log out"
         }
     },
     "FOOTER":{

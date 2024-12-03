@@ -110,9 +110,13 @@ export class NavbarComponent implements OnInit{
   private translateService = inject(TranslateService);
   private ref: DynamicDialogRef | undefined;
 
-  private location = signal(this.translateService.instant('HEADER.SEARCH.anywhere'));
-  private guests = signal(this.translateService.instant('HEADER.SEARCH.any-week'));
-  private dates = signal(this.translateService.instant('HEADER.SEARCH.anywhere'));
+  private locationDefault = this.translateService.instant('HEADER.SEARCH.anywhere');
+  private guestsDefault = this.translateService.instant('HEADER.SEARCH.any-week');
+  private datesDefault = this.translateService.instant('HEADER.SEARCH.anywhere');
+
+  private location = signal(this.locationDefault);
+  private guests = signal(this.guestsDefault);
+  private dates = signal(this.datesDefault);
 
   protected vm = computed(()=>{
     const connectedUser = this.authService.loggedUser();
@@ -156,22 +160,22 @@ export class NavbarComponent implements OnInit{
     const menuItems: MenuItem[] = []
     if (this.hasToBeLandlord()) {
       menuItems.push({
-        label: "My properties",
+        label: this.translateService.instant('HEADER.MENU.my-properties'),
         routerLink: "landlord/properties",
       });
       menuItems.push({
-        label: "My reservation",
+        label: this.translateService.instant('HEADER.MENU.my-reservation'),
         routerLink: "landlord/reservation",
       });
       
     } else {
       menuItems.push({
-        label: "My booking",
+        label:this.translateService.instant('HEADER.MENU.my-booking'),
         routerLink: "booking",
       });
     }
     menuItems.push({
-      label: "Log out",
+      label: this.translateService.instant('HEADER.MENU.log-out'),
       command: () => this.logout()
     });
     return menuItems;
@@ -181,7 +185,7 @@ export class NavbarComponent implements OnInit{
     this.ref = this.dialogService.open(CreatePropertyComponent,
       {
         width: "60%",
-        header: "Airbnb your home",
+        header: this.translateService.instant('GLOBAL.app-full-name'),
         closable: true,
         focusOnShow: true,
         modal: true,
@@ -193,7 +197,7 @@ export class NavbarComponent implements OnInit{
     this.ref = this.dialogService.open(SearchComponent,
       {
         width: "40%",
-        header: "Search",
+        header: this.translateService.instant('HEADER.SEARCH.title'),
         closable: true,
         focusOnShow: true,
         modal: true,
@@ -208,10 +212,10 @@ export class NavbarComponent implements OnInit{
           this.location.set(params["location"]);
           this.guests.set(params["guests"] + " Guests");
           this.dates.set(dayjs(params["startDate"]).format("MMM-DD")+" to "+dayjs(params["endDate"]).format("MMM-DD"));
-        } else if (this.location() !== "Anywhere") {
-          this.location.set("Anywhere");
-          this.guests.set("Add guests");
-          this.dates.set("Any week");
+        } else if (this.location() !== this.locationDefault) {
+          this.location.set(this.locationDefault);
+          this.guests.set(this.guestsDefault);
+          this.dates.set(this.datesDefault);
         }
       }
     })
