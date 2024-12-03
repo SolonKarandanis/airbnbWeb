@@ -106,6 +106,14 @@
             "home": "Home"
         }
     },
+    "FOOTER":{
+        "LABELS":{
+            "terms":"Terms",
+            "sitemap":"Sitemap",
+            "privacy":"Privacy",
+            "privacy-choices":"Your privacy choices"
+        }
+    },
     "LOGIN": {
         "title": "Login",
         "LABELS": {

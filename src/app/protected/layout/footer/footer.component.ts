@@ -1,22 +1,26 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslationModule } from '@i18n/translation.module';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [
+    FontAwesomeModule,
+    TranslationModule,
+  ],
   template: `
   <div class="footer text-sm border-solid border-1 border-200 flex
     justify-content-start align-items-center px-6 py-5">
-    <span>© 2024 Codecake, Inc.</span>
+    <span>© 2024 Solon, Inc.</span>
     <fa-icon icon="circle"></fa-icon>
-    <span>Terms</span>
+    <span>{{ "FOOTER.LABELS.terms" | translate }}</span>
     <fa-icon icon="circle"></fa-icon>
-    <span>Sitemap</span>
+    <span>{{ "FOOTER.LABELS.sitemap" | translate }}</span>
     <fa-icon icon="circle"></fa-icon>
-    <span>Privacy</span>
+    <span>{{ "FOOTER.LABELS.privacy" | translate }}</span>
     <fa-icon icon="circle"></fa-icon>
-    <span>Your privacy choices</span>
+    <span>{{ "FOOTER.LABELS.privacy-choices" | translate }}</span>
   </div>
   `,
   styles: `

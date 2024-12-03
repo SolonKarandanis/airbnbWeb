@@ -103,6 +103,14 @@
             "home": "Αρχική σελίδα"
         }
     },
+    "FOOTER":{
+        "LABELS":{
+            "terms":"Οροι",
+            "sitemap":"Χάρτης ιστότοπου",
+            "privacy":"Απόρρητο",
+            "privacy-choices":"Η επιλογή απορρήτου σας"
+        }
+    },
     "LOGIN": {
         "title": "Σύνδεση",
         "LABELS": {
