@@ -1,6 +1,6 @@
 {
     "GLOBAL": {
-        "app-full-name": "AirBnb",
+        "app-full-name": "AirBnb το σπίτι σας",
         "login": "Είσοδος",
         "UNAUTHORIZED": "Δεν έχετε εξουσιοδότηση πρόσβασης σε αυτή τη σελίδα",
         "BUTTONS": {
@@ -98,6 +98,11 @@
         }
     },
     "HEADER":{
+        "SEARCH":{
+            "anywhere":"Οπουδήποτε",
+            "any-week":"Οποιαδήποτε εβδομάδα",
+            "add-guests":"Προσθήκη προσκεκλημένων"
+        },
         "MENU": {
             "login-page": "Σελίδα σύνδεσης",
             "home": "Αρχική σελίδα"

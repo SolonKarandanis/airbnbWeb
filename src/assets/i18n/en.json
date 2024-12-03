@@ -1,6 +1,6 @@
 {
     "GLOBAL": {
-        "app-full-name": "AirBnb",
+        "app-full-name": "AirBnb your home",
         "login": "Login",
         "UNAUTHORIZED": "You are not authorized to access this page",
         "BUTTONS": {
@@ -101,6 +101,11 @@
         }
     },
     "HEADER":{
+        "SEARCH":{
+            "anywhere":"Anywhere",
+            "any-week":"Any week",
+            "add-guests":"Add guests"
+        },
         "MENU": {
             "login-page": "Login page",
             "home": "Home"

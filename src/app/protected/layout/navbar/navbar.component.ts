@@ -13,6 +13,8 @@ import { RolesConstants } from '@core/guards/SecurityConstants';
 import { CreatePropertyComponent } from '@landlord/create-property/create-property.component';
 import { SearchComponent } from '@tenant/search/search.component';
 import dayjs from 'dayjs';
+import { TranslationModule } from '@i18n/translation.module';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +25,8 @@ import dayjs from 'dayjs';
     ToolbarModule,
     MenuModule,
     CategoryComponent,
-    AvatarComponent
+    AvatarComponent,
+    TranslationModule,
   ],
   providers:[DialogService],
   template: `
@@ -54,7 +57,7 @@ import dayjs from 'dayjs';
             </button>
           </div>
           <div class="p-toolbar-group-end sm:hidden md:flex">
-            <a class="p-button p-button-link" (click)="openNewListing()">Airbnb your home</a>
+            <a class="p-button p-button-link" (click)="openNewListing()">{{ "GLOBAL.app-full-name" | translate }}</a>
             <p-menu #menu [model]="currentMenuItems" [popup]="true" styleClass="border-round-xl mt-1"></p-menu>
             <button (click)="menu.toggle($event)" class="menu flex align-content-center
               justify-content-around ml-2 pl-3 p-2 border-gray-300 focus:shadow-none hover:shadow-1 border-round-3xl bg-white p-button">
@@ -101,14 +104,15 @@ import dayjs from 'dayjs';
 })
 export class NavbarComponent implements OnInit{
 
-  private location = signal("Anywhere");
-  private guests = signal("Add guests");
-  private dates = signal("Any week");
-
   private authService = inject(AuthService);
   private dialogService = inject(DialogService);
   private activatedRoute = inject(ActivatedRoute);
+  private translateService = inject(TranslateService);
   private ref: DynamicDialogRef | undefined;
+
+  private location = signal(this.translateService.instant('HEADER.SEARCH.anywhere'));
+  private guests = signal(this.translateService.instant('HEADER.SEARCH.any-week'));
+  private dates = signal(this.translateService.instant('HEADER.SEARCH.anywhere'));
 
   protected vm = computed(()=>{
     const connectedUser = this.authService.loggedUser();
