@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { TranslationModule } from '@i18n/translation.module';
 import { Description } from '@models/listing.model';
 import { InputTextModule } from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea'
@@ -11,29 +12,30 @@ import {InputTextareaModule} from 'primeng/inputtextarea'
     InputTextModule,
     FormsModule,
     InputTextareaModule,
+    TranslationModule,
   ],
   template: `
     <div class="mb-3">
-      <h1 class="mb-1">Now, let's give your house a title and description</h1>
-      <h2 class="mt-0">Short titles work best. Have fun with it you can change it anytime</h2>
+      <h1 class="mb-1">{{ "LANDLORD.CREATE-PROPERTY.DESCRIPTION.title" | translate }}</h1>
+      <h2 class="mt-0">{{ "LANDLORD.CREATE-PROPERTY.DESCRIPTION.info" | translate }}</h2>
       <form #formDescription="ngForm" novalidate class="w-full">
-        <input #titleInput="ngModel" name="title" placeholder="Title" required
+        <input #titleInput="ngModel" name="title" placeholder='{{ "LANDLORD.PLACEHOLDERS.title" | translate }}' required
           class="w-full p-inputtext-lg" type="text" pInputText
           [ngModel]="description().title.value" (ngModelChange)="onTitleChange($event)"/>
 
         @if (titleInput.dirty && titleInput.invalid) {
-          <small id="title-required" class="text-primary">Title is required</small>
+          <small id="title-required" class="text-primary">{{ "GLOBAL.FORMS.ERRORS.required" | translate }}</small>
         } @else {
           <div class="placeholder-validation"></div>
         }
 
         <textarea #descriptionInput="ngModel" name="description"
-          class="w-full mt-2" required placeholder="Summary" rows="5" cols="30"
+          class="w-full mt-2" required placeholder='{{ "LANDLORD.PLACEHOLDERS.summary" | translate }}' rows="5" cols="30"
           pInputTextarea [ngModel]="description().description.value"
           (ngModelChange)="onDescriptionChange($event)"></textarea>
 
         @if (descriptionInput.dirty && descriptionInput.invalid) {
-          <small id="description-required" class="text-primary">Description is required</small>
+          <small id="description-required" class="text-primary">{{ "GLOBAL.FORMS.ERRORS.required" | translate }}</small>
         } @else {
           <div class="placeholder-validation"></div>
         }

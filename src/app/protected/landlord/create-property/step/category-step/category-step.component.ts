@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, output } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { TranslationModule } from '@i18n/translation.module';
 import { Category, CategoryName } from '@models/category.model';
 import { CategoryService } from 'src/app/protected/layout/navbar/category/category.service';
 
 @Component({
   selector: 'app-category-step',
   standalone: true,
-  imports: [FaIconComponent],
+  imports: [FaIconComponent,TranslationModule,],
   template: `
     <div class="categories flex flex-column align-items-center">
-      <h1>Which of these best describe your place?</h1>
+      <h1>{{ "LANDLORD.CREATE-PROPERTY.CATEGORY.title" | translate }}</h1>
       <div class="flex flex-wrap align-items-center justify-content-center">
         @for(categoryToDisplay of categories; track categoryToDisplay.technicalName){
           @if(categoryToDisplay.technicalName !== 'ALL'){

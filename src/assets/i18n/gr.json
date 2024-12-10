@@ -163,5 +163,20 @@
         "date":"Πότε θέλετε να πάτε;",
         "guests":"Τι ψάχνετε;",
         "guests-info":"Αριθμός κλινών, καλεσμένων κ.λπ."
+    },
+    "LANDLORD":{
+        "CREATE-PROPERTY":{
+            "CATEGORY":{
+                "title":"Which of these best describe your place?"
+            },
+            "DESCRIPTION":{
+                "title":"Now, let's give your house a title and description",
+                "info":"Short titles work best. Have fun with it you can change it anytime"
+            }
+        },
+        "PLACEHOLDERS":{
+            "title":"Title",
+            "summary":"Summary"
+        }
     }
 }
