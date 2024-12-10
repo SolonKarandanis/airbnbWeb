@@ -3,7 +3,7 @@ import { UserRepository } from "./user.repository";
 import { TestBed } from "@angular/core/testing";
 import { provideHttpClient } from "@angular/common/http";
 import { SearchResult } from "@models/search.model";
-import { mockCreateUserRequest, mockUpdateUserRequest, mockUser, mockUserSearchRequest } from "src/app/testing/mockData";
+import { mockArrayBuffer, mockCreateUserRequest, mockUpdateUserRequest, mockUser, mockUserSearchRequest } from "src/app/testing/mockData";
 import { UserModel } from "@models/user.model";
 
 describe('UserRepository', () =>{
@@ -53,6 +53,18 @@ describe('UserRepository', () =>{
         searchResult.list = [mockUser];
 
         req.flush(searchResult);
+    });
+
+    it('should export users to csv', () => {
+        repository.exportUsersToCsv(mockUserSearchRequest).subscribe();
+
+        const req = httpTesting.expectOne(`${apiUrl}/export/csv`, 'Request to export users to csv');
+
+        expect(req.request.method).toBe('POST');
+        expect(req.request.params.keys().length).toBe(0);
+        expect(req.request.body).toEqual(mockUserSearchRequest);
+
+        req.flush(mockArrayBuffer);
     });
 
     it('should get a user', () => {

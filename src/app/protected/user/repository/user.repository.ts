@@ -1,4 +1,4 @@
-import { HttpContext } from "@angular/common/http";
+import { HttpContext, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AUTHENTICATE_REQUEST } from "@core/guards/SecurityConstants";
 import { ApiControllers } from "@core/repository/ApiControllers";
@@ -22,6 +22,18 @@ export class UserRepository  extends BaseRepository{
     public searchUsers(request:UserSearchRequest):Observable<SearchResult<UserModel>>{
         return this.http
             .post<SearchResult<UserModel>>(`${ApiControllers.USERS}/search`,request);
+    }
+
+     /**
+    * Search for users
+    * @param request The search criteria
+    * @returns An observable with the ArrayBuffer of the csv
+    */
+    public exportUsersToCsv(request:UserSearchRequest):Observable<HttpResponse<ArrayBuffer>>{
+        return this.http.post(`${ApiControllers.USERS}/export/csv`, request, {
+            responseType: 'arraybuffer',
+            observe: 'response',
+        });
     }
 
     /**
