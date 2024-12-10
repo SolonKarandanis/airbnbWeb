@@ -167,16 +167,22 @@
     "LANDLORD":{
         "CREATE-PROPERTY":{
             "CATEGORY":{
-                "title":"Which of these best describe your place?"
+                "title":"Ποιο από αυτά περιγράφει καλύτερα τον τόπο σας;"
             },
             "DESCRIPTION":{
-                "title":"Now, let's give your house a title and description",
-                "info":"Short titles work best. Have fun with it you can change it anytime"
+                "title":"Τώρα, ας δώσουμε στο σπίτι σας έναν τίτλο και μια περιγραφή",
+                "info":"Οι σύντομοι τίτλοι λειτουργούν καλύτερα."
+            },
+            "INFO":{
+                "guests":"Καλεσμένοι",
+                "bedrooms":"Υπνοδωμάτια",
+                "beds":"Κρεβάτια",
+                "bathrooms":"Μπάνια"
             }
         },
         "PLACEHOLDERS":{
-            "title":"Title",
-            "summary":"Summary"
+            "title":"Τίτλος",
+            "summary":"Περίληψη"
         }
     }
 }

@@ -175,6 +175,12 @@
             "DESCRIPTION":{
                 "title":"Now, let's give your house a title and description",
                 "info":"Short titles work best. Have fun with it you can change it anytime"
+            },
+            "INFO":{
+                "guests":"Guests",
+                "bedrooms":"Bedrooms",
+                "beds":"Beds",
+                "bathrooms":"Bathrooms"
             }
         },
         "PLACEHOLDERS":{

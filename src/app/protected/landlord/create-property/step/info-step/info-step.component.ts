@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ButtonModule } from 'primeng/button';
 import { InfoStepControlComponent } from './info-step-control/info-step-control.component';
 import { NewListingInfo } from '@models/listing.model';
+import { TranslationModule } from '@i18n/translation.module';
 
 export type Control = "GUESTS" | "BEDROOMS" | "BEDS" | "BATHS"
 
@@ -15,25 +16,26 @@ export type Control = "GUESTS" | "BEDROOMS" | "BEDS" | "BATHS"
     ButtonModule,
     FontAwesomeModule,
     InfoStepControlComponent,
+    TranslationModule,
   ],
   template: `
    <app-info-step-control 
-      [title]="'Guests'" 
+      title='{{ "LANDLORD.CREATE-PROPERTY.INFO.guests" | translate }}'
       [value]="infos().guests.value"
       (valueChange)="onInfoChange($event, 'GUESTS')">
     </app-info-step-control>
     <app-info-step-control 
-      [title]="'Bedrooms'" 
+      title='{{ "LANDLORD.CREATE-PROPERTY.INFO.bedrooms" | translate }}'
       [value]="infos().bedrooms.value"
       (valueChange)="onInfoChange($event, 'BEDROOMS')">
     </app-info-step-control>
     <app-info-step-control 
-      [title]="'Beds'" 
+      title='{{ "LANDLORD.CREATE-PROPERTY.INFO.beds" | translate }}'
       [value]="infos().beds.value"
       (valueChange)="onInfoChange($event, 'BEDS')">
     </app-info-step-control>
     <app-info-step-control 
-      [title]="'Bathrooms'" 
+      title='{{ "LANDLORD.CREATE-PROPERTY.INFO.bathrooms" | translate }}'
       [value]="infos().baths.value"
       (valueChange)="onInfoChange($event, 'BATHS')">
     </app-info-step-control>
