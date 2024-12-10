@@ -5,11 +5,14 @@ import { computed, inject } from "@angular/core";
 import { UserRepository } from "../repository/user.repository";
 import { UserSearchRequest } from "@models/search.model";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { pipe, switchMap, tap } from "rxjs";
+import { map, pipe, switchMap, tap } from "rxjs";
 import { tapResponse } from "@ngrx/operators";
 import { ErrorResponse } from "@models/error.model";
 import { CreateUserRequest, UpdateUserRequest, UserModel } from "@models/user.model";
 import { UtilService } from "@core/services/util.service";
+import { HttpResponse } from "@angular/common/http";
+import { HttpUtil } from "@core/services/http-util.service";
+import { GenericFile } from "@models/file.model";
 
 export const UserStore = signalStore(
     { providedIn: 'root' },
@@ -64,6 +67,7 @@ export const UserStore = signalStore(
         state,
         userRepo = inject(UserRepository),
         utilService = inject(UtilService),
+        httpUtil = inject(HttpUtil)
     )=>({
         searchUsers: rxMethod<UserSearchRequest>(
             pipe(
@@ -75,6 +79,32 @@ export const UserStore = signalStore(
                         tapResponse({
                             next:({list,countRows})=>{
                                 state.setSearchResults(list,countRows)
+                            },
+                            error: (error:ErrorResponse) =>{
+                                state.setError(error)
+                            }
+                        })
+                    )
+                )
+            )
+        ),
+        exportUsersToCsv:rxMethod<UserSearchRequest>(
+            pipe(
+                tap(() => {
+                    state.setLoading(true)
+                }),
+                switchMap((request)=> 
+                    userRepo.exportUsersToCsv(request).pipe(
+                        map((responseData: HttpResponse<ArrayBuffer>) =>({
+                            filename: httpUtil.getFileNameForContentDisposition(responseData.headers),
+                            mimeType: responseData.headers.get('Content-Type')!,
+                            arrayBuffer: responseData.body!,
+                            id: 0, // Just a random number...
+                        })),
+                        tapResponse({
+                            next:(fileData:GenericFile)=>{
+                                utilService.triggerFileDownLoad(fileData.arrayBuffer, fileData.mimeType!, fileData.filename);
+                                state.setLoading(false)
                             },
                             error: (error:ErrorResponse) =>{
                                 state.setError(error)

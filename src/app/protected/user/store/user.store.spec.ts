@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { SearchResult } from '@models/search.model';
 import { mockCreateUserRequest, mockUser, mockUserSearchRequest } from 'src/app/testing/mockData';
 import { UtilService } from '@core/services/util.service';
+import { HttpUtil } from '@core/services/http-util.service';
 
 type UserStore = InstanceType<typeof UserStore>;
 
@@ -12,6 +13,7 @@ describe('UserStore', () =>{
     let store: UserStore;
     let userRepoSpy: jasmine.SpyObj<UserRepository>;
     let utilServiceSpy: jasmine.SpyObj<UtilService>;
+    let httpUtilSpy: jasmine.SpyObj<HttpUtil>;
     let searchResult: SearchResult<any>;
 
 
@@ -24,9 +26,14 @@ describe('UserStore', () =>{
             'deleteUser',
             'activateUser',
             'deactivateUser',
+            'exportUsersToCsv'
         ]);
         utilServiceSpy = jasmine.createSpyObj('UtilService',[
             'showMessage',
+        ]);
+
+        httpUtilSpy = jasmine.createSpyObj('HttpUtil',[
+            'getFileNameForContentDisposition',
         ]);
 
         TestBed.configureTestingModule({
@@ -38,6 +45,10 @@ describe('UserStore', () =>{
               {
                 provide: UtilService,
                 useValue: utilServiceSpy,
+              },
+              {
+                provide: HttpUtil,
+                useValue: httpUtilSpy,
               },
             ]
         });
@@ -62,6 +73,15 @@ describe('UserStore', () =>{
 
         expect(userRepoSpy.searchUsers).toHaveBeenCalledWith(mockUserSearchRequest);
         expect(userRepoSpy.searchUsers).toHaveBeenCalledTimes(1);
+    });
+
+    it('should export users to csv ', () =>{
+        userRepoSpy.exportUsersToCsv.and.returnValue(of());
+
+        store.exportUsersToCsv(mockUserSearchRequest);
+
+        expect(userRepoSpy.exportUsersToCsv).toHaveBeenCalledWith(mockUserSearchRequest);
+        expect(userRepoSpy.exportUsersToCsv).toHaveBeenCalledTimes(1);
     });
 
     it('should get user by id ', () =>{
