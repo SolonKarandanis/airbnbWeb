@@ -1,11 +1,12 @@
 import { Component, input, output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslationModule } from '@i18n/translation.module';
 import { Step } from '@landlord/create-property/step.model';
 
 @Component({
   selector: 'app-footer-step',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule,TranslationModule,],
   template: `
     <div class="placeholder"></div>
     <div class="controls flex justify-content-between py-3 border-top-1 px-4">
@@ -13,7 +14,7 @@ import { Step } from '@landlord/create-property/step.model';
         <button 
           class="p-button p-button-link" 
           (click)="onPrevious()">
-          Back
+          {{ "GLOBAL.BUTTONS.back" | translate }}
         </button>
       }@else {
         <div></div>
@@ -25,7 +26,7 @@ import { Step } from '@landlord/create-property/step.model';
           class="p-button p-button-secondary" 
           id="next" 
           (click)="onNext()">
-          Next
+          {{ "GLOBAL.BUTTONS.next" | translate }}
         </button>
       } @else{
         <button 
