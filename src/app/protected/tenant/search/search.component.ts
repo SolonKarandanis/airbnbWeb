@@ -10,6 +10,7 @@ import { NewListingInfo } from '@models/listing.model';
 import {  BookedDatesD } from '@models/booking.model';
 import { TenantService } from '@tenant/service/tenant.service';
 import dayjs from 'dayjs';
+import { TranslationModule } from '@i18n/translation.module';
 
 @Component({
   selector: 'app-search',
@@ -18,13 +19,14 @@ import dayjs from 'dayjs';
     LocationMapComponent,
     FooterStepComponent,
     SearchDateComponent,
-    InfoStepComponent
+    InfoStepComponent,
+    TranslationModule,
   ],
   template: `
     <div class="px-4 mb-3">
       @switch (this.currentStep.id){
         @case (LOCATION) {
-          <h1>Where do you want to go?</h1>
+          <h1>{{ "SEARCH.location" | translate }}</h1>
           <app-location-map 
             [location]="newSearch.location"
             [placeholder]="'Choose your country'"
@@ -32,7 +34,7 @@ import dayjs from 'dayjs';
           </app-location-map>
         }
         @case (DATES){
-          <h1>When do you want to go?</h1>
+          <h1>{{ "SEARCH.date" | translate }}</h1>
           <app-search-date 
             [dates]="newSearch.dates"
             (datesChange)="onNewDate($event)"
@@ -40,8 +42,8 @@ import dayjs from 'dayjs';
           </app-search-date>
         }
         @case (GUESTS){
-          <h1 class="mb-1">What are you looking for?</h1>
-          <h2 class="mt-0">Number of beds, guests, etc.</h2>
+          <h1 class="mb-1">{{ "SEARCH.guests" | translate }}</h1>
+          <h2 class="mt-0">{{ "SEARCH.guests-info" | translate }}</h2>
           <app-info-step 
             [infos]="newSearch.infos"
             (infoChange)="onInfoChange($event)"

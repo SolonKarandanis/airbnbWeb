@@ -159,5 +159,11 @@
         "BUTTONS": {
             "register": "Register"
         }
+    },
+    "SEARCH":{
+        "location":"Where do you want to go?",
+        "date":"When do you want to go?",
+        "guests":"What are you looking for?",
+        "guests-info":"Number of beds, guests, etc."
     }
 }
