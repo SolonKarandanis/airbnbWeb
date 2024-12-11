@@ -3,7 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { TranslationModule } from '@i18n/translation.module';
 import { Description } from '@models/listing.model';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputTextareaModule} from 'primeng/inputtextarea'
+import {Textarea} from 'primeng/inputtextarea'
 
 @Component({
   selector: 'app-description-step',
@@ -11,7 +11,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea'
   imports: [
     InputTextModule,
     FormsModule,
-    InputTextareaModule,
+    Textarea,
     TranslationModule,
   ],
   template: `

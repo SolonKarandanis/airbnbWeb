@@ -1,4 +1,4 @@
-import { withDevtools } from "@angular-architects/ngrx-toolkit";
+// import { withDevtools } from "@angular-architects/ngrx-toolkit";
 import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
 import { CountryState, initialCountryState } from "./country.state";
 import { ErrorResponse } from "@models/error.model";
@@ -11,7 +11,7 @@ import { tapResponse } from "@ngrx/operators";
 
 export const CountryStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('country'),
+    // withDevtools('country'),
     withState<CountryState>(initialCountryState),
     withMethods((state)=>({
         findCountryByCode: (code: string): Signal<Country> => computed(() => {

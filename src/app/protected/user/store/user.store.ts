@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import {withDevtools} from "@angular-architects/ngrx-toolkit"
+// import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import { initialUserState, UserState } from "./user.state";
 import { computed, inject } from "@angular/core";
 import { UserRepository } from "../repository/user.repository";
@@ -16,7 +16,7 @@ import { GenericFile } from "@models/file.model";
 
 export const UserStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('user'),
+    // withDevtools('user'),
     withState<UserState>(initialUserState),
     withComputed((
         {

@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import {withDevtools} from "@angular-architects/ngrx-toolkit"
+// import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, switchMap, tap } from "rxjs";
 import { initialLandlordState, LandlordState } from "./landlord.state";
@@ -13,7 +13,7 @@ import { UtilService } from "@core/services/util.service";
 
 export const LandLordStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('landlord'),
+    // withDevtools('landlord'),
     withState<LandlordState>(initialLandlordState),
     withComputed((
         {

@@ -1,5 +1,5 @@
 import { signalStore,withState,withMethods,withComputed, patchState, withHooks} from "@ngrx/signals";
-import {withDevtools} from "@angular-architects/ngrx-toolkit"
+// import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import { AuthState, initialAuthState } from "./auth.state";
 import { computed, inject, Signal } from "@angular/core";
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -13,7 +13,7 @@ import { JwtUtil } from "@core/services/JwtUtil";
 
 export const AuthStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('auth'),
+    // withDevtools('auth'),
     withState<AuthState>(initialAuthState),
     withComputed((
         {

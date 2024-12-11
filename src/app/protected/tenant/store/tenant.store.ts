@@ -1,5 +1,5 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import {withDevtools} from "@angular-architects/ngrx-toolkit"
+// import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import {initialTenantState,TenantState } from "./tenant.state"
 import { inject } from "@angular/core";
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
@@ -16,7 +16,7 @@ import { UtilService } from "@core/services/util.service";
 
 export const TenantStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('tenant'),
+    // withDevtools('tenant'),
     withState<TenantState>(initialTenantState),
     withComputed(({
 
