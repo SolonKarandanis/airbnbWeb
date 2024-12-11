@@ -5,7 +5,7 @@ import {ToastModule} from "primeng/toast";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import { MessageService } from 'primeng/api';
-// import {PRIME_NG_CONFIG} from 'primeng/config'
+import {PRIME_NG_CONFIG} from 'primeng/config'
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './i18n/language.service';
 
