@@ -5,7 +5,7 @@ import {ToastModule} from "primeng/toast";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import { MessageService } from 'primeng/api';
-import {PRIME_NG_CONFIG} from 'primeng/config'
+import { PrimeNG } from 'primeng/config';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from './i18n/language.service';
 
@@ -29,12 +29,13 @@ export class AppComponent implements OnInit{
   private readonly messageService = inject(MessageService);
   private readonly translate = inject(TranslateService);
   private readonly languageService = inject(LanguageService);
-  // private readonly primengConfig = inject(PRIME_NG_CONFIG).ripple=true;
+  private readonly primengConfig = inject(PrimeNG);
 
   ngOnInit(): void {
     this.initFontAwesome();
     this.translate.setDefaultLang(this.languageService.selectedLanguageIso);
     this.translate.use(this.languageService.selectedLanguageIso);
+    this.primengConfig.ripple.set(true);
   }
 
   private initFontAwesome() {
