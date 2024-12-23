@@ -1,14 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CategoryStepComponent } from './category-step.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { CategoryService } from 'src/app/protected/layout/navbar/category/category.service';
 
-xdescribe('CategoryStepComponent', () => {
+describe('CategoryStepComponent', () => {
   let component: CategoryStepComponent;
   let fixture: ComponentFixture<CategoryStepComponent>;
+  let categoryServiceSpy: jasmine.SpyObj<CategoryService>;
 
   beforeEach(async () => {
+    categoryServiceSpy = jasmine.createSpyObj('CategoryService', ['getCategories']);
+
     await TestBed.configureTestingModule({
-      imports: [CategoryStepComponent]
+      imports: [CategoryStepComponent,TranslateModule.forRoot()],
+      providers:[
+        {
+          useValue: categoryServiceSpy,
+          provide: CategoryService,
+        },
+      ]
     })
     .compileComponents();
 
