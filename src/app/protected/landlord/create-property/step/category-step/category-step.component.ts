@@ -10,7 +10,7 @@ import { CategoryService } from 'src/app/protected/layout/navbar/category/catego
   imports: [FaIconComponent,TranslationModule,],
   template: `
     <div class="categories flex flex-column align-items-center">
-      <h1>{{ "LANDLORD.CREATE-PROPERTY.CATEGORY.title" | translate }}</h1>
+      <h1 data-testid="page-title">{{ "LANDLORD.CREATE-PROPERTY.CATEGORY.title" | translate }}</h1>
       <div class="flex flex-wrap align-items-center justify-content-center">
         @for(categoryToDisplay of categories; track categoryToDisplay.technicalName){
           @if(categoryToDisplay.technicalName !== 'ALL'){
