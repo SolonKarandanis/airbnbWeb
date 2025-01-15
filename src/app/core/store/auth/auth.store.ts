@@ -132,10 +132,8 @@ export const AuthStore = signalStore(
             )
         })
     }),
-    withHooks((
-        {setAccountInfoFromStorage},
-        jwtUtil = inject(JwtUtil),
-    )=>{
+    withHooks((state)=>{
+        const {jwtUtil,setAccountInfoFromStorage}= state;
         const setAccountInfoToStore =():void =>{
             const token = jwtUtil.getToken();
             const expirationDate = jwtUtil.getTokenExpiration();
