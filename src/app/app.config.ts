@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { HTTP_INTERCEPTORS, HttpBackend, HttpClient, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
@@ -13,6 +13,8 @@ import { httpError } from './core/interceptors/http-error.interceptor';
 import { ErrorService } from './core/services/error.service';
 import { BaseUrlInterceptor } from '@core/interceptors/base-url.interceptor';
 import { LanguageInterceptor } from '@core/interceptors/language.interceptor';
+import { providePrimeNG } from 'primeng/config';
+import Lara from '@primeng/themes/lara';
 
 
 export const provideTranslation = () => ({
@@ -31,7 +33,12 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideStore(),
-    provideAnimations(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+          preset: Lara,
+      }
+    }),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,

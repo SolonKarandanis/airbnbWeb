@@ -1,5 +1,5 @@
-import { withDevtools } from "@angular-architects/ngrx-toolkit";
-import { patchState, signalStore, withMethods, withState } from "@ngrx/signals";
+// import { withDevtools } from "@angular-architects/ngrx-toolkit";
+import { patchState, signalStore, withMethods, withProps, withState } from "@ngrx/signals";
 import { CountryState, initialCountryState } from "./country.state";
 import { ErrorResponse } from "@models/error.model";
 import { Country } from "@models/country.model";
@@ -11,8 +11,11 @@ import { tapResponse } from "@ngrx/operators";
 
 export const CountryStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('country'),
+    // withDevtools('country'),
     withState<CountryState>(initialCountryState),
+    withProps(()=>({
+        countryRepo:inject(CountryRepository),
+    })),
     withMethods((state)=>({
         findCountryByCode: (code: string): Signal<Country> => computed(() => {
             return state.countries().filter(country => country.cca3 === code)[0];
@@ -40,47 +43,47 @@ export const CountryStore = signalStore(
             patchState(state,{loading:false,showError:true,errorMessage:'Error'});
         }
     })),
-    withMethods((
-        state,
-        countryRepo = inject(CountryRepository),
-    )=>({
-        getAllCountries: rxMethod<void>(
-            pipe(
-                tap(() => {
-                    state.setLoading(true)
-                }),
-                switchMap(()=> 
-                    countryRepo.getAllCountries().pipe(
-                        tapResponse({
-                            next:(result)=>{
-                                state.setCountries(result)
-                            },
-                            error: (error:ErrorResponse) =>{
-                                state.setError(error)
-                            }
-                        })
+    withMethods((state)=>{
+        const countryRepo =state.countryRepo;
+        return ({
+            getAllCountries: rxMethod<void>(
+                pipe(
+                    tap(() => {
+                        state.setLoading(true)
+                    }),
+                    switchMap(()=> 
+                        countryRepo.getAllCountries().pipe(
+                            tapResponse({
+                                next:(result)=>{
+                                    state.setCountries(result)
+                                },
+                                error: (error:ErrorResponse) =>{
+                                    state.setError(error)
+                                }
+                            })
+                        )
                     )
                 )
-            )
-        ),
-        getCountryByCode: rxMethod<string>(
-            pipe(
-                tap(() => {
-                    state.setLoading(true)
-                }),
-                switchMap((code)=>
-                    countryRepo.getCountryByCode(code).pipe(
-                        tapResponse({
-                            next:(result)=>{
-                                state.setSelectedCountry(result)
-                            },
-                            error: (error:ErrorResponse) =>{
-                                state.setError(error)
-                            }
-                        })
+            ),
+            getCountryByCode: rxMethod<string>(
+                pipe(
+                    tap(() => {
+                        state.setLoading(true)
+                    }),
+                    switchMap((code)=>
+                        countryRepo.getCountryByCode(code).pipe(
+                            tapResponse({
+                                next:(result)=>{
+                                    state.setSelectedCountry(result)
+                                },
+                                error: (error:ErrorResponse) =>{
+                                    state.setError(error)
+                                }
+                            })
+                        )
                     )
                 )
-            )
-        ),
-    })),
+            ),
+        })
+    }),
 );

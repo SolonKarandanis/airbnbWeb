@@ -1,5 +1,5 @@
-import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
-import {withDevtools} from "@angular-architects/ngrx-toolkit"
+import { patchState, signalStore, withComputed, withMethods, withProps, withState } from "@ngrx/signals";
+// import {withDevtools} from "@angular-architects/ngrx-toolkit"
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
 import { pipe, switchMap, tap } from "rxjs";
 import { initialLandlordState, LandlordState } from "./landlord.state";
@@ -13,8 +13,12 @@ import { UtilService } from "@core/services/util.service";
 
 export const LandLordStore = signalStore(
     { providedIn: 'root' },
-    withDevtools('landlord'),
+    // withDevtools('landlord'),
     withState<LandlordState>(initialLandlordState),
+    withProps(()=>({
+        landlordRepo:inject(LandlordRepository),
+        utilService:inject(UtilService),
+    })),
     withComputed((
         {
 
@@ -50,72 +54,71 @@ export const LandLordStore = signalStore(
             patchState(state,{createdListingPublicId:null});
         }
     })),
-    withMethods((
-        state,
-        landlordRepo = inject(LandlordRepository),
-        utilService = inject(UtilService),
-    )=>({
-        getAllListings: rxMethod<void>(
-            pipe(
-                tap(() => {
-                    state.setLoading(true);
-                }),
-                switchMap(()=> 
-                    landlordRepo.getAllListings().pipe(
-                        tapResponse({
-                            next:(result)=>{
-                                state.setSearchResults(result);
-                            },
-                            error: (error:ErrorResponse) =>{
-                                state.setError(error);
-                            }
-                        })
+    withMethods((state)=>{
+        const {landlordRepo, utilService} = state;
+        return ({
+            getAllListings: rxMethod<void>(
+                pipe(
+                    tap(() => {
+                        state.setLoading(true);
+                    }),
+                    switchMap(()=> 
+                        landlordRepo.getAllListings().pipe(
+                            tapResponse({
+                                next:(result)=>{
+                                    state.setSearchResults(result);
+                                },
+                                error: (error:ErrorResponse) =>{
+                                    state.setError(error);
+                                }
+                            })
+                        )
                     )
                 )
-            )
-        ),
-        deleteListing: rxMethod<string>(
-            pipe(
-                tap(() => {
-                    state.setLoading(true);
-                }),
-                switchMap((id)=>
-                    landlordRepo.deleteListing(id).pipe(
-                        tapResponse({
-                            next:(result)=>{
-                                state.setSearchResults(result);
-                                utilService.showMessage('success','Listing Successfully Deleted');
-                            },
-                            error: (error:ErrorResponse) =>{
-                                state.setError(error);
-                                utilService.showMessage('error',"Couldn't delete listing");
-                            }
-                        })
+            ),
+            deleteListing: rxMethod<string>(
+                pipe(
+                    tap(() => {
+                        state.setLoading(true);
+                    }),
+                    switchMap((id)=>
+                        landlordRepo.deleteListing(id).pipe(
+                            tapResponse({
+                                next:(result)=>{
+                                    state.setSearchResults(result);
+                                    utilService.showMessage('success','Listing Successfully Deleted');
+                                },
+                                error: (error:ErrorResponse) =>{
+                                    state.setError(error);
+                                    utilService.showMessage('error',"Couldn't delete listing");
+                                }
+                            })
+                        )
                     )
                 )
-            )
-        ),
-        createListing: rxMethod<{pictures: NewListingPicture[],newListing:NewListing}>(
-            pipe(
-                tap(() => {
-                    state.resetCreatedListingPublicId();
-                    state.setLoading(true)
-                }),
-                switchMap(({pictures,newListing})=>
-                    landlordRepo.createListing(pictures,newListing).pipe(
-                        tapResponse({
-                            next:({publicId})=>{
-                                state.setCreatedListingPublicId(publicId);
-                                utilService.showMessage('success','Listing Created Successfully');
-                            },
-                            error: (error:ErrorResponse) =>{
-                                state.setError(error);
-                                utilService.showMessage('error',"Couldn't create your listing, please try again.");
-                            }
-                        })
+            ),
+            createListing: rxMethod<{pictures: NewListingPicture[],newListing:NewListing}>(
+                pipe(
+                    tap(() => {
+                        state.resetCreatedListingPublicId();
+                        state.setLoading(true)
+                    }),
+                    switchMap(({pictures,newListing})=>
+                        landlordRepo.createListing(pictures,newListing).pipe(
+                            tapResponse({
+                                next:({publicId})=>{
+                                    state.setCreatedListingPublicId(publicId);
+                                    utilService.showMessage('success','Listing Created Successfully');
+                                },
+                                error: (error:ErrorResponse) =>{
+                                    state.setError(error);
+                                    utilService.showMessage('error',"Couldn't create your listing, please try again.");
+                                }
+                            })
+                        )
                     )
                 )
-            )
-        ),
-    })),
+            ),
+        })
+    }),
 );

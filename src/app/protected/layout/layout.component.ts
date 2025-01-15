@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-layout',
+  standalone: false,
   template: `
    <app-navbar></app-navbar>
     <div class="grid grid-nogutter mb-5" [class.mx-8]="isListingView">

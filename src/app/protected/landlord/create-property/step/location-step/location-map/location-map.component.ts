@@ -5,8 +5,7 @@ import {
   AutoCompleteModule, 
   AutoCompleteSelectEvent
 } from "primeng/autocomplete";
-import { ToastService } from 'src/app/protected/layout/toast.service';
-import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {LeafletModule} from "@bluehalo/ngx-leaflet";
 import L, {circle, latLng, polygon, tileLayer} from "leaflet";
 import {OpenStreetMapProvider} from "leaflet-geosearch";
 import { CountryService } from '@landlord/service/country.service';
@@ -67,7 +66,6 @@ import { Country } from '@models/country.model';
 })
 export class LocationMapComponent {
   countryService = inject(CountryService);
-  toastService = inject(ToastService);
 
   location = input.required<string>();
   placeholder = input<string>("Select your home country");

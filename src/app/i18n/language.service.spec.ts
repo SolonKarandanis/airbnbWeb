@@ -26,13 +26,14 @@ describe('LanguageService', () => {
   });
 
   it('should change Languages', () => {
-      translateSpy.use.and.returnValue(of('gr'));
+        const obj = {'gr':'gr'} 
+        translateSpy.use.and.returnValue(of(obj));
 
-      service.changeLanguage('gr');
+        service.changeLanguage('gr');
 
-      expect(translateSpy.use).toHaveBeenCalledWith('gr');
-      expect(translateSpy.use).toHaveBeenCalledTimes(1);
+        expect(translateSpy.use).toHaveBeenCalledWith('gr');
+        expect(translateSpy.use).toHaveBeenCalledTimes(1);
 
-      expect(service.selectedLanguageIso).toEqual('gr');
+        expect(service.selectedLanguageIso).toEqual('gr');
   });
 });
